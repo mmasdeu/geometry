@@ -1,6 +1,10 @@
 import GameServer.Commands
+import Game.TacticDoc
+import Game.TheoremDoc
+import Game.HilbertAxioms
 
--- import Mathlib.Tactic.Common
+
+@[simp] lemma demorgan (p q : Prop) : ¬ (p ∨ q) ↔ ¬ p ∧ ¬ q := by tauto
 
 /-! Use this file to add things that should be available in all levels.
 

@@ -1,7 +1,7 @@
 msgid ""
 msgstr "Project-Id-Version: Game v4.7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Wed Apr 10 15:31:40 2024\n"
+"POT-Creation-Date: Thu Apr 11 19:44:08 2024\n"
 "Last-Translator: \n"
 "Language-Team: none\n"
 "Language: en\n"
@@ -20,62 +20,1781 @@ msgstr ""
 msgid "intermediate goal solved! 🎉"
 msgstr ""
 
-#: Game.Levels.DemoWorld.L01_HelloWorld
-msgid "Hello World"
-msgstr ""
-
-#: Game.Levels.DemoWorld.L01_HelloWorld
-msgid "This text is shown as first message when the level is played.\n"
-"You can insert hints in the proof below. They will appear in this side panel\n"
-"depending on the proof a user provides."
-msgstr ""
-
-#: Game.Levels.DemoWorld.L01_HelloWorld
-msgid "You can either start using `«{h}»` or `«{g}»`."
-msgstr ""
-
-#: Game.Levels.DemoWorld.L01_HelloWorld
-msgid "You should use `«{h}»` now."
-msgstr ""
-
-#: Game.Levels.DemoWorld.L01_HelloWorld
-msgid "You should use `«{g}»` now."
-msgstr ""
-
-#: Game.Levels.DemoWorld.L01_HelloWorld
-msgid "This last message appears if the level is solved."
-msgstr ""
-
-#: Game.Levels.DemoWorld
-msgid "Demo World"
-msgstr ""
-
-#: Game.Levels.DemoWorld
-msgid "This introduction is shown before one enters level 1 of the demo world. Use markdown."
-msgstr ""
-
-#: Game
-msgid "Hello World Game"
-msgstr ""
-
-#: Game
-msgid "This text appears on the starting page where one selects the world/level to play.\n"
-"You can use markdown."
-msgstr ""
-
-#: Game
-msgid "Here you can put additional information about the game. It is accessible\n"
-"from the starting through the drop-down menu.\n"
+#: Game.TacticDoc
+msgid "## Summary\n"
 "\n"
-"For example: Game version, Credits, Link to Github and Zulip, etc.\n"
+"If the goal is exactly one of the assumption, then `assumption` will close\n"
+"the goal automatically.\n"
 "\n"
-"Use markdown."
+"### Example\n"
+"If it looks like this in the top right hand box:\n"
+"```\n"
+"A B C : Ω\n"
+"h1 : A = B\n"
+"h2 : B = C\n"
+"⊢ A = B\n"
+"```\n"
+"\n"
+"then\n"
+"\n"
+"`assumption`\n"
+"\n"
+"will close the goal."
+msgstr ""
+
+#: Game.TacticDoc
+msgid "## Summary\n"
+"\n"
+"If `h` is a proof of `X = Y`, then `rw [h]` will change\n"
+"all `X`s in the goal to `Y`s.\n"
+"\n"
+"**Variants:** `rw [← h]` changes\n"
+"`Y` to `X` and\n"
+"`rw [h] at h2` changes `X` to `Y` in hypothesis `h2` instead\n"
+"of the goal.\n"
+"\n"
+"## Details\n"
+"\n"
+"The `rw` tactic is a way to do 'substituting in'. There\n"
+"are two distinct situations where use this tactics.\n"
+"\n"
+"1) If `h : A = B` is a hypothesis (i.e., a proof of `A = B`)\n"
+"in your local context (the box in the top right)\n"
+"and if your goal contains one or more `A`s, then `rw [h]`\n"
+"will change them all to `B`'s.\n"
+"\n"
+"2) The `rw` tactic will also work with proofs of theorems\n"
+"which are equalities (look for them in the drop down\n"
+"menu on the left, within Theorem Statements).\n"
+"\n"
+"**Important note:** if `h` is not a proof of the form `A = B`\n"
+"or `A ↔ B` (for example if `h` is a function, an implication,\n"
+"or perhaps even a proposition itself rather than its proof),\n"
+"then `rw` is not the tactic you want to use. For example,\n"
+"`rw (P = Q)` is never correct: `P = Q` is the true-false\n"
+"statement itself, not the proof.\n"
+"If `h : P = Q` is its proof, then `rw [h]` will work.\n"
+"\n"
+"**Pro tip 1:** If `h : A = B` and you want to change\n"
+"`B`s to `A`s instead, try `rw [←h]` (get the arrow with `\\l`,\n"
+"note that this is a small letter L, not a number 1).\n"
+"\n"
+"### Example\n"
+"If it looks like this in the top right hand box:\n"
+"```\n"
+"A B C : Point\n"
+"h1 : A = B\n"
+"h2 : B = C\n"
+"⊢ A = C\n"
+"```\n"
+"\n"
+"then\n"
+"\n"
+"`rw [h1]`\n"
+"\n"
+"will change the goal into `⊢ B = C`.\n"
+"\n"
+"### Example\n"
+"You can use `rw` to change a hypothesis as well.\n"
+"For example, if your local context looks like this:\n"
+"```\n"
+"A B C : Point\n"
+"h1 : A = C\n"
+"h2 : A = B\n"
+"⊢ B = C\n"
+"```\n"
+"then `rw [h1] at h2` will turn `h2` into `h2 : C = B` (remember operator precedence)."
+msgstr ""
+
+#: Game.TacticDoc
+msgid "## Summary\n"
+"\n"
+"If the goal is `⊢ X` then `exact x` will close the goal if\n"
+"and only if `x` is a term of type `X`.\n"
+"\n"
+"## Details\n"
+"\n"
+"Say `P`, `Q` and `R` are types (i.e., what a mathematician\n"
+"might think of as either sets or propositions),\n"
+"and the local context looks like this:\n"
+"\n"
+"```\n"
+"p : P,\n"
+"h : P → Q,\n"
+"j : Q → R\n"
+"⊢ R\n"
+"```\n"
+"\n"
+"If you can spot how to make a term of type `R`, then you\n"
+"can just make it and say you're done using the `exact` tactic\n"
+"together with the formula you have spotted. For example the\n"
+"above goal could be solved with\n"
+"\n"
+"`exact j(h p)`\n"
+"\n"
+"because `j(h p)` is easily checked to be a term of type `R`\n"
+"(i.e., an element of the set `R`, or a proof of the proposition `R`)."
+msgstr ""
+
+#: Game.TacticDoc
+msgid "## Summary\n"
+"\n"
+"`intro p` will turn a goal `⊢ P → Q` into a hypothesis `p : P`\n"
+"and goal `⊢ Q`. If `P` and `Q` are sets `intro p` means \"let $p$ be an arbitrary element of $P$\".\n"
+"If `P` and `Q` are propositions then `intro p` says \"assume $P$ is true\".\n"
+"\n"
+"## Details\n"
+"\n"
+"If your goal is a function or an implication `⊢ P → Q` then `intro`\n"
+"will always make progress. `intro p` turns\n"
+"\n"
+"`⊢ P → Q`\n"
+"\n"
+"into\n"
+"\n"
+"```\n"
+"p : P\n"
+"⊢ Q\n"
+"```\n"
+"\n"
+"The opposite tactic to intro is `revert`; given the situation\n"
+"just above, `revert p` turns the goal back into `⊢ P → Q`.\n"
+"\n"
+"**Variant:** Instead of calling `intro` multiple times, you can put several names after `intro`.\n"
+"That is, `intro h₁ h₂` is equivalent to `intro h₁; intro h₂`.\n"
+"\n"
+"## Example\n"
+"\n"
+"If your goal is an implication $P\\implies Q$ then Lean writes\n"
+"this as `⊢ P → Q`, and `intro p,` can be thought of as meaning\n"
+"\"let $p$ be a proof of $P$\", or more informally \"let's assume that\n"
+"$P$ is true\". The goal changes to `⊢ Q` and the hypothesis `p : P`\n"
+"appears in the local context."
+msgstr ""
+
+#: Game.TacticDoc
+msgid "## Summary\n"
+"\n"
+"If the goal is `P ∧ Q` or `P ↔ Q` then `constructor` will break it into two goals.\n"
+"\n"
+"## Details\n"
+"\n"
+"If `P Q : Prop` and the goal is `⊢ P ∧ Q`, then `constructor` will change it into\n"
+"two goals, namely `⊢ P` and `⊢ Q`.\n"
+"\n"
+"If `P Q : Prop` and the goal is `⊢ P ↔ Q`, then `constructor` will change it into\n"
+"two goals, namely `⊢ P → Q` and `⊢ Q → P`.\n"
+"\n"
+"## Example\n"
+"\n"
+"If your local context (the top right window) looks like this\n"
+"```\n"
+"X : Type\n"
+"A B : set X\n"
+"x : X\n"
+"⊢ x ∈ A ↔ x ∈ B\n"
+"```\n"
+"\n"
+"then after\n"
+"\n"
+"`constructor`\n"
+"\n"
+"it will look like this:\n"
+"\n"
+"```\n"
+"2 goals\n"
+"X : Type\n"
+"A B : set X\n"
+"x : X\n"
+"⊢ x ∈ A → x ∈ B\n"
+"\n"
+"\n"
+"X : Type\n"
+"A B : set X\n"
+"x : X\n"
+"⊢ x ∈ B → x ∈ A\n"
+"```\n"
+"\n"
+"You can isolate each of the two goals by inserting a `·` (type it with `\\.`) for each of them, like so:\n"
+"```\n"
+"constructor\n"
+"· tac1\n"
+"  tac1'\n"
+"· tac2\n"
+"  tac2'\n"
+"```\n"
+"Here, `tac1` and `tac1'` are for the first goal, while `tac2` and `tac2'` are for the second."
+msgstr ""
+
+#: Game.TacticDoc
+msgid "## Summary\n"
+"The `use` tactic works on the goal that looks like `⊢ ∃ x, P x`, where the symbol **`∃`** is read as **\"there exists\"** and\n"
+"**`P x`** can be understood as **\"P is an element of x\"**, which could also be written as **`P ∈ x`**.\n"
+"In this case, the whole goal can be interpreted as **\"there exists x such that P is an element of x\"**.\n"
+"Then, the `use` tactic is useful. If we know that an object `a` satisfies the  property `x`, then `use a`\n"
+"will simplify the goal into ⊢ P a.\n"
+"\n"
+"## Example\n"
+"If your goal is `⊢ ∃ n : natural_numbers, 1 + x = x + n` then `use 1` will\n"
+"turn the goal into `⊢ 1 + x = x + 1`, and the rather more unwise `use 0` will\n"
+"turn it into the impossible-to-prove `⊢ 1 + x = x + 0`."
+msgstr ""
+
+#: Game.TacticDoc
+msgid "## Summary\n"
+"`have h : P,` will create a new goal of creating a term of type `P`, and will add `h : P` to the hypotheses for the goal you were working on.\n"
+"\n"
+"## Details\n"
+"If you want to name a term of some type (because you want it in your local context for some reason), and if you have the formula for the term, you can use have to give the term a name.\n"
+"\n"
+"## Example (have q := ... or have q : Q := ...)\n"
+"If the local context contains\n"
+"\n"
+"```\n"
+"f : P → Q\n"
+"p : P\n"
+"```\n"
+"then the tactic `have q := f(p)` will add `q` to our local context, leaving it like this:\n"
+"\n"
+"```\n"
+"f : P → Q\n"
+"p : P\n"
+"q : Q\n"
+"```\n"
+"\n"
+"If you think about it, you don't ever really need `q`, because whenever you think you need it you coudl just use `f(p)` instead. But it's good that we can introduce convenient notation like this.\n"
+"\n"
+"## Example (have q : Q)\n"
+"A variant of this tactic can be used where you just declare the type of the term you want to have, finish the tactic statement with a comma and no :=, and then Lean just adds it as a new goal. The number of goals goes up by one if you use `have` like this.\n"
+"\n"
+"For example if the local context is\n"
+"\n"
+"```\n"
+"P Q R : Prop/Type,\n"
+"f : P → Q,\n"
+"g : Q → R,\n"
+"p : P\n"
+"⊢ R\n"
+"```\n"
+"then after `have q : Q`, there will be the new goal\n"
+"\n"
+"```\n"
+"f : P → Q,\n"
+"g : Q → R,\n"
+"p : P,\n"
+"⊢ Q\n"
+"```\n"
+"and your original goal will have `q : Q` added to the list of hypotheses."
+msgstr ""
+
+#: Game.TacticDoc
+msgid "## Summary\n"
+"\n"
+"`rcases` is a tactic which works on hypotheses.\n"
+"If `h : P ∧ Q` or `h : P ↔ Q` is a hypothesis then `rcases h`\n"
+"will remove `h`\n"
+"from the list of hypotheses and replace it with the *ingredients* of `h`,\n"
+"i.e. `left : P` and `right : Q`, or `mp : P → Q` and `mpr : Q → P`. Also\n"
+"works with `h : P ∨ Q` and with `h : ∃ x, P x`.\n"
+"The syntax `rcases h with ⟨h1, h2⟩` renames the new hypotheses as `h1` and `h2`.\n"
+"\n"
+"## Details\n"
+"\n"
+"How does one prove `P ∧ Q`? The way to do it is to prove `P` and to\n"
+"prove `Q`. There are hence two ingredients which go into a proof of\n"
+"`P ∧ Q`, and the `rcases` tactic extracts them.\n"
+"\n"
+"More precisely, if the local context contains\n"
+"```\n"
+"h : P ∧ Q`\n"
+"```\n"
+"\n"
+"then after the tactic `rcases h with ⟨p, q⟩` the local context will\n"
+"change to\n"
+"```\n"
+"p : P\n"
+"q : Q\n"
+"```\n"
+"and `h` will disappear.\n"
+"\n"
+"Similarly `h : P ↔ Q` is proved by proving `P → Q` and `Q → P`,\n"
+"and `rcases h with ⟨hpq, hqp⟩` will delete our assumption `h` and\n"
+"replace it with\n"
+"```\n"
+"hpq : P → Q\n"
+"hqp : Q → P\n"
+"```\n"
+"\n"
+"Be warned though -- `rw [h]` works with `h : P ↔ Q` (`rw` works with\n"
+"`=` and `↔`), whereas you cannot rewrite with an implication.\n"
+"\n"
+"`rcases` also works with hypotheses of the form `P ∨ Q`. Here the situation\n"
+"is different however.\n"
+"To prove `P ∨ Q` you need to give either a proof of `P` *or* a proof\n"
+"of `Q`, so if `h : P ∨ Q` then r`rcases h` will change one goal\n"
+"into two, one with `p : P` and the other with `q : Q`."
+msgstr ""
+
+#: Game.TacticDoc
+msgid "## Summary\n"
+"`left` and `right` work on the goal, and they change\n"
+"`⊢ P ∨ Q` to `⊢ P` and `⊢ Q` respectively.\n"
+"## Details\n"
+"The tactics `left` and `right` work on a goal which is a type with\n"
+"two constructors, the classic example being `P ∨ Q`.\n"
+"To prove `P ∨ Q` it suffices to either prove `P` or prove `Q`,\n"
+"and once you know which one you are going for you can change\n"
+"the goal with `left` or `right` to the appropriate choice."
+msgstr ""
+
+#: Game.TacticDoc
+msgid "## Summary\n"
+"`left` and `right` work on the goal, and they change\n"
+"`⊢ P ∨ Q` to `⊢ P` and `⊢ Q` respectively.\n"
+"## Details\n"
+"The tactics `left` and `right` work on a goal which is a type with\n"
+"two constructors, the classic example being `P ∨ Q`.\n"
+"To prove `P ∨ Q` it suffices to either prove `P` or prove `Q`,\n"
+"and once you know which one you are going for you can change\n"
+"the goal with `left` or `right` to the appropriate choice."
+msgstr ""
+
+#: Game.TacticDoc
+msgid "## Summary\n"
+"\n"
+"Generates two goals corresponding to a given statement being\n"
+"true or false\n"
+"\n"
+"## Details\n"
+"\n"
+"Suppose that we want to prove a statement `P x`, where `x`\n"
+"is some number. We may know how to prove it when `x ≤ 5`\n"
+"and also when `x > 5`, but using a different method.\n"
+"In this situation, using `by_cases h : x ≤ 5` will produce\n"
+"two new goals, the first one with `h : x ≤ 5` in the context\n"
+"and the second one with `h : ¬ x ≤ 5`."
+msgstr ""
+
+#: Game.TacticDoc
+msgid "## Summary\n"
+"\n"
+"If `h : P → Q` is a hypothesis, and the goal is `⊢ Q` then\n"
+"`apply h` changes the goal to `⊢ P`.\n"
+"\n"
+"## Details\n"
+"\n"
+"If you have a function `h : P → Q` and your goal is `⊢ Q`\n"
+"then `apply h` changes the goal to `⊢ P`. The logic is\n"
+"simple: if you are trying to create a term of type `Q`,\n"
+"but `h` is a function which turns terms of type `P` into\n"
+"terms of type `Q`, then it will suffice to construct a\n"
+"term of type `P`. A mathematician might say: \"we need\n"
+"to construct an element of $Q$, but we have a function $h:P\\to Q$\n"
+"so it suffices to construct an element of $P$\". Or alternatively\n"
+"\"we need to prove $Q$, but we have a proof $h$ that $P\\implies Q$\n"
+"so it suffices to prove $P$\"."
+msgstr ""
+
+#: Game.TacticDoc
+msgid "## Summary\n"
+"The `tauto` tactic is a high-level tactic which tries to prove statements that follow tautologically\n"
+"from the hypotheses.\n"
+"\n"
+"## Details\n"
+"The `tauto` tactic does basic automation. It breaks down assumptions of the form `_ ∧ _`, `_ ∨ _`, `_ ↔ _` and `∃ _, _`,\n"
+"and splits a goal of the form `_ ∧ _`, `_ ↔ _` or `∃ _, _` until it can be proved using trivialities.\n"
+"\n"
+"## Example\n"
+"``example (p q r : Prop) : p ∨ (q ∧ r) ↔ (p ∨ q) ∧ (r ∨ p ∨ r) := by tauto``"
+msgstr ""
+
+#: Game.TacticDoc
+msgid "## Summary\n"
+"\n"
+"Changes the goal to `⊢ false`.\n"
+"\n"
+"## Details\n"
+"\n"
+"This may seem hard to prove,\n"
+"but it is useful when we have a contradiction in the hypotheses.\n"
+"\n"
+"For example, if we have `h : ¬ P` as a hypothesis and we apply `exfalso`\n"
+"we can then `apply h` to transform the goal into `⊢ P`."
+msgstr ""
+
+#: Game.TacticDoc
+msgid "## Summary\n"
+"\n"
+"It changes the goal from `⊢ P` to `⊢ false` and adds a new hypothesis\n"
+"of the form `h : ¬ P` to the local context.\n"
+"\n"
+"## Real Life Example\n"
+"\n"
+"If we want to prove `⊢ SKY_ALWAYS_BLUE`, but we assume that `h : SKY_GREY_WHEN_RAINS`,\n"
+"type `by_contra z` to add `z : ¬ (SKY_ALWAYS_BLUE)` to the local context and change the\n"
+"goal into `⊢ false`. Then, argue that `h : SKY_GREY_WHEN_RAINS` to finish the proof."
+msgstr ""
+
+#: Game.TacticDoc
+msgid "## Summary\n"
+"The `simp` tactic is a high-level tactic which tries to prove equalities using facts in its database.\n"
+"\n"
+"## Details\n"
+"The `simp` tactic does basic automation. It uses lemmas already proved that have been tagged\n"
+"with a special label, to simplify either a goal or a hypothesis."
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "The line through `A` and `B`"
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "Two points `A` and `B` are on the `same_side` of `ℓ` if they do not belong\n"
+"to `ℓ`, and there is not point in `ℓ` between `A` and `B`."
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "The line through `A` and `B` contains `A`"
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "The line through `A` and `B` contains `B`"
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "If two distinct points `P` and `Q` are on the line `ℓ`, then `ℓ = line_trhough P Q`"
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "If two lines contain two different points, then they are equal"
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "The line through two points does not depend on the order of the two points"
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "If two points lie in two distinct lines, then they are equal"
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "There exists three distinct non-collinear points"
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "One can show that two lines are different if there is a point in one of them and not in the other"
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "If two lines are different, then there is a point in the first one and not in the second"
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "There exists three pairwise distinct lines"
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "Every line contains at least two points"
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "(A * B * C) ↔ (C * B * A)"
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "(A * B * C) → (A ≠ B ∧ A ≠ C ∧ B ≠ C)"
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "(A * B * C) → A ≠ B"
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "(A * B * C) → A ≠ C"
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "(A * B * C) → B ≠ C"
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "(A * B * C) → ∃ ℓ, A ∈ ℓ ∧ B ∈ ℓ ∧ C ∈ ℓ"
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "If A B C D E F are any six points such that the set {A, B, C} = {D, E, F},\n"
+"then A, B, C are collinear if and only if D, E, F are."
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "A ≠ B → ∃ C, A * B * C"
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "((A * B * C) ∧ ¬ ( B * A * C ) ∧ ¬ (A * C * B)) ∨\n"
+"(¬ (A * B * C) ∧ ( B * A * C ) ∧ ¬ (A * C * B)) ∨\n"
+"(¬ (A * B * C) ∧ ¬ ( B * A * C ) ∧ (A * C * B))"
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "Given three non-collinear points A B C and a line ℓ not containing any of them, suppose there\n"
+"  is a point D ∈ ℓ between A and B. Then there is a point in ℓ between A and C or between B and C."
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "Given three distinct collinear points A, B and C, if B lies between A and C, then A does not lie between B and C."
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "Points that are between each other are different"
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "There are no points between a point and itself."
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "A point that lies between two different collinear points shares the same line with them."
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "Given two different collinear points A and B, there is a third C that shares the same line with them and satisfies A * B * C."
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "Given three points A B C such that A * B * C, the third one is in the line through the first two."
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "Given three points A B C such that A * B * C, the third one is in the line through the first two."
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "The only point on the segment $AA$ is $A itself."
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "If the segment $PQ$ is on the same side of a line $\\ell$, then $P \\notin ℓ$."
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "If the segment $PQ$ is on the same side of a line $\\ell$, then $Q \\notin ℓ$."
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "Given three distinct points, they are on the same line if and only if they are collinear."
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "A is at the same side as A of ℓ."
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "A is at the same side as B of ℓ if and only if B is at the same side of A of ℓ."
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "Given a line ℓ and the segments A·B and B·C, if both segments are on the same side of ℓ, then `A ∉ ℓ ∧ B ∉ ℓ ∧ C ∉ ℓ`."
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "If two points A and C are not on the same side of the line ℓ, there exists a point in the segment A·C which is incident with the line ℓ."
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "If a line cuts properly the segment AB, of a triangle ABC, then cuts properly either\n"
+"AC or BC, but not both."
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "Given lines $m$ and $\\ell$ and a point $A$ in $m$ and not in $\\ell$, there\n"
+"exists a point $E$ not in $m$ on the same side of $\\ell$ as $A$."
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "Given three non-collinear points A, B and C, then B is not incident with the line through A and C."
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "Given three non-collinear points A, B and C, then A ≠ C."
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "Given three non-collinear points A, B, C and a line ℓ, if A and B are on the same side of\n"
+"ℓ and B and C are on the same side of ℓ, then A and C are on the same side of ℓ."
+msgstr ""
+
+#: Game.TheoremDoc
+msgid "Given three collinear points A, B, C and a line ℓ, if A and B are on the same side of\n"
+"ℓ and B and C are on the same side of ℓ, then A and C are on the same side of ℓ."
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L00assumption
+msgid "The assumption tactic"
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L00assumption
+msgid "The first tactic that we'll learn is the `assumption` tactic. This can be used\n"
+"when your goal is exactly one of your hypotheses. In the following example,\n"
+"there are three hypotheses, namely the fact that $A = B$ (hypothesis `h₁`), the\n"
+"fact that $C = D$ (hypothesis `h₂`) and the fact that $B = C$ (hypothesis `h₃`).\n"
+"\n"
+"Since we want to prove that $C = D$, which is one of our hypotheses, we should be able to\n"
+"win by typing `assumption,` (**don't forget the comma**). Delete the `sorry` and try it.\n"
+"\n"
+"**Pro tip:** If the hypothesis to be used is called, say `hb`, you can also close the goal\n"
+"by using `exact hb,` instead. Sometimes it is more efficient to do so, especially if we believe\n"
+"that assumption should work and we don't know why. The `exact` tactic will give us information\n"
+"about why that does not work."
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L00assumption
+msgid "If $A = B$, $C = D$ and $B = C$, then $C = D$."
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L00assumption
+msgid "Type 'assumption' and you will be done with this level!"
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L00assumption
+msgid "Great! Now let's move on to the next level..."
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L01rw
+msgid "The `rw` (rewrite) tactic"
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L01rw
+msgid "The next tactic in our list is `rw` (from rewrite). Rewriting is one of the most basic methods of proof,\n"
+"where we 'substitute' one object that we know that is equal to another.\n"
+"\n"
+"For example, if `h : A = B` is a hypothesis (i.e., a proof of `A = B`) in your local context (the box in the top right)\n"
+"and if your goal contains one or more `A`s, then `rw h` will change them all to `B`'s.\n"
+"\n"
+"Now, take a look in the top right box at what we have. The variables `A`, `B` and `C` are\n"
+"points that lie in the plane `Ω`. Here we have to prove that if the point $A$ is equal to the point $B$,\n"
+"and the point $B$ is equal to the point $C$, then the point $A$ is equal to the point $C$.\n"
+"\n"
+"Try to use a sequence of rewrite steps to prove the lemma below by typing them into the box underneath."
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L01rw
+msgid "If A, B and C are points with A = B and B = C, then A = C."
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L01rw
+msgid "# Exploring your proof\n"
+"\n"
+"Click on `rw [h1]`, and then use the arrow keys to move your cursor around the proof.\n"
+"Go up and down and note that the goal changes -- indeed you can inspect Lean's 'state' at\n"
+"each line of the proof (the hypotheses, and the goal). Try to figure out the exact place\n"
+"where the goal changes."
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L02rwbis
+msgid "The `rw` (rewrite) tactic (II)"
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L02rwbis
+msgid "## The rewrite (`rw`) tactic (II).\n"
+"\n"
+"In the previous level, we learned that `rw h` changes A's into B's when the goal contains one or more A's\n"
+"and we have the hypothesis `h : A = B` in the local context. You may be wondering if the opposite case is\n"
+"also possible. That is to say: could we change B's into A's when the goal contains one or more B's and we have\n"
+"the hypothesis `h : A = B` in the local context?\n"
+"\n"
+"So the answer is... Yes! The hypotheses in this level are a bit different than before,\n"
+"so you should use **`rw ←`** instead. To do so, you can type the little left-arrow by typing **\\l**\n"
+"and then a space, so the system will change it automatically."
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L02rwbis
+msgid "If A, B and C are points with B = A and B = C, then A = C."
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L02rwbis
+msgid "Good job!"
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L03exact
+msgid "The `exact` tactic"
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L03exact
+msgid "# Tutorial World\n"
+"\n"
+"## The `exact` tactic.\n"
+"\n"
+"In this level, we learn the `exact` tactic, which solves a goal that is exactly one of the hypotheses.\n"
+"For example, if the finishing goal is ⊢ `A = B` and we have the hypothesis `z : A = B`, then `exact z`\n"
+"will complete the level.\n"
+"\n"
+"This level is a new variant of the the previous one, but we will solve it in a different way. As you can imagine,\n"
+"mathematical proofs can be solved in many differents ways, which is something that definitely makes this field special."
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L03exact
+msgid "If A, B and C are points with A = B and B = C, then A = C."
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L03exact
+msgid "Great!"
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L05usage
+msgid "Using theorems"
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L05usage
+msgid "You will see that two new theorems have been added to the *Theorems* list:\n"
+"\n"
+"* line_through_left (P Q : Ω) : P ∈ (line_through P Q)\n"
+"\n"
+"* line_through_right (P Q : Ω) : Q ∈ (line_through P Q)\n"
+"\n"
+"**Note the name of the two statements**. Mathematicians sometimes call them 'Lemma 2.1' or 'Hypothesis P6' or something. But\n"
+"computer scientists call them `line_through_left` and `line_through_right` because they are easier to use and remember. From now on,\n"
+"all the statements that appear on this list will be remembered by the computer. In this way, we won't have to provide their proofs again.\n"
+"Instead, we will use them straightforwardly in case they are handy for solving the following levels.\n"
+"\n"
+"Just after the name of the statements, two parentheses appear. Inside them, there are the exact number of variables that are needed to\n"
+"put out that statements. Then, the colon `:` symbol introduces the statement as such. In this case, they are very similar to each other.\n"
+"What they come to mean is that we can draw a line that passes through two distinct points (P and Q) that lie in a plane (Ω). They symbol `∈`\n"
+"is read as *is an element of*. Then, P and Q are elements of the line that passes through the points P and Q. Seems obvious, right? Now, let's\n"
+"try to solve this level!\n"
+"\n"
+"Looking at the goal, you will see the same structure as\n"
+"the statement `line_through_right (P Q : Point) : Q ∈ (line_through P Q)`.\n"
+"Then, we just have to write that statement in a different way!\n"
+"Do you remember that the `exact`\n"
+"tactic solved the goal by using a hypothesis of the same structure? Then, because the computer already knows what\n"
+"`line_through_right (P Q : Point) : Q ∈ (line_through P Q)` means, why don't we type `exact line_through_right A B`?\n"
+"Type that and see\n"
+"how it finishes the proof!"
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L05usage
+msgid "A point lies in the line that passes through it."
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L05usage
+msgid "Well done!"
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L06intro
+msgid "Intro(ducing) hypotheses"
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L06intro
+msgid "This level introduces the `intro` tactic. This allows you to create\n"
+"a new hypothesis in the local context, just above the goal with the `⊢` symbol, whenever you see\n"
+"the `→` symbol in the 'goal' section. [**Remember:** the `→` symbol refers to the idea of\n"
+"an **implication**. `P → Q` is read as 'P implies Q' and interpreted as 'If P happens, then Q also happens'.]\n"
+"In Lean, if we have the goal `⊢ IT RAINS → I GET WET`, by typing `intro h` we will get a new hypothesis in\n"
+"the local context of the type `h : IT RAINS` and the goal will just change into  `⊢ I GET WET`.\n"
+"\n"
+"To solve this level, you will need to use a theorem that has been added to the list of *Theorems*.\n"
+"Its name is `incidence`, you can see what it does by clicking on it.\n"
+"\n"
+"\n"
+"**Pro tip:** instead of writing\n"
+"several lines of code with the `intro` tactic, you can put them all together. This will make the computer understand\n"
+"that you want to create more than one hypothesis at the same time. For example, if you type `intro h1 h2 h3 h4,`, four\n"
+"new hypotheses will be added to your local context. Once you've added all the possible hypotheses to it, try to compare\n"
+"the goal with the `incidence` statement. Did you notice that we can `rewrite` that statement? Because we have the first\n"
+"three **hypotheses** of the statement, we can change the line `r` into `line_through A B`! Type `rw incidence h1 h2 h4` and\n"
+"see how the goal changes. To close the goal, try to apply the same argument to the line `s`."
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L06intro
+msgid "If two lines contain two distinct points, then they are the same line."
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L07constructor
+msgid "The constructor tactic"
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L07constructor
+msgid "In this level we will learn the `constructor` tactic. It breaks a goal of the type `P ∧ Q` into two goals (proving `P`, and then proving `Q`),\n"
+"and also breaks goals of the form `P ↔ Q` into proving each of the implications separately. That is to say, it asks us to prove `P → Q` first, and\n"
+"then `Q → P`. In mathematics and logic, the **∧** symbol is read as **and**. For example, `IT RAINS ∧ I AM IN THE STREET → I OPEN THE UMBRELLA`.\n"
+"Analogously, the **`↔`** symbol refers to a **double implication**, or an **if and only if** statement. In written mathematics, you could also\n"
+"find the **`↔`** symbol written as **iff**.\n"
+"\n"
+"You should be able to solve this level on your own. You can solve it in three lines of code."
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L07constructor
+msgid "If two lines contain two distinct points, then they are the same line."
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L08use
+msgid "The constructor tactic"
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L08use
+msgid "In further proofs, we will need to prove that there exists an object satisfying certain properties.\n"
+"The goal will then look like `⊢ ∃ x, P x`, where the symbol `∃` is read as *there exists* and\n"
+"`P x` can be understood as *x satisfies property P*\n"
+"In this case, the whole goal can be interpreted as *there exists x satisfying property P*.\n"
+"Then, the `use` tactic is useful. If we know that an object `a` satisfies the  property `P`, then `use a`\n"
+"will simplify the goal into `⊢ P a`.\n"
+"\n"
+"In the example below, we are given three points and two lines. We know certain things about the points, and the\n"
+"goal is to find a line $\\ell$ such that $P$ and $Q$ both belong to $\\ell$. Think, looking at the hypotheses,\n"
+"which line could do the trick. Then `use` it, and finish the proof using tactics you already know."
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L08use
+msgid "Finds a line that contains the points $P$ and $Q$ at the same time."
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L09have
+msgid "The have tactic"
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L09have
+msgid "Congratulations! You are just finishing the tutorial world! In this level, we introduce the new tactic `have`. It is used to add a new hypothesis\n"
+"to the context (which, of course, you will have to prove!). This is sometimes useful to structure our proofs. In this particular level, it is convenient\n"
+"to prove first that `r = line_through B C`, and then that `s = line_through B C`. This strategy will allow us to finish the proof very easily!\n"
+"\n"
+"To use the tactic `have`, we should follow the following structure: `have h : A = B`. This line will add the hypothesis `h : A = B` to the local\n"
+"context and break the proof into two goals. First, Lean will ask us to prove `⊢ A = B` without the hypothesis `h : A = B`. Then, it will ask us to\n"
+"prove the goal that existed before using the tactic `have` with the support of the new hypothesis `h : A = B` that we have added to the local context.\n"
+"\n"
+"**Pro tip:** Because you're getting better at this, proofs are going to be more challenging. Whenever you see that you have to prove two\n"
+"or more goals to finsih one level, you may want to use *bullet points* to isolate them. You type them with `\\·`, or if you are lucky to have a Catalan keyboard\n"
+"then you can directly enter it (middle dot, press `Shift+3`). After each of these bullet points, you will only see one goal.\n"
+"\n"
+"For example, the first line of this proof will be `have hr : r = line_through B C` (you can change `hr` into whatever name you are comfortable with to\n"
+"make reference to the hypothesis `r = line_through B C`). Now, because two goals have appeared, you can type the following structure:\n"
+"\n"
+"```\n"
+"have hr : r = line_through B C\n"
+"· sorry\n"
+"· sorry\n"
+"```\n"
+"\n"
+"In this way, by deleting the `sorry`'s, you will be able to prove the goals separately. Now, let's try solve this level together so that you can\n"
+"easily understand how the syntax of Lean works!\n"
+"\n"
+"First, we are going to prove the first goal, which is `⊢ r = line_through B C`. To begin with, let's look at the *Theorems* we have.\n"
+"Can you note that `incidence` finishes with the same structure as our goal? Then, we have to check if we have the previous implications of `incidence`\n"
+"in our local context. On the face of it, `h : B ≠ C` and `h1 : B ∈ r ∧ C ∈ r` are what we are looking for. However, `h1` should be divided into `B ∈ r`\n"
+"and `C ∈ r`, right? [**Rule of thumb:** whenever a hypothesis looks like `h1 : P ∧ Q`, we can refer to `P` and `Q` as `h1.1` and `h1.2`, respectively.]\n"
+"Then, notice how `exact incidence h h1.1 h1.2` closes the first goal!\n"
+"\n"
+"Before jumping onto the second goal, we may want to rewrite something first. Can you see that we can `rw [hr]` (where `hr : r = line_through B C`) to change\n"
+"the goal `⊢ r = s` into `⊢ line_through B C = s`. Now, you will be wondering if `exact incidence h h2.1 h2.2,` finishes the proof, but it does not. Do you\n"
+"know why? Because the theorem statement called `incidence` works with the goal `⊢ s = line_through B C`, but not with `⊢ line_through B C = s`. Because of\n"
+"this reason, we should create another hypothesis by using the `have` tactic. That is to say, type `have hs : s = line_through B C` right before the curly braces."
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L09have
+msgid "If two lines share two distinct points, then they are the same line."
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L09have
+msgid "Great! Now on to learning more tactics..."
+msgstr ""
+
+#: Game.Levels.TutorialWorld
+msgid "Tutorial World"
+msgstr ""
+
+#: Game.Levels.TutorialWorld
+msgid "# Tutorial World\n"
+"\n"
+"## The setup\n"
+"\n"
+"Welcome to the Tutorial World! In this world, you're going to prove some geometric facts by using **`tactics`**.\n"
+"These *tactics* are just instructions that make progress in a mathematical proof.\n"
+"During your proofs, your 'goal' (i.e. what you're\n"
+"supposed to be proving) will be displayed in front of a `⊢` symbol on the top\n"
+"right hand box, so you will need to use *tactics* to close that goals. Once you close all the goals, the top\n"
+"right hand box will report 'Proof complete!', so that you\n"
+"can move on to the next level in the world you're in.\n"
+"\n"
+"## The language\n"
+"\n"
+"In **LEAN**, everything (points, lines, a set of points, a theorem, a proof) is a *term*, and each term is of a certain *type*,\n"
+"and only one. One writes `x : T` to say that the term $x$ is of type $T$ (you can read the ':' as 'is an element of'). By the way,\n"
+"*types* are themselves terms (rembember, **everything** is a term). For example, a point $P$ will be a term of type $\\Omega$ (which will\n"
+"denote the plane). We will write this as `P : Ω`. The plane $\\Omega$ is of type `Type` (this is a special type, whose terms are\n"
+"things like the plane, or the set of the real numbers).\n"
+"\n"
+"There is also another special type called `Prop`. A term of type `Prop` is a true-false statement, like 'it rains', '2 + 2 = 4',\n"
+"'2 + 3 = 7' (yes, they can be either True or False). A term of type '2 + 2 = 4' would be a proof of this fact.\n"
+"We will write `h : 2 + 2 = 4` to mean exactly this: `h` is a proof of the fact that `2 + 2 = 4`, and we can use it in our proof.\n"
+"If we had `h' : 2 + 3 = 7` then we would probably be able to proof crazy things!"
+msgstr ""
+
+#: Game.Levels.TutorialWorld
+msgid "Great!"
+msgstr ""
+
+#: Game.Levels.AdvancedTutorialWorld.L10rcases1and
+msgid "The `rcases` tactic"
+msgstr ""
+
+#: Game.Levels.AdvancedTutorialWorld.L10rcases1and
+msgid "# Advanced Tutorial World\n"
+"\n"
+"## The `rcases` tactic.\n"
+"\n"
+"The next tactic we introduce is `cases`, and since it does many things\n"
+"we will have a couple levels seeing when to apply it. This tactic works\n"
+"always on hypotheses, and it transforms them in different ways. The first\n"
+"instance that we learn arises when you have a hypothesis that says that `P`\n"
+"and `Q` holds. That is, you have `h : P ∧ Q`. Then `cases h with h1 h2` will\n"
+"replace `h` with two new hypotheses, namely `h1 : P` and `h2 : Q`.\n"
+"\n"
+"This is done usually for aesthetic reasons, since `h.1` and `h.2` also serve\n"
+"as proofs of `P` and `Q`.\n"
+"\n"
+"Knowing that, I'm sure you can complete this level on your own. It's only two lines of code!"
+msgstr ""
+
+#: Game.Levels.AdvancedTutorialWorld.L10rcases1and
+msgid "The line ℓ is the line through P and Q as long as P ≠ Q and both P and Q are in ℓ."
+msgstr ""
+
+#: Game.Levels.AdvancedTutorialWorld.L11rcases2or
+msgid "The `rcases` tactic (II)"
+msgstr ""
+
+#: Game.Levels.AdvancedTutorialWorld.L11rcases2or
+msgid "# Advanced Tutorial World\n"
+"\n"
+"## The `cases` tactic (II).\n"
+"\n"
+"Suppose now that your hypothesis says that `P` or `Q` holds. That is, you have `h : P ∨ Q`. Then `cases h` will create\n"
+"two new goals, and in each of them it will replace `h` with `h : P` in the first case, and with `h : Q` in the second.\n"
+"\n"
+"To solve this level, you may need to remember how to employ the `use` tactic. As a reminder, note that if the goal is of\n"
+"the form `⊢ ∃ (R : Ω), R ∈ ℓ`, then you can type `use X`, where `X` is any object that satisfies $X \\in R$ , so that it\n"
+"turns the goal into `⊢ X ∈ ℓ`. The object you are looking for either is found in the *Theorems* section or in the hypotheses\n"
+"right above the goal of this level.\n"
+"[**Reminder:** if the goal breaks into two goals, remember that you can use `·` to make\n"
+"the look of the proof more visual.]"
+msgstr ""
+
+#: Game.Levels.AdvancedTutorialWorld.L11rcases2or
+msgid "If ℓ is any line in the plane Ω and either the point P or the point Q is in ℓ, then ℓ is not an empty line."
+msgstr ""
+
+#: Game.Levels.AdvancedTutorialWorld.L12rcases3exists
+msgid "The `rcases` tactic (III)"
+msgstr ""
+
+#: Game.Levels.AdvancedTutorialWorld.L12rcases3exists
+msgid "Suppose now that your hypothesis says there is some element `x` satisfying a certain\n"
+"property `P`. That is, you have `h : ∃ x, P x`. Then `cases h with z hz` will\n"
+"replace `h` with `z : x` and `hz : P z`. That is, from the fact that you assume that\n"
+"some `z` exists (`z : x`), it will give you another hypothesis in which `z` satisfies the\n"
+"property `P` (`hz : P z`)."
+msgstr ""
+
+#: Game.Levels.AdvancedTutorialWorld.L12rcases3exists
+msgid "Given 4 distinct points that pass through a line, then that line passes through two different subsets of three points."
+msgstr ""
+
+#: Game.Levels.AdvancedTutorialWorld.L12rcases3exists
+msgid "Great!"
+msgstr ""
+
+#: Game.Levels.AdvancedTutorialWorld.L13leftright
+msgid "The `left` and `right` tactics"
+msgstr ""
+
+#: Game.Levels.AdvancedTutorialWorld.L13leftright
+msgid "Until now, we have seen how to\n"
+"prove a goal of the form `P ∧ Q` with the `split` tactic. In this level, you will learn how to prove a goal of the\n"
+"form `P ∨ Q`, which means that either `P` holds or `Q` holds. In this case, you will have to decide whether you can\n"
+"prove `P` or `Q`. The `left` and `right` tactics will allow you to change the goal to `⊢ P` or `⊢ Q`, respectively.\n"
+"\n"
+"[**Tip:** Before typing any line, try to think which is the shortest path to finish the proof, either P or Q.] To\n"
+"take the best decision, read the lemma and do a drawing of the situation. Once you're done, come back here. In this\n"
+"case, it seems clear that proving `⊢ A = C` is not possible, since we don't have any hypotheses we can use to make progress.\n"
+"In case you are not sure about that, try to prove `⊢ A = C` by typing `left,` and you will see that is not possible to move on from there.\n"
+"Because of this reason, changing the goal into `⊢ collinear A B C` by typing `right,` will be the right path to complete this level.\n"
+"[**Remember:** In geometry, collinearity is the property of a set of points lying on the same line. In Lean, the elements of a set are\n"
+"written between curly brackets, separated by commas {A, B, C}.]\n"
+"\n"
+"Now, you may be wondering how we could step through `⊢ collinear A B C` if there isn't any `tactic` that works with this form\n"
+"of goal. The `rw` tactic can also be used to this purpose. Type `rw collinear,` to see how the goal changes into `⊢ ∃ (ℓ : Line Ω), ∀ {P : Ω}, P ∈ {A, B, C} → P ∈ ℓ`.\n"
+"This last goal is read as **there exists a line ℓ in the plane Ω *for all* (∀) points P in the plane Ω, such that P being an element of the set of points\n"
+"A, B and C implies that P is an element of the line ℓ.**\n"
+"\n"
+"I'm sure that you know now what tactic makes progress with this type of goal. To give you a hint, we need to consider a specific line ℓ in the plane Ω.\n"
+"Can you see that the hypothesis `h` assumes that the point C is an element of the `line_through A B`? Then, because the goal says that the point P is an\n"
+"element of the set of points A, B and C, there is no other way than changing the line ℓ into the `line_through A B`. Once you've done that, use the `intr`\n"
+"tactic to add two new hypotheses to the local context until you see the goal `⊢ P ∈ line_through A B`. From there, use the `cases` tactic to make the point P\n"
+"equal to the points A, B and C, in each of the cases. Try to finish the proof on your own. In case you get stuck, I recommend you to take a look at the previous levels."
+msgstr ""
+
+#: Game.Levels.AdvancedTutorialWorld.L14bycases
+msgid "The `by_cases` tactic"
+msgstr ""
+
+#: Game.Levels.AdvancedTutorialWorld.L14bycases
+msgid "In this level, we introduce the `by_cases` tactic. Mathematicians would use it to provide a *proof by cases*.\n"
+"This is useful when we need to split a proof into different cases.\n"
+"For example, if we are asked to solve a goal of the form `⊢ P ∨ ¬ P`, then `by_cases h : P` will split the goal into two cases,\n"
+"assuming `h : P` in the first branch, and `h : ¬ P` in the second branch. With that being said, let's try to solve this level!\n"
+"\n"
+"[**Tip:** You may want to write the `∈` symbol to solve this level. To do so, type `\\in` and then hit the space bar. Analogously,\n"
+"you can write the `∉` symbol by typing `\n"
+"otin` and then hitting the space bar.]"
+msgstr ""
+
+#: Game.Levels.AdvancedTutorialWorld.L14bycases
+msgid "Either a point is in a line or it is not."
+msgstr ""
+
+#: Game.Levels.AdvancedTutorialWorld.L15apply
+msgid "The `apply` tactic"
+msgstr ""
+
+#: Game.Levels.AdvancedTutorialWorld.L15apply
+msgid "In this level, we introduce the new tactic `apply`. Suppose you are asked to prove a goal of the form `⊢ R` and you have a theorem statement called `h` which\n"
+"ensures that `h : P → Q → R`. Then, `apply h` will change your goal into proving `⊢ Q` and `⊢ P`. Now, read the lemma and do a drawing of the situation. Once,\n"
+"you're done, delete the 'sorry' and try to look for a theorem statement that ends with the form of the goal shown for this level: `⊢ line_through Q P = line_through P Q`.\n"
+"Can you see that `incidence` is the right theorem statement to use? Type `apply incidence,` and make an effort to finish the proof on your own."
+msgstr ""
+
+#: Game.Levels.AdvancedTutorialWorld.L15apply
+msgid "The line through two points is a symmetric concept."
+msgstr ""
+
+#: Game.Levels.AdvancedTutorialWorld.L16simp
+msgid "The `apply` tactic"
+msgstr ""
+
+#: Game.Levels.AdvancedTutorialWorld.L16simp
+msgid "In this level, we introduce a high level tactic called `simp`. This is an Artificial Intelligence (AI) tactic which\n"
+"can nail some really tedious-for-a-human-to-solve goals. It uses lemmas that are already in our database to make\n"
+"the goal simpler. You can simplify an hypothesis `h` by calling `simp at h,`. As the game progresses, this tactic\n"
+"will become better (we are tagging some of the lemmas as *simp lemmas* along the way).\n"
+"\n"
+"Just to illustrate, **LEAN** has a lemma  (called `not_not`) that says that double negation is the same as an affirmation:\n"
+"\n"
+"`@[simp] lemma not_not (p : Prop) : ¬¬ p ↔ p`\n"
+"\n"
+"The fact that it has `@[simp]` written in front of it instructs the `simp` tactic to replace all occurrences\n"
+"of `¬¬ p` with `p`. There are lots of lemmas like these in **LEAN**, which makes this tactic really powerful."
+msgstr ""
+
+#: Game.Levels.AdvancedTutorialWorld.L16simp
+msgid "If a point $P$ is on a line $\\ell$, then $P$ is not outside of $\\ell$."
+msgstr ""
+
+#: Game.Levels.AdvancedTutorialWorld.L16bistauto
+msgid "The `tauto` tactic"
+msgstr ""
+
+#: Game.Levels.AdvancedTutorialWorld.L16bistauto
+msgid "When the goal follows from the hypotheses directly from the rules of logic, then we say that we are proving a tautology,\n"
+"and there is a tactic that does this automatically for us. For example, the following is a tautology (if p, q and r are\n"
+"arbitrary statements).\n"
+"\n"
+"p ∨ (q ∧ r) ↔ (p ∨ q) ∧ (r ∨ p ∨ r)\n"
+"\n"
+"You can see that this is true because regardless of whether each of `p`, `q` and `r` is true or false, the statement\n"
+"above is true."
+msgstr ""
+
+#: Game.Levels.AdvancedTutorialWorld.L16bistauto
+msgid "If $p$, $q$ and $r$ are three true-false statements, and we know $p \\lor q$ and $r \\lor p \\lor r$, then\n"
+"we have $p \\lor (q \\land r)$."
+msgstr ""
+
+#: Game.Levels.AdvancedTutorialWorld.L17exfalso
+msgid "The `exfalso` tactic"
+msgstr ""
+
+#: Game.Levels.AdvancedTutorialWorld.L17exfalso
+msgid "In this level we introduce the new tactic `exfalso`. It satifies the *Principle of explosion* of classical logic,\n"
+"according to which any statement can be proven from a contradiction. In Lean, if we type `exfalso`, the goal will turn\n"
+"into `⊢ false`. Let's solve this level to see how it works!\n"
+"\n"
+"Delete the `sorry` and take a look at the hypothesis `h`, according to which the point P is not an element of the line\n"
+"that passes through the points P and Q. This is a contradiction that can be rewritten as `¬ (P ∈ line_through P Q)`, where\n"
+"the symbol ¬ means *not*. Moreover, it can also be rewritten as `P ∈ line_through P Q → false`. This last way of representing\n"
+"the contradiction is key to complete this level. By typing `exfalso`, we know that the goal will change into `⊢ false`. Then, look\n"
+"for a tactic that can turn the goal into `⊢ P ∈ line_through P Q` and you will be almost done! In case you get stuck, click right below for a hint."
+msgstr ""
+
+#: Game.Levels.AdvancedTutorialWorld.L17exfalso
+msgid "Prove that 2+2 is 5, using a false hypothesis."
+msgstr ""
+
+#: Game.Levels.AdvancedTutorialWorld.L18bycontra
+msgid "The `by_contra` tactic"
+msgstr ""
+
+#: Game.Levels.AdvancedTutorialWorld.L18bycontra
+msgid "Congratulations! You are about to finish the second world of The Euclid Game!\n"
+"In this level, we introduce the `by_contra` tactic. Mathematicians would use\n"
+"it to provide a **proof by contradiction**. This tactic changes the goal from\n"
+"`⊢ P` to `⊢ false` and adds a new hypothesis of the form `h : ¬ P` to the local context.\n"
+"\n"
+"To finish this world, we would like to prove that two distinct lines have **at most**\n"
+"one point in common. Delete the `sorry` to see the goal appear as `⊢ A = B`. Now, take a look\n"
+"to the hypotheses that we have in our local context and try to do a drawing of the situation\n"
+"by using all of them. Once you're done, note that the points A and B must be equal so that the\n"
+"lines r and s satisfy the hypothesis `hrs: r ≠ s`. Then, try to look for a theorem statement which\n"
+"could be useful for this level. As you've well deduced, `equal_lines_of_contain_two_points`\n"
+"is the right path to choose. However, note that it states `A ≠ B` and `r = s` instead of `A = B`and\n"
+"`r ≠ s`, respectively. Because of this reason, the `by_contra` tactic has to join the party.\n"
+"\n"
+"Now, try to solve this level on your own in just three lines of code. [**Remember:** whenever you see\n"
+"a hypothesis of the form `h : P ≠ Q`, Lean can also understand it as `h : ¬ (P = Q)`, or `h : (P = Q) → false`.]"
+msgstr ""
+
+#: Game.Levels.AdvancedTutorialWorld.L18bycontra
+msgid "Two distinct lines have at most one point in common."
+msgstr ""
+
+#: Game.Levels.AdvancedTutorialWorld.L18bycontra
+msgid "This ends the tutorial. With all the tactics that you have learned you should be\n"
+"able to finish all the remaining worlds."
+msgstr ""
+
+#: Game.Levels.AdvancedTutorialWorld
+msgid "Advanced Tutorial World"
+msgstr ""
+
+#: Game.Levels.AdvancedTutorialWorld
+msgid "# Advanced Tutorial World\n"
+"\n"
+"## Learning the remaining tactics\n"
+"\n"
+"In this world you will learn some more tactics will help you in your *Lean* journey."
+msgstr ""
+
+#: Game.Levels.AdvancedTutorialWorld
+msgid "Great!"
+msgstr ""
+
+#: Game.Levels.IncidenceWorld.level01
+msgid "Lines are thin"
+msgstr ""
+
+#: Game.Levels.IncidenceWorld.level01
+msgid "We start by proving that every line misses at least one point. Note that, although this seems obvious,\n"
+"it is not directly one of our axioms, and thus we must prove it from them."
+msgstr ""
+
+#: Game.Levels.IncidenceWorld.level01
+msgid "Every line misses at least one point."
+msgstr ""
+
+#: Game.Levels.IncidenceWorld.level02
+msgid "Lines are thin"
+msgstr ""
+
+#: Game.Levels.IncidenceWorld.level02
+msgid "## Proving useful lemmas (I).\n"
+"\n"
+"To solve this level, you will need to use the second axiom of incidence."
+msgstr ""
+
+#: Game.Levels.IncidenceWorld.level02
+msgid "Given a line, there exists one point on that line."
+msgstr ""
+
+#: Game.Levels.IncidenceWorld.level03
+msgid "A point to show that two lines are different"
+msgstr ""
+
+#: Game.Levels.IncidenceWorld.level03
+msgid "## A useful lemma\n"
+"\n"
+"We will see that\n"
+"a point can help us deciding that two lines are different.\n"
+"\n"
+"To solve this level, you just need three lines of code. Try to finish it on your own."
+msgstr ""
+
+#: Game.Levels.IncidenceWorld.level04
+msgid "A line-avoiding point"
+msgstr ""
+
+#: Game.Levels.IncidenceWorld.level04
+msgid "In this level we prove that given two different lines, there is a point in the first line that is not in the second.\n"
+"\n"
+"Here is a possible plan of the proof, to help you get started. Make sure you have\n"
+"all the details written down in paper before you start typing!\n"
+"\n"
+"*Proof sketch:*\n"
+"\n"
+"1. Consider two points $A$ and $B$ on the line $r$.\n"
+"2. Do a proof by cases:\n"
+"  - If $A \\notin s$, then there is nothing to do, $A$ is the sought point.\n"
+"  - If $A \\in s$, then show that $B \\notin s$, and $B$ is the sought point."
+msgstr ""
+
+#: Game.Levels.IncidenceWorld.level04
+msgid "If two lines are different, there is a point in one that is not in the other"
+msgstr ""
+
+#: Game.Levels.IncidenceWorld.level05
+msgid "Triangles"
+msgstr ""
+
+#: Game.Levels.IncidenceWorld.level05
+msgid "We end this world by proving the existence of triangles.\n"
+"\n"
+"To give you some hints, remember these Lean tips that might help you to step through the proof.\n"
+"\n"
+"**Tip 1:** whenever a hypothesis looks like `h : P ∧ Q`, we can refer to `P` and `Q` as `h.1` and `h.2`, respectively.\n"
+"\n"
+"**Tip 2:** whenever you have a goal of the form `⊢ ∀ (P : Ω), ...`, the `intro` tactic will make progress.\n"
+"\n"
+"If needed, you can go back to the previous levels to remember how to use some tactics. Good luck! Let's do this!"
+msgstr ""
+
+#: Game.Levels.IncidenceWorld.level05
+msgid "There exist three lines that do not have a point in common."
+msgstr ""
+
+#: Game.Levels.IncidenceWorld.level05
+msgid "Great! Now you are ready to study a new set of axioms!"
+msgstr ""
+
+#: Game.Levels.IncidenceWorld
+msgid "Incidence World"
+msgstr ""
+
+#: Game.Levels.IncidenceWorld
+msgid "In mathematics, we need to set down some starting points\n"
+"to build our knowledge, and this is why axioms should join the game. What are axioms, then?\n"
+"They are unprovable statements which are assumed to be true *because of their self-evidence*.\n"
+"They serve as a premise for further reasoning and arguments, so that we can reach new conclusions from them.\n"
+"\n"
+"By travelling back in time to 300 B.C., we meet the great mathematician Euclid, who suggested the very\n"
+"first postulates of geometry in his well-known book **Elements**. Euclidean geometry can be built up from three\n"
+"sets of axioms, each of them adding new independent notions that are needed to define the plane. These sets of axioms\n"
+"were proposed by David Hilbert (1862-1943 AD), who made remarkable improvements in the foundations of geometry.\n"
+"These three blocks of axioms are called **incidence**, **order** and **congruence** (we might also want to add the **parallel axiom**,\n"
+"but that would come later).\n"
+"\n"
+"In this world we concentrate on the first block, the axioms of **incidence**. There are three axioms of incidence, that\n"
+"will give the relationships between the primitive notions of\n"
+"**point** and **line**. Notice\n"
+"that by *incidence* we mean whatever idea that satifies the axioms of incidence. Then, you will be wondering... are the\n"
+"notions of *point* and *line* referring to whatever object of reality that satisfies the axioms of incidence? Exactly!\n"
+"Before the axioms of incidence, these notions are **undefined**!\n"
+"\n"
+"Let's then introduce the axioms of incidence:\n"
+"\n"
+"**A.1)** For every point $P$ and for every point $Q$ not equal to $P$, there exists a unique line $\\ell$\n"
+"*passing through* (= incident with) $P$ and $Q$.\n"
+"\n"
+"![Axiom A.1](axiomA1.png *First  axiom of incidence*)\n"
+"\n"
+"**A.2)** For every line $\\ell$, there exist two distinct points that belong to it.\n"
+"\n"
+"![Axiom A.2](axiomA2.png &Second axiom of incidence*)\n"
+"\n"
+"**A.3)** There exist three distinct points with the property that no line *passes through* (= is incident with) all three of them.\n"
+"\n"
+"![Axiom A.3](axiomA3.png *Third axiom of incidence*)\n"
+"\n"
+"The drawings above may help you understand (or remember) each of the axioms, but they\n"
+"have no meaning in mathematics. We will not be able to use them in our proofs!\n"
+"\n"
+"## The axioms of incidence in Lean.\n"
+"\n"
+"How do we make the computer understand such complex statements? We use the **LEAN** language! However,\n"
+"it is easier to divide some of them into more than one statements. In this case, we have\n"
+"the following four axioms:\n"
+"\n"
+"* `line_through (P Q : Ω) : Line Ω`\n"
+"\n"
+"This produces, given two points, a certain line through them. Think of it as a function that eats\n"
+"two points $P$ and $Q$ and outputs a line $\\ell$ called `line_through P Q`.\n"
+"\n"
+"* `line_through_left (P Q : Ω) : P ∈ (line_through P Q)`\n"
+"\n"
+"* `line_through_right (P Q : Ω) : Q ∈ (line_through P Q)`\n"
+"\n"
+"These two statements guarantee that the line `line_through P Q` does indeed contain both $P$ and $Q$.\n"
+"The next statement is about uniqueness, and here we need to ask that $P \\neq Q$. We know that there\n"
+"is a line through $P$ and $Q$, namely `line_through P Q`. The `incidence` statement says that if a\n"
+"line $\\ell$ is so that $P$ and $Q$ are both in $\\ell$, then this line $\\ell$ must be `line_through P Q`.\n"
+"\n"
+"* `incidence {P Q : Ω} {ℓ : Line Ω} : P ≠ Q → P ∈ ℓ → Q ∈ ℓ → ℓ = line_through P Q`\n"
+"\n"
+"The second axiom of incidence is quite straightforward in **LEAN**:\n"
+"\n"
+"* `line_contains_two_points (ℓ : Line Ω) : ∃ P Q : Ω, P ≠ Q ∧ ℓ = line_through P Q`\n"
+"\n"
+"The third axiom also translates rather easily. In order to state that the three points are\n"
+"non-collinear, we say that the third point $R$ does not lie in the (unique) line through $P$ and $Q$.\n"
+"\n"
+"* `existence (Ω : Type) : ∃ P Q R : Ω, P ≠ Q ∧ P ≠ R ∧ Q ≠ R ∧ R ∉ (line_through P Q)`\n"
+"\n"
+"Let's get started!"
+msgstr ""
+
+#: Game.Levels.BetweennessWorld.level01
+msgid "Ordering matters"
+msgstr ""
+
+#: Game.Levels.BetweennessWorld.level01
+msgid "To solve this level, you will need to use two axioms of order.\n"
+"You will notice that he list of theorems has been expanded. Take a look at the new\n"
+"theorems and try to think of a mathematical proof in paper before typing your solution in Lean."
+msgstr ""
+
+#: Game.Levels.BetweennessWorld.level01
+msgid "Given three distinct collinear points A, B and C, if B lies between A and C, then A does not lie between B and C."
+msgstr ""
+
+#: Game.Levels.BetweennessWorld.level02
+msgid "Don't try to break a point into two..."
+msgstr ""
+
+#: Game.Levels.BetweennessWorld.level02
+msgid "In this level, we are asked to show that points cannot be splitted.\n"
+"You may want to use the first axiom of order `different_of_between_??`,\n"
+"there are three variations you can use which you can find in the list of *Theorems*."
+msgstr ""
+
+#: Game.Levels.BetweennessWorld.level02
+msgid "There are no points between a point and itself."
+msgstr ""
+
+#: Game.Levels.BetweennessWorld.level03
+msgid "Points that are in between of each other share a line"
+msgstr ""
+
+#: Game.Levels.BetweennessWorld.level03
+msgid "To solve this level, the mathematical proof in paper will be given to you. Remember that you can use theorem statements from previous worlds.\n"
+"\n"
+"**Claim:** A point that lies between two different points shares the same line with them.\n"
+"\n"
+"**Proof:** Let $B$ be the point that lies between $A$ and $C$, where these two are different points that lie on the line `r`.\n"
+"\n"
+"**(i)** Observe first that there is a line, say $s$, containing $A$, $B$, and $C$: by the first axiom of order\n"
+"`collinear_of_between`, since $A * B * C$, we can obtain it.\n"
+"\n"
+"**(ii)** Note that $A\\neq C$. In fact if we had $A = C$, then $A * B * C$ would be equal to $C * B * C$. By the lemma `no_point_between_a_point`, this is\n"
+"not possible, so we prove that $A \\neq C$.\n"
+"\n"
+"**(iii)** Finally, we can prove that $r = s$, by using the lemma `equal_lines_of_contain_two_points`.\n"
+"Therefore, $B \\in s$, which we proved in **(i)**, must be equivalent to $B \\in r$. Therefore, the point $B$ shares the same line $r$ with the points\n"
+"$A$ and $C$, and we are done."
+msgstr ""
+
+#: Game.Levels.BetweennessWorld.level04
+msgid "Another version of the previous level"
+msgstr ""
+
+#: Game.Levels.BetweennessWorld.level04
+msgid "You can try this variation of the previous lemma on your own.\n"
+"Remember that it's best to have a paper proof before you start typing!"
+msgstr ""
+
+#: Game.Levels.BetweennessWorld.level04
+msgid "Given two different collinear points A and B, there is a third C that shares the same line with them and satisfies A * B * C."
+msgstr ""
+
+#: Game.Levels.BetweennessWorld.level05
+msgid "Another version of the previous level"
+msgstr ""
+
+#: Game.Levels.BetweennessWorld.level05
+msgid "This version may also be useful later"
+msgstr ""
+
+#: Game.Levels.BetweennessWorld.level05
+msgid "Given three points A B C such that A * B * C, the third one is in the line through the first two."
+msgstr ""
+
+#: Game.Levels.BetweennessWorld.level05
+msgid "Now on to the next level! We will add for you a variation of this one that is proved in\n"
+"a very similar way."
+msgstr ""
+
+#: Game.Levels.BetweennessWorld.level06
+msgid "The definition of segment"
+msgstr ""
+
+#: Game.Levels.BetweennessWorld.level06
+msgid "We've already seen how to define some primitive notions from a given set of axioms, such as **point**, **line**, **incidence** or **betweenness**. In\n"
+"mathematics, we can also define new concepts by combining those that we've learned so far. In this way, the notion of **segment** joins the party.\n"
+"\n"
+"**Definition:** the segment $AB$ is the set of points $P$ such that $P=A$, $P=B$ or $A * P * B$."
+msgstr ""
+
+#: Game.Levels.BetweennessWorld.level06
+msgid "The only point on the segment $AA$ is $A itself."
+msgstr ""
+
+#: Game.Levels.BetweennessWorld.level06
+msgid "Well done! Now on to the final level!"
+msgstr ""
+
+#: Game.Levels.BetweennessWorld
+msgid "Betweenness World"
+msgstr ""
+
+#: Game.Levels.BetweennessWorld
+msgid "## The axioms of order\n"
+"\n"
+"Also called the axioms of betweenness, the axioms of order were formalized by David Hilbert (1862-1943 AD) on the occasion of studying the Euclid's `Elements`.\n"
+"When it comes to them, there are up to four axioms of order. Their learning involves the definition of **segment**, **betweenness**, **line separation** and\n"
+"**plane separation**, among others. In written mathematics, the notion of **betweenness** is represented by the **`*`** symbol. Now, let's take a look at the axioms of order.\n"
+"\n"
+"**B.1)** If $A ∗ B ∗ C$, then $A$, $B$, $C$ are three distinct points all lying on the same line, and $C ∗ B ∗ A$.\n"
+"\n"
+"**B.2)** Given two distinct collinear points $A$ and $B$, there is a third point $C$ such that $A * B * C$.\n"
+"\n"
+"**B.3)** Given 3 distinct collinear points $A$, $B$ and $C$, exactly one of them is between the other two.\n"
+"\n"
+"**B.4)** [This axiom will be learned in the following world.]\n"
+"\n"
+"Later on this world we will learn the definition of **segment**, which can be inferred from the first three axioms of order.\n"
+"\n"
+"## The axioms of order in Lean\n"
+"\n"
+"To solve the levels of this world, we may need to use the first three axioms of order, so below\n"
+"you have them in Lean format.\n"
+"\n"
+"The first axiom of order is divided into three statements:\n"
+"\n"
+"* `between_symmetric {A B C : Ω} : (A * B * C) ↔ (C * B * A)`\n"
+"\n"
+"* `different_of_between {A B C : Ω} : (A * B * C) → (A ≠ B ∧ A ≠ C ∧ B ≠ C)`\n"
+"\n"
+"* `collinear_of_between {A B C : Ω} : (A * B * C) → ∃ ℓ : Line Ω, A ∈ ℓ ∧ B ∈ ℓ ∧ C ∈ ℓ`\n"
+"\n"
+"The second axiom of order is represented as follows:\n"
+"\n"
+"* `point_on_ray {A B : Ω} (h: A ≠ B) : ∃ (C : Ω), A * B * C`\n"
+"\n"
+"The third axiom of order is a bit long to spell out in Lean:\n"
+"\n"
+"* `between_of_collinear {A B C : Ω} (h: ∃(ℓ : Line Ω), A ∈ ℓ ∧ B ∈ ℓ ∧ C ∈ ℓ) :\n"
+"	  ((A * B * C) ∧ ¬ ( B * A * C ) ∧ ¬ (A * C * B)) ∨\n"
+"	  (¬ (A * B * C) ∧ ( B * A * C ) ∧ ¬ (A * C * B)) ∨\n"
+"	  (¬ (A * B * C) ∧ ¬ ( B * A * C ) ∧ (A * C * B))`"
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level01
+msgid "Same side"
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level01
+msgid "Thanks to the Pash axiom we can define what *being on the same side* means.\n"
+"\n"
+"**Definition:** Given a line ℓ and the points A and B, such that A, B ∉ ℓ, we say that A and B are on the same side if\n"
+"the segment A·B does not meet ℓ or A = B.\n"
+"\n"
+"In Lean, the definition of `same_side` is represented as follows:\n"
+"\n"
+"* `def same_side (ℓ : Line Ω) (P Q : Ω) :=  P ∉ ℓ ∧ Q ∉ ℓ ∧ (∀ x, (P * x * Q) → x ∉ ℓ)`\n"
+"\n"
+"\n"
+"[**Rule of thumb:** Whenever you see `same_side` in Lean, you may use the `rw` tactic to unfold its definition. In this way, it will be easier to understand what it means. If it is\n"
+"located at the hypothesis `h2`, for example, then `rw [same_side] at h2` will make progress. If it is located at the goal, then `rw [same_side]` will be enough\n"
+"to rewrite the goal.\n"
+"\n"
+"As a bonus, we have added a useful lemma (you could prove it easily at this stage, we\n"
+"are just saving you some time) that allows to change the order of the points that\n"
+"appear in a collinearity statement\n"
+"\n"
+"* `lemma collinear_of_equal (A B C D E F)\n"
+"  ({A, B, C} = {D, E, F}) → collinear A B C ↔ collinear D E F`\n"
+"\n"
+"Lean will help you by filling in the proof of the two sets being equal, when this is trivially true."
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level01
+msgid "If the segment $PQ$ is on the same side of a line $\\ell$, then $P \\notin ℓ$."
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level02
+msgid "A useful rewrite"
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level02
+msgid "To solve the following levels it will be useful to have the following criterion for collinearity.\n"
+"Here you have some hints that could help you to step through it!\n"
+"\n"
+"**Hint 1:** Whenever you see the word `collinear`, the `rw` tactic will make progress.\n"
+"\n"
+"**Hint 2:** Whenever you find a goal or hypothesis of the form `∀ {X : Ω}, X ∈ {A, B, C} → X ∈ r`, the `simp` tactic will make progress.\n"
+"\n"
+"**Hint 3:** To solve the first goal, you may want to use the theorem statement `incidence` with the `rw` tactic."
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level02
+msgid "Given three distinct points, they are on the same line if and only if they are collinear."
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level03
+msgid "Reflexivity"
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level03
+msgid "In this (easy!) level we prove that a point outside a line is on the same side of the line as itself.\n"
+"It seems stupid, but needs to be proven nevertheless."
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level03
+msgid "A is at the same side as A of ℓ."
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level04
+msgid "Who is on the same side?"
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level04
+msgid "In this level we prove that being on the same side of a line is a symmetric concept. We only\n"
+"ask you to prove one implication, the double implication is done in the same way and it will\n"
+"be given to you for free in the Theorem list."
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level04
+msgid "A is at the same side as B of ℓ if and only if B is at the same side of A of ℓ."
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level05
+msgid "On the way to the final level (I)"
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level05
+msgid "Welcome to the last trip of The Euclid Game! This is the first of five lemmas that we need to prove before jumping into the final level of the game! You will be provided with\n"
+"their mathematical proof in paper so as to solve them with ease. Remember to read the lemma and do a drawing of the situation. Let's get started!\n"
+"\n"
+"## Mathematical proof in paper...\n"
+"\n"
+"**Claim:** Given three non-collinear points A, B and C, then A ≠ C.\n"
+"\n"
+"**Proof:**\n"
+"\n"
+"Let us assume that `A ≠ C`. That is, `(A = C) → false`. Then, let us assume that `A = C`. Now, we want to prove that this is false.\n"
+"We know that A, B, C are non-collinear. That is, `collinear {A, C, B} → false`. Then, it suffices to prove that A, B, C are collinear points.\n"
+"Because `A = C`, then `collinear {A, C, B} = collinear {C, C, B}`. For this reason, there has to exist a line ℓ and a point P, such that `P ∈ {C, C, B} → P ∈ ℓ`.\n"
+"Let the line ℓ be the line through B and C. Then, `P ∈ line_through B C`. Because `P ∈ {C, C, B}`, then either P = C or P = B. If P = C, then\n"
+"`(P ∈ line_through B C) = (C ∈ line_through B C)`. By the first axiom of incidence (`line_through_right`), we prove that `C ∈ line_through B C`.\n"
+"If P = B, then `(P ∈ line_through B C) = (B ∈ line_through B C)`. By the first axiom of incidence (`line_through_left`), we prove that `B ∈ line_through B C`."
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level05
+msgid "Given three non-collinear points A, B and C, then A ≠ C."
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level06
+msgid "On the way to the final level (II)"
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level06
+msgid "This is the second of five lemmas that we need to prove before jumping into the final level of the game! You will be provided with\n"
+"its mathematical proof in paper right below. Remember that you can use all the theorem statements from the left-hand side box.\n"
+"\n"
+"## Mathematical proof in paper...\n"
+"\n"
+"**Claim:** Given three non-collinear points A, B and C, then B is not incident with the line through A and C.\n"
+"\n"
+"**Proof:**\n"
+"\n"
+"By the lemma `noncollinear_ne_points`, since A, B and C are non-collinear points, then `A ≠ C`.\n"
+"\n"
+"By the lemma `collinear_iff_on_line_through`, since `A ≠ C`, then it suffices to prove that the points A, C, B are not collinear.\n"
+"\n"
+"By the assumption of the lemma `hCol : ¬ collinear ({A, C, B} : set Ω))`, then we show that `B ∉ line_through A C`."
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level06
+msgid "Given three non-collinear points A, B and C, then B is not incident with the line through A and C."
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level07
+msgid "On the way to the final level (III)"
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level07
+msgid "This is the third of five lemmas that we need to prove before jumping into the final level of the game! You will be provided with\n"
+"its mathematical proof in paper right below. Remember that you can use all the theorem statements from the left-hand side box.\n"
+"\n"
+"## Mathematical proof in paper...\n"
+"\n"
+"**Claim:** Given a line ℓ and the segments A·B and B·C, if both segments are on the same side of ℓ, then `A ∉ ℓ ∧ B ∉ ℓ ∧ C ∉ ℓ`.\n"
+"\n"
+"**Proof:**\n"
+"\n"
+"By the lemma `not_in_line_of_same_side_left`, since the points A and B are on the same side of ℓ, then `A ∉ ℓ`.\n"
+"\n"
+"By the lemma `not_in_line_of_same_side_right`, since the points A and B are on the same side of ℓ, then `B ∉ ℓ`.\n"
+"\n"
+"By the lemma `not_in_line_of_same_side_right`, since the points B and C are on the same side of ℓ, then `C ∉ ℓ`.\n"
+"\n"
+"Hence, we have shown that `A ∉ ℓ ∧ B ∉ ℓ ∧ C ∉ ℓ`."
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level07
+msgid "Given a line ℓ and the segments A·B and B·C, if both segments are on the same side of ℓ, then `A ∉ ℓ ∧ B ∉ ℓ ∧ C ∉ ℓ`."
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level08
+msgid "On the way to the final level (IV)"
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level08
+msgid "This is the fourth and last lemma that we need to prove before jumping into the final level of the game!"
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level08
+msgid "If two points A and C are not on the same side of the line ℓ, there exists a point in the segment A·C which is incident with the line ℓ."
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level09
+msgid "A reformulation of Pasch axiom"
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level09
+msgid "We prove a more useful way of stating Pasch axiom, using the concept of `same_side`. This form will be\n"
+"the one that we will use in our application. Of course, we need to use Pasch's axiom in the proof!"
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level09
+msgid "If a line cuts properly the segment AB, of a triangle ABC, then cuts properly either\n"
+"AC or BC, but not both."
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level10
+msgid "The Pasch Axiom in action!"
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level10
+msgid "In this level we prove transitivity of the relation *being in the same side of $\\ell$*, provided that the three\n"
+"points involved are non-collinear. So suppose that we are given three non-collinear points $A$, $B$, $C$, and suppose\n"
+"that $A$ is on the same side of $\\ell$ as $B$, and $B$ is on the same side of $\\ell$ as $C$. We want to prove that $A$ is on\n"
+"the same side of $\\ell$ as $C. Here is a sketch of the proof.\n"
+"\n"
+"1. We argue by contradiction, so assume that the line $AC$ does meet $\\ell$.\n"
+"2. Let $D \\in \\ell$ be the point of intersection, so $A * D * C$.\n"
+"3. Use Pasch to prove that either $\\ell$ either meets the segment $AB$ or $BC$, thus\n"
+"  obtaining a contradiction.\n"
+"\n"
+"![Proof sketch](trans_noncollinear_diagram.png 'Proof of transitivity, noncollinear case')\n"
+"\n"
+"Try to write the structure of this proof in *LEAN* and then fill in the sorries."
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level10
+msgid "Given three non-collinear points A, B, C and a line ℓ, if A and B are on the same side of\n"
+"ℓ and B and C are on the same side of ℓ, then A and C are on the same side of ℓ."
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level11
+msgid "Getting ready for the final level!"
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level11
+msgid "We are left with proving transitivity for collinear points. The trick in this case is to reduce to the known\n"
+"case by a quite slick argument. The key step lies in the lemma below: given two lines $m$ and $\\ell$, and a point\n"
+"$A$ on $m$ but not on $\\ell$, the goal is to find a new point $E$ which is not on $m$ and which is on the same side of $\\ell$\n"
+"as $A$.\n"
+"\n"
+"Here is a sketch of the proof, most of which has been replicated already for you in **LEAN** code.\n"
+"\n"
+"1. Prove first that $\\ell$ and $m$ are distinct.\n"
+"1. Let $D$ be a point on $\\ell$ not lying on $m$ (in particular, $D \\neq A$).\n"
+"1. Using axiom (B2), find a point $E$ such that $D * A * E$. Let $s$ be the line through these points.\n"
+"1. Prove that $E \n"
+"otin \\ell$ (because $A \\notin \\ell$ and the intersection of $s$ and $\\ell$ already contains $D$). Note that this implies,\n"
+"  in particular, that $\\ell ≠ s$.\n"
+"1. Prove that $E \\notin m$:\n"
+"    - Suppose it where, and show in that case that m = s.\n"
+"    - Since $D \\in s$ but $D \\notin m$ we get a contradiction.\n"
+"1. Show that $A$ is on the same side as $E$:\n"
+"    - If the segment $AE$ did meet $\\ell$, the intersection point would be $D$.\n"
+"    - This would mean that $A * D * E$.\n"
+"    - Since we also have $D * A * E$, we would get a contradiction.\n"
+"\n"
+"![Proof sketch](trans_collinear_diagram.png 'Proof of transitivity, collinear case')"
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level11
+msgid "Given lines $m$ and $\\ell$ and a point $A$ in $m$ and not in $\\ell$, there\n"
+"exists a point $E$ not in $m$ on the same side of $\\ell$ as $A$."
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level12
+msgid "The Final Level!"
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level12
+msgid "After all this hard work, we are left with the final task of assembling the bits and proving transitivity\n"
+"in the collinear case. We will prove this by applying up to three times the noncollinear case already proven.\n"
+"For this, we need the auxiliary point from the previous level. Here is a sketch of the proof.\n"
+"\n"
+"1. First, note that the case $A = B$, $A = C$ or $B = C$ are easy, and they can be proved separately. So we may\n"
+"  assume for the rest of the proof that $A \\neq B$, $A \\neq C$ and $B \\neq C$.\n"
+"1. Let $m$ be the line through $A$, $B$, $C$.\n"
+"1. Consider the point $E$ obtained from the previous level, which is not in $m$ and is on the same side of $\\ell$ as $A$.\n"
+"1. Show that the sets $\\{A, B, E\\}$, $\\{A, C, E\\}$ and $\\{B, C, E\\}$ are all non-collinear (they are all done similarly).\n"
+"1. Using symmetry, and transitivity for non-collinear points, show that $B$ is on the same side as $E$.\n"
+"1. Show, using the previous step and a similar argument, that $E$ is on the same side as  $C$.\n"
+"1. Finally, finish the proof using a third time transitivity for non-collinear points.\n"
+"\n"
+"![Proof sketch](trans_collinear_diagram.png 'Proof of transitivity, collinear case']"
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level12
+msgid "Given three collinear points A, B, C and a line ℓ, if A and B are on the same side of\n"
+"ℓ and B and C are on the same side of ℓ, then A and C are on the same side of ℓ."
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld
+msgid "Plane Separation World"
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld
+msgid "# Plane Separation World\n"
+"\n"
+"## A new world of possibilities...\n"
+"\n"
+"The notion of **plane separation** comes from the fourth axiom of order, which is the Pasch's Axiom.\n"
+"\n"
+"**B.4) Pasch's Axiom:** Let A, B, C be three non-collinear points and let ℓ be a line lying in the plane ABC\n"
+"and not passing through any of the points A, B, C. Then, if the line ℓ passes through a point of the segment A·B,\n"
+"it will also pass through either a point of the segment B·C or a point of the segment A·C (but not both).\n"
+"\n"
+"In Lean, the Pasch's Axiom is formalized as this statement, which you will find in the `Betweenness` tab.\n"
+"\n"
+"`lemma pasch {A B C D : Ω} {ℓ : Line Ω} (hnc: C ∉ line_through A B)\n"
+"(hnAl: A ∉ ℓ) (hnBl: B ∉ ℓ) (hnCl: C ∉ ℓ) (hDl: D ∈ ℓ) (hADB: A * D * B) :\n"
+"(∃ E ,  E ∈ ℓ ∧ (A * E * C)) xor (∃ E, E ∈ ℓ ∧ (B * E * C))`\n"
+"\n"
+"![Axiom Pasch](pasch.png 'Pasch Axiom, the fourth axiom of betweenness')"
 msgstr ""
 
 #: Game
-msgid "Game Template"
+msgid "Hilbert Geometry Game"
 msgstr ""
 
 #: Game
-msgid "You should use this game as a template for your own game and add your own levels."
+msgid "Welcome to the Hilbert Geometry Game! Select an unlocked level to get started!"
+msgstr ""
+
+#: Game
+msgid "Geometry Game. Based on Hilbert Game, and made for Argo Summer school (Univ. Autònoma de Barcelona) 2024.\n"
+"\n"
+"Author: Marc Masdeu\n"
+"Contributors: Carlos Caralps, Luis Castillo"
+msgstr ""
+
+#: Game
+msgid "Hilbert Geometry"
+msgstr ""
+
+#: Game
+msgid "Discover Lean through Hilbert's Geometry"
 msgstr ""
