@@ -1,5 +1,4 @@
 import Game.Levels.TutorialWorld
-import Game.Levels.AdvancedTutorialWorld
 import Game.Levels.IncidenceWorld
 import Game.Levels.BetweennessWorld
 import Game.Levels.PlaneSeparationWorld
@@ -24,6 +23,6 @@ CaptionShort "Hilbert Geometry"
 CaptionLong "Discover Lean through Hilbert's Geometry"
 -- Prerequisites "" -- add this if your game depends on other games
 -- CoverImage "images/cover.png"
-Dependency TutorialWorld → AdvancedTutorialWorld → IncidenceWorld → BetweeenessWorld --→ PlaneSeparationWorld
+Dependency TutorialWorld → IncidenceWorld → BetweeenessWorld --→ PlaneSeparationWorld
 /-! Build the game. Show's warnings if it found a problem with your game. -/
 MakeGame

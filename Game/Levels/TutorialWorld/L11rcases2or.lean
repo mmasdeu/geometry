@@ -1,8 +1,9 @@
 import Game.Metadata
+import Game.Levels.TutorialWorld.L10rcases1and
 open IncidencePlane --hide
 
-World "AdvancedTutorialWorld"
-Level 2
+World "TutorialWorld"
+Level 11
 
 Title "The `rcases` tactic (II)"
 

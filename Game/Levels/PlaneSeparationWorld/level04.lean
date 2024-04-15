@@ -20,9 +20,6 @@ ask you to prove one implication, the double implication is done in the same way
 be given to you for free in the Theorem list.
 "
 
-variable {Ω : Type} [IncidencePlane Ω] --hide
-variable {A B : Ω} --hide
-variable {ℓ : Line Ω} --hide
 
 /--
 A is at the same side as B of ℓ if and only if B is at the same side of A of ℓ.

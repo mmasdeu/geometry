@@ -1,4 +1,5 @@
 import Game.Metadata
+import Game.Levels.TutorialWorld.L07constructor
 open IncidencePlane --hide
 
 World "TutorialWorld"
@@ -8,7 +9,7 @@ Title "The have tactic"
 
 Introduction
 "
-Congratulations! You are just finishing the tutorial world! In this level, we introduce the new tactic `have`. It is used to add a new hypothesis
+In this level, we introduce the new tactic `have`. It is used to add a new hypothesis
 to the context (which, of course, you will have to prove!). This is sometimes useful to structure our proofs. In this particular level, it is convenient
 to prove first that `r = line_through B C`, and then that `s = line_through B C`. This strategy will allow us to finish the proof very easily!
 

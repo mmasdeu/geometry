@@ -27,4 +27,5 @@ Statement not_between_of_between : (A * B * C) → (B * A * C) → False := by
   have h2 := between_of_collinear (collinear_of_between h)
   tauto
 
+NewDefinition IncidencePlane.collinear
 NewTheorem IncidencePlane.collinear_of_between IncidencePlane.between_of_collinear

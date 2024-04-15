@@ -4,10 +4,6 @@ import Game.Levels.BetweennessWorld
 open IncidencePlane --hide
 
 
-variable {Ω : Type} [IncidencePlane Ω] --hide
-variable {A B C P Q R : Ω} --hide
-variable {ℓ r s t : Line Ω} --hide
-
 World "PlaneSeparationWorld"
 Level 1
 
@@ -40,8 +36,8 @@ Lean will help you by filling in the proof of the two sets being equal, when thi
 "
 
 variable {Ω : Type} [IncidencePlane Ω] --hide
-variable {A B C P Q R : Ω} --hide
-variable {ℓ r s t : Line Ω} --hide
+variable {A B : Ω} --hide
+variable {ℓ : Line Ω} --hide
 
 /--
 If the segment $PQ$ is on the same side of a line $\ell$, then $P \notin ℓ$.
@@ -56,4 +52,4 @@ lemma not_in_line_of_same_side_right (h : same_side ℓ A B) : B ∉ ℓ := by
   tauto
 
 NewDefinition IncidencePlane.same_side
-NewTheorem not_in_line_of_same_side_right IncidencePlane.collinear_of_equal
+NewTheorem IncidencePlane.collinear_of_equal not_in_line_of_same_side_left not_in_line_of_same_side_right

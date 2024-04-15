@@ -1,10 +1,10 @@
 import Game.Metadata
-import Game.Levels.AdvancedTutorialWorld.L13leftright
+import Game.Levels.AdvancedTutorialWorld.L12rcases3exists
 
 open IncidencePlane --hide
 
 World "AdvancedTutorialWorld"
-Level 5
+Level 4
 
 Title "The `by_cases` tactic"
 
@@ -29,9 +29,7 @@ Either a point is in a line or it is not.
 -/
 Statement {A : Ω} {r : Line Ω} : A ∈ r ∨ A ∉ r := by
   by_cases h : A ∈ r
-  · left
-    exact h
-  · right
-    exact h
+  · tauto
+  · tauto
 
 NewTactic by_cases

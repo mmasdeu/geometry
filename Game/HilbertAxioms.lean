@@ -68,25 +68,28 @@ class IncidencePlane (Point : Type*) where
   -- Betweenness is an undefined concept
   [between : HasBetween Point]
 
-  /- Betweenness is symmetric -/
-  (between_symmetric' {A B C : Point} : (A * B * C) ↔ C * B * A)
+  /-- Betweenness is symmetric -/
+  (between_symmetric {A B C : Point} : (A * B * C) ↔ C * B * A)
 
    /- If A * B * C then the three points are distinct and collinear. -/
-  (different_of_between {A B C : Point} : (A * B * C) → (A ≠ B ∧ A ≠ C ∧ B ≠ C))
-  (collinear_of_between {A B C : Point} : (A * B * C) →
+  (different_of_between_12 {A B C : Point} : (A * B * C) → A ≠ B)
+  (different_of_between_13 {A B C : Point} : (A * B * C) → A ≠ C)
+  (different_of_between_23 {A B C : Point} : (A * B * C) → B ≠ C)
+
+  (collinear_of_between' {A B C : Point} : (A * B * C) →
     ∃ (ℓ : Line), A ∈ ℓ ∧ B ∈ ℓ ∧ C ∈ ℓ)
 
-  /- Given two distinct points A, B, there is a third point C such that A * B * C.-/
+  /-- Given two distinct points A, B, there is a third point C such that A * B * C.-/
   (point_on_ray {A B : Point} (h: A ≠ B) : ∃ C, A * B * C)
 
-  /- Given 3 distinct collinear points A B C, exactly one of them is between the other two.-/
+  /-- Given 3 distinct collinear points A B C, exactly one of them is between the other two.-/
   (between_of_collinear {A B C : Point} (h: ∃ (ℓ : Line), A ∈ ℓ ∧ B ∈ ℓ ∧ C ∈ ℓ) :
   ((A * B * C) ∧ ¬ ( B * A * C ) ∧ ¬ (A * C * B)) ∨
   (¬ (A * B * C) ∧ ( B * A * C ) ∧ ¬ (A * C * B)) ∨
   (¬ (A * B * C) ∧ ¬ ( B * A * C ) ∧ (A * C * B)))
 
-  /- Pasch -/
-  (pasch {A B C D : Point} {ℓ : Line}
+  /-- Pasch -/
+  (pasch' {A B C D : Point} {ℓ : Line}
   (hnc: ¬ C ∈ line_through A B)
   (hnAl: ¬ (A ∈ ℓ)) (hnBl: ¬ B ∈ ℓ) (hnCl: ¬ C ∈ ℓ)
   (hDl: D ∈ ℓ) (hADB: A * D * B) :
@@ -105,28 +108,27 @@ variable {Ω Point : Type*} [IncidencePlane Ω] [IncidencePlane Point]
 -- From here on, we can use the symbol `∈` for Lines
 instance : SSet (Line Ω) Ω := ⟨belongs.mem⟩
 
+
+
 lemma existence (Ω : Type*) [IncidencePlane Ω] :  ∃ P Q R : Ω, P ≠ Q ∧ P ≠ R ∧ Q ≠ R ∧ ¬ R ∈ (line_through P Q) := existence'
 
 attribute [simp] line_through_left
 attribute [simp] line_through_right
 
-lemma different_of_between_12 {A B C : Ω} : (A * B * C) → A ≠ B := λ h ↦ (different_of_between h).1
-lemma different_of_between_13 {A B C : Ω} : (A * B * C) → A ≠ C := λ h ↦ (different_of_between h).2.1
-lemma different_of_between_23 {A B C : Ω} : (A * B * C) → B ≠ C := λ h ↦ (different_of_between h).2.2
 @[simp]
 lemma different_of_between''
-{A B : Ω} : (A * A * B) ↔ false := ⟨λ h ↦ ((different_of_between h).1 (rfl)).elim, by tauto⟩
+{A B : Ω} : (A * A * B) ↔ false := ⟨λ h ↦ ((different_of_between_12 h) (rfl)).elim, by tauto⟩
 
 @[simp]
 lemma different_of_between'''
-{A B : Ω} : (A * B * B) ↔ false := ⟨λ h ↦ ((different_of_between h).2.2 (rfl)).elim,by tauto⟩
-
-lemma between_symmetric (A B C : Point) : (A * B * C) ↔ C * B * A := between_symmetric'
+{A B : Ω} : (A * B * B) ↔ false := ⟨λ h ↦ ((different_of_between_23 h) (rfl)).elim, by tauto⟩
 
 /--
 A set of points is collinear if they all lie on some line
 -/
 def collinear (A B C : Ω) := ∃ (ℓ : Line Ω), A ∈ ℓ ∧ B ∈ ℓ ∧ C ∈ ℓ
+
+lemma collinear_of_between {A B C : Point} : (A * B * C) → collinear A B C := collinear_of_between'
 
 lemma collinear_of_equal' (A B C D E F) (h : ({A, B, C} : Set Ω) = {D, E, F}) : collinear A B C → collinear D E F
 := by
@@ -153,4 +155,9 @@ Two points P and Q lie on the same side of a line ℓ if the segment P⬝Q doesn
 @[simp]
 def same_side (ℓ : Line Ω) (P Q : Ω) :=  P ∉ ℓ ∧ Q ∉ ℓ ∧ (∀ x ∈ ℓ,  ¬ (P * x * Q))
 
+lemma pasch {A B C D : Ω} {ℓ : Line Ω}
+  (hnc: ¬ C ∈ line_through A B)
+  (hnAl: ¬ (A ∈ ℓ)) (hnBl: ¬ B ∈ ℓ) (hnCl: ¬ C ∈ ℓ)
+  (hDl: D ∈ ℓ) (hADB: A * D * B) :
+  same_side ℓ A C xor same_side ℓ C B := sorry
 end IncidencePlane

@@ -1,9 +1,9 @@
 import Game.Metadata
-import Game.Levels.AdvancedTutorialWorld.L15apply
+import Game.Levels.TutorialWorld.L13simp
 open IncidencePlane --hide
 
-World "AdvancedTutorialWorld"
-Level 8
+World "TutorialWorld"
+Level 13
 
 Title "The `tauto` tactic"
 

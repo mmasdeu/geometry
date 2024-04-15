@@ -18,9 +18,6 @@ Introduction
 It seems stupid, but needs to be proven nevertheless.
 "
 
-variable {Ω : Type} [IncidencePlane Ω] --hide
-variable {A B C P Q R : Ω} --hide
-variable {ℓ r s t : Line Ω} --hide
 
 /--
 A is at the same side as A of ℓ.

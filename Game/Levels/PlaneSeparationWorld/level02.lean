@@ -25,9 +25,6 @@ Here you have some hints that could help you to step through it!
 **Hint 3:** To solve the first goal, you may want to use the theorem statement `incidence` with the `rw` tactic.
 "
 
-variable {Ω : Type} [IncidencePlane Ω] --hide
-variable {A B C P Q R : Ω} --hide
-variable {ℓ r s t : Line Ω} --hide
 
 /--
 Given three distinct points, they are on the same line if and only if they are collinear.

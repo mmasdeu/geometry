@@ -1,35 +1,46 @@
 import Game.Metadata
 import Game.Levels.IncidenceWorld.level02
-
-open IncidencePlane --hide
-
+open IncidencePlane
 
 
 World "IncidenceWorld"
 Level 3
 
-Title "A point to show that two lines are different"
+Title "Lines are thin"
+
+
 
 Introduction
 "
-## A useful lemma
+We start by proving that every line misses at least one point. Note that, although this seems obvious,
+it is not directly one of our axioms, and thus we must prove it from them.
 
-We will see that
-a point can help us deciding that two lines are different.
+This lemma uses in a crucial way the fact that we have three distinc non-collinear points. Remember that
+the axiom which guarantees this is called `existence` and is formalized as
+`existence Ω : ∃ A B C : Ω, A ≠ B ∧ A ≠ C ∧ B ≠ C ∧ ...`
 
-To solve this level, you just need three lines of code. Try to finish it on your own.
+To use this axiom, the very versatile `rcases` tactic comes to help us again. If we type `rcases existence Ω`
+we will see all the new variables (A, B, C, ...) appearing in our context. We can name them for later usage,
+using the syntax
+`rcases existence Ω with ⟨A, B, C, ⟨hAB, hAC, hBC, h⟩⟩`.
+
+In general, if we have a theorem `h` that says `∃ x y, P x y ∧ Q x y`, we will extract it with
+`rcases h with ⟨x, y, ⟨hP, hQ⟩⟩`.
 "
 
-variable {Ω : Type} [IncidencePlane Ω] --hide
-variable {P : Ω} {r s : Line Ω} --hide
+variable {Ω : Type} [IncidencePlane Ω]
 
 /--
-If two lines `r` and `s` do not share a point, then they are not equal.
+Every line misses at least one point.
 -/
-lemma ne_line_of_not_share_point (P : Ω) (hPr : P ∈ r)
-(hPs : P ∉ s): r ≠ s:= by
-  intro H
-  rw [H] at hPr
-  tauto
+Statement (ℓ : Line Ω) : ∃ (P : Ω), P ∉ ℓ := by
+  rcases existence Ω with ⟨A, B, C, ⟨hAB, hAC, hBC, h⟩⟩
+  by_cases hA : A ∈ ℓ
+  · by_cases hB : B ∈ ℓ
+    · use C
+      rw [incidence hAB hA hB]
+      exact h
+    · use B
+  · use A
 
-NewTheorem ne_line_of_not_share_point
+NewTheorem IncidencePlane.existence

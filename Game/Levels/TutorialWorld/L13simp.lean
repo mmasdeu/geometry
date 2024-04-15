@@ -1,11 +1,11 @@
 import Game.Metadata
-import Game.Levels.AdvancedTutorialWorld.L15apply
+import Game.Levels.TutorialWorld.L11rcases2or
 open IncidencePlane --hide
 
-World "AdvancedTutorialWorld"
-Level 7
+World "TutorialWorld"
+Level 12
 
-Title "The `apply` tactic"
+Title "The `simp` tactic"
 
 variable {Ω : Type} [IncidencePlane Ω] --hide
 

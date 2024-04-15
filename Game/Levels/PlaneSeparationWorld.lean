@@ -8,8 +8,6 @@ import Game.Levels.PlaneSeparationWorld.level07
 import Game.Levels.PlaneSeparationWorld.level08
 import Game.Levels.PlaneSeparationWorld.level09
 import Game.Levels.PlaneSeparationWorld.level10
-import Game.Levels.PlaneSeparationWorld.level11
-import Game.Levels.PlaneSeparationWorld.level12
 
 
 World "PlaneSeparationWorld"

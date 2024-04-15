@@ -1,10 +1,12 @@
 import Game.Metadata
+import Game.Levels.TutorialWorld.L08have
 open IncidencePlane --hide
+
 
 World "TutorialWorld"
 Level 8
 
-Title "The constructor tactic"
+Title "The use tactic"
 
 
 Introduction
@@ -17,17 +19,18 @@ Then, the `use` tactic is useful. If we know that an object `a` satisfies the  p
 will simplify the goal into `⊢ P a`.
 
 In the example below, we are given three points and two lines. We know certain things about the points, and the
-goal is to find a line $\\ell$ such that $P$ and $Q$ both belong to $\\ell$. Think, looking at the hypotheses,
+goal is to find a line $\\ell$ such that $P$, $Q$ and $R$ belong to $\\ell$. Think, looking at the hypotheses,
 which line could do the trick. Then `use` it, and finish the proof using tactics you already know.
 "
 
 variable {Ω : Type} [IncidencePlane Ω] --hide
 
 /--
-Finds a line that contains the points $P$ and $Q$ at the same time.
+Find a line that contains the point $P$.
 -/
-Statement (P Q R: Ω) (r s : Line Ω) (hP1 : P ∈ r) (hP2 : P ∈ s) (hR : R ∈ r) (hQ : Q ∈ s) :
-∃ ℓ : Line Ω, P ∈ ℓ ∧ Q ∈ ℓ := by
-  use s
+Statement (P : Ω) (ℓ : Line Ω) :
+∃ ℓ : Line Ω, P ∈ ℓ := by
+  use line_through P P
+  exact line_through_left P P
 
 NewTactic use

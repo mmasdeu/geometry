@@ -11,6 +11,13 @@ Two points `A` and `B` are on the `same_side` of `ℓ` if they do not belong
 to `ℓ`, and there is not point in `ℓ` between `A` and `B`.
 -/
 DefinitionDoc IncidencePlane.same_side as "same_side ℓ A B"
+
+/--
+Three points `A`, `B`, `C` are `collinear` if there is a line containing them:
+`collinear A B C ↔ ∃ ℓ, A ∈ ℓ ∧ B ∈ ℓ ∧ C ∈ ℓ`.
+-/
+DefinitionDoc IncidencePlane.collinear as "collinear A B C"
+
 /--
 The line through `A` and `B` contains `A`
 -/
@@ -74,11 +81,6 @@ TheoremDoc IncidencePlane.between_symmetric as "between_symmetric" in "· * · *
 
 
 /--
-(A * B * C) → (A ≠ B ∧ A ≠ C ∧ B ≠ C)
--/
-TheoremDoc IncidencePlane.different_of_between as "different_of_between" in "· * · * ·"
-
-/--
 (A * B * C) → A ≠ B
 -/
 TheoremDoc IncidencePlane.different_of_between_12 as "different_of_between_12" in "· * · * ·"
@@ -128,39 +130,44 @@ Given three distinct collinear points A, B and C, if B lies between A and C, the
 TheoremDoc not_between_of_between as "not_between_of_between" in "· * · * ·"
 
 /--
-Points that are between each other are different
--/
-TheoremDoc IncidencePlane.different_of_between as "different_of_between" in "· * · * ·"
-
-/--
 There are no points between a point and itself.
 -/
 TheoremDoc no_point_between_a_point as "no_point_between_a_point" in "· * · * ·"
 
 /--
-A point that lies between two different collinear points shares the same line with them.
+Betweenness is symmetric: A * B * C ↔ C * B * A
 -/
-TheoremDoc between_points_share_line as "between_points_share_line" in "· * · * ·"
+TheoremDoc IncidencePlane.between_symmetric as "between_symmetric" in "· * · * ·"
+/--
+Given A * B * C, if B and C are on a line r then so is A
+-/
+TheoremDoc between_points_share_line_1 as "between_points_share_line_1" in "· * · * ·"
 
 /--
-Given two different collinear points A and B, there is a third C that shares the same line with them and satisfies A * B * C.
+Given A * B * C, if A and C are on a line r then so is B
 -/
-TheoremDoc between_points_share_line_v2 as "between_points_share_line_v2" in "· * · * ·"
+TheoremDoc between_points_share_line_2 as "between_points_share_line_2" in "· * · * ·"
 
 /--
-Given three points A B C such that A * B * C, the third one is in the line through the first two.
+Given A * B * C, if A and B are on a line r then so is C
 -/
-TheoremDoc mem_line_through_of_between as "mem_line_through_of_between" in "· * · * ·"
+TheoremDoc between_points_share_line_3 as "between_points_share_line_3" in "· * · * ·"
 
 /--
-Given three points A B C such that A * B * C, the third one is in the line through the first two.
+Given three points A B C such that A * B * C, the first one is in the line through the others.
 -/
-TheoremDoc mem_line_through_of_between' as "mem_line_through_of_between'" in "· * · * ·"
+TheoremDoc mem_line_through_of_between_1 as "mem_line_through_of_between_1" in "· * · * ·"
 
 /--
-The only point on the segment $AA$ is $A itself.
+Given three points A B C such that A * B * C, the second one is in the line through the others.
 -/
-TheoremDoc one_point_segment as "one_point_segment" in "· * · * ·"
+TheoremDoc mem_line_through_of_between_2 as "mem_line_through_of_between_2" in "· * · * ·"
+
+/--
+Given three points A B C such that A * B * C, the third one is in the line through the others.
+-/
+TheoremDoc mem_line_through_of_between_3 as "mem_line_through_of_between_3" in "· * · * ·"
+
 
 /--
 If the segment $PQ$ is on the same side of a line $\ell$, then $P \notin ℓ$.
@@ -188,20 +195,9 @@ A is at the same side as B of ℓ if and only if B is at the same side of A of �
 TheoremDoc same_side_symmetric as "same_side_symmetric" in "PSep"
 
 /--
-Given a line ℓ and the segments A·B and B·C, if both segments are on the same side of ℓ, then `A ∉ ℓ ∧ B ∉ ℓ ∧ C ∉ ℓ`.
--/
-TheoremDoc same_side_of_noncollinear_ne_line as "same_side_of_noncollinear_ne_line" in "PSep"
-
-/--
 If two points A and C are not on the same side of the line ℓ, there exists a point in the segment A·C which is incident with the line ℓ.
 -/
 TheoremDoc not_same_side_intersection as "not_same_side_intersection" in "PSep"
-
-/--
-If a line cuts properly the segment AB, of a triangle ABC, then cuts properly either
-AC or BC, but not both.
--/
-TheoremDoc same_side_pasch as "same_side_pasch" in "PSep"
 
 /--
 Given lines $m$ and $\ell$ and a point $A$ in $m$ and not in $\ell$, there

@@ -1,13 +1,7 @@
 import Game.Levels.AdvancedTutorialWorld.L10rcases1and
 import Game.Levels.AdvancedTutorialWorld.L11rcases2or
-import Game.Levels.AdvancedTutorialWorld.L12rcases3exists
-import Game.Levels.AdvancedTutorialWorld.L13leftright
-import Game.Levels.AdvancedTutorialWorld.L14bycases
-import Game.Levels.AdvancedTutorialWorld.L15apply
-import Game.Levels.AdvancedTutorialWorld.L16simp
-import Game.Levels.AdvancedTutorialWorld.L16bistauto
-import Game.Levels.AdvancedTutorialWorld.L17exfalso
-import Game.Levels.AdvancedTutorialWorld.L18bycontra
+import Game.Levels.AdvancedTutorialWorld.L13simp
+import Game.Levels.AdvancedTutorialWorld.L14tauto
 
 World "AdvancedTutorialWorld"
 Title "Advanced Tutorial World"

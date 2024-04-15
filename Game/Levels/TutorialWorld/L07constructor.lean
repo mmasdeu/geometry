@@ -1,4 +1,6 @@
 import Game.Metadata
+import Game.Levels.TutorialWorld.L06intro
+
 open IncidencePlane --hide
 
 World "TutorialWorld"
@@ -31,3 +33,4 @@ Statement (P Q : Ω) : P ∈ (line_through P Q) ∧ Q ∈ (line_through P Q) := 
   · exact line_through_right P Q
 
 NewTactic constructor
+NewTheorem equal_lines_of_contain_two_points

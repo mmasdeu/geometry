@@ -35,9 +35,6 @@ If you have a theorem statement called `theorem`, which shows `x` by using the h
 add the hypothesis `hth : x` to the local context.
 -/
 
-variable {Ω : Type} [IncidencePlane Ω] --hide
-variable {A B C P Q R : Ω} --hide
-variable {ℓ r s t : Line Ω} --hide
 
 /--
 Given three non-collinear points A, B and C, then B is not incident with the line through A and C.

@@ -4,7 +4,7 @@ import Game.Levels.BetweennessWorld.level03
 import Game.Levels.BetweennessWorld.level04
 import Game.Levels.BetweennessWorld.level05
 import Game.Levels.BetweennessWorld.level06
-
+import Game.Levels.BetweennessWorld.level07
 
 World "BetweeenessWorld"
 Title "Betweenness World"

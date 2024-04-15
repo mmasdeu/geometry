@@ -33,9 +33,6 @@ If P = B, then `(P ∈ line_through B C) = (B ∈ line_through B C)`. By the fir
 "
 
 
-variable {Ω : Type} [IncidencePlane Ω] --hide
-variable {A B C P Q R : Ω} --hide
-variable {ℓ r s t : Line Ω} --hide
 
 /--
 Given three non-collinear points A, B and C, then A ≠ C.

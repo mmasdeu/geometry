@@ -63,8 +63,6 @@ Statement (P Q R S : Ω) (h : Q ≠ R) (h1 : ∃ ℓ : Line Ω, P ∈ ℓ ∧ Q 
 ∃ ℓ : Line Ω, P ∈ ℓ ∧ Q ∈ ℓ ∧ R ∈ ℓ ∧ S ∈ ℓ := by
   rcases h1 with ⟨r, hr⟩
   rcases h2 with ⟨s, hs⟩
-  have H : r = s
-  · apply equal_lines_of_contain_two_points h
   use r
   constructor
   exact hr.1
@@ -72,7 +70,7 @@ Statement (P Q R S : Ω) (h : Q ≠ R) (h1 : ∃ ℓ : Line Ω, P ∈ ℓ ∧ Q 
   exact hr.2.1
   constructor
   exact hr.2.2
-  rw [H]
+  rw [equal_lines_of_contain_two_points (r := r) (s := s) h]
   exact hs.2.2
 
 Conclusion "Great!"

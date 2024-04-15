@@ -41,8 +41,7 @@ variable {Ω : Type} [IncidencePlane Ω]
 /--
 A point lies in the line that passes through it.
 -/
-Statement (A B : Ω) :
-B ∈ line_through A B := by
+Statement (A B : Ω) : B ∈ line_through A B := by
   exact line_through_right A B
 
 Conclusion "Well done!"

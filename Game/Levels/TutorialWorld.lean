@@ -5,9 +5,12 @@ import Game.Levels.TutorialWorld.L03exact
 import Game.Levels.TutorialWorld.L05usage
 import Game.Levels.TutorialWorld.L06intro
 import Game.Levels.TutorialWorld.L07constructor
-import Game.Levels.TutorialWorld.L08use
-import Game.Levels.TutorialWorld.L09have
-
+import Game.Levels.TutorialWorld.L08have
+import Game.Levels.TutorialWorld.L09use
+import Game.Levels.TutorialWorld.L10rcases1and
+import Game.Levels.TutorialWorld.L11rcases2or
+import Game.Levels.TutorialWorld.L13simp
+import Game.Levels.TutorialWorld.L14tauto
 
 World "TutorialWorld"
 Title "Tutorial World"

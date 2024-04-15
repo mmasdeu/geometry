@@ -3,6 +3,8 @@ import Game.Levels.IncidenceWorld.level02
 import Game.Levels.IncidenceWorld.level03
 import Game.Levels.IncidenceWorld.level04
 import Game.Levels.IncidenceWorld.level05
+import Game.Levels.IncidenceWorld.level06
+import Game.Levels.IncidenceWorld.level07
 
 
 World "IncidenceWorld"

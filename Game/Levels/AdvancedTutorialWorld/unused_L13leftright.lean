@@ -40,10 +40,10 @@ equal to the points A, B and C, in each of the cases. Try to finish the proof on
 
 variable {Ω : Type} [IncidencePlane Ω] -- hide
 
-/- Lemma : no-side-bar
+/--
 Given three distinct points A, B and C, if C lies in the line through A and B, either A = C or A, B and C are collinear points.
 -/
-lemma left_right_example (A B C : Ω) (h : C ∈ line_through A B) :
+Statement (A B C : Ω) (h : C ∈ line_through A B) :
 A = C ∨ collinear A B C := by
   right
   rw [collinear]

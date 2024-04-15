@@ -41,11 +41,10 @@ Statement : A ≠ B → A ∈ r → A ∈ s → B ∈ r → B ∈ s → r = s :=
   rw [incidence h1 h3 h5]
 
 NewTactic intro
+NewTheorem IncidencePlane.incidence
 
-theorem equal_lines_of_contain_two_points (hAB : A ≠ B) (hAr : A ∈ r := by simp [*])
-(hAs : A ∈ s := by simp [*]) (hBr : B ∈ r := by simp [*])
-(hBs : B ∈ s := by simp [*]) : r = s := by
+theorem equal_lines_of_contain_two_points (hAB : A ≠ B) {r s : outParam (Line Ω)}
+(hAr : A ∈ r := by simp [*]) (hAs : A ∈ s := by simp [*])
+(hBr : B ∈ r := by simp [*]) (hBs : B ∈ s := by simp [*]) : r = s := by
   rw [incidence hAB hAr hBr]
   rw [incidence hAB hAs hBs]
-
-NewTheorem IncidencePlane.incidence equal_lines_of_contain_two_points
