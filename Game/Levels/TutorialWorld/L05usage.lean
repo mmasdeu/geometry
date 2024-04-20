@@ -5,7 +5,7 @@ World "TutorialWorld"
 Level 5
 
 Title "Using theorems"
-
+TheoremTab "∈"
 Introduction
 "
 You will see that two new theorems have been added to the *Theorems* list:
@@ -28,9 +28,9 @@ try to solve this level!
 Looking at the goal, you will see the same structure as
 the statement `line_through_right (P Q : Point) : Q ∈ (line_through P Q)`.
 Then, we just have to write that statement in a different way!
-Do you remember that the `exact`
+Do you remember that the `apply`
 tactic solved the goal by using a hypothesis of the same structure? Then, because the computer already knows what
-`line_through_right (P Q : Point) : Q ∈ (line_through P Q)` means, why don't we type `exact line_through_right A B`?
+`line_through_right (P Q : Point) : Q ∈ (line_through P Q)` means, why don't we type `apply line_through_right A B`?
 Type that and see
 how it finishes the proof!
 "
@@ -42,6 +42,6 @@ variable {Ω : Type} [IncidencePlane Ω]
 A point lies in the line that passes through it.
 -/
 Statement (A B : Ω) : B ∈ line_through A B := by
-  exact line_through_right A B
+  apply line_through_right A B
 
 Conclusion "Well done!"

@@ -7,7 +7,7 @@ World "TutorialWorld"
 Level 10
 
 Title "The `rcases` tactic"
-
+TheoremTab "∈"
 
 variable {Ω : Type} [IncidencePlane Ω] --hide
 
@@ -37,6 +37,6 @@ The line ℓ is the line through P and Q as long as P ≠ Q and both P and Q are
 Statement (P Q : Ω) (ℓ : Line Ω) (h1 : P ≠ Q)
 (h2 : P ∈ ℓ ∧ Q ∈ ℓ) : ℓ = line_through P Q := by
   rcases h2 with ⟨hP, hQ⟩
-  exact incidence h1 hP hQ
+  apply incidence h1 hP hQ
 
 NewTactic rcases

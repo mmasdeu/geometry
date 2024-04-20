@@ -6,7 +6,7 @@ open IncidencePlane --hide
 
 
 World "IncidenceWorld"
-Level 5
+Level 6
 
 Title "A point to show that two lines are different"
 
@@ -33,3 +33,4 @@ Statement ne_line_of_not_share_point (P : Ω) (hPr : P ∈ r)
   tauto
 
 -- NewTheorem ne_line_of_not_share_point
+TheoremTab "∈"

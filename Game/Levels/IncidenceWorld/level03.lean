@@ -4,7 +4,7 @@ open IncidencePlane
 
 
 World "IncidenceWorld"
-Level 3
+Level 4
 
 Title "Lines are thin"
 
@@ -39,8 +39,9 @@ Statement (ℓ : Line Ω) : ∃ (P : Ω), P ∉ ℓ := by
   · by_cases hB : B ∈ ℓ
     · use C
       rw [incidence hAB hA hB]
-      exact h
+      assumption
     · use B
   · use A
 
 NewTheorem IncidencePlane.existence
+TheoremTab "∈"

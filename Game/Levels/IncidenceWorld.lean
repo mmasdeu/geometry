@@ -1,3 +1,4 @@
+import Game.Levels.IncidenceWorld.level00
 import Game.Levels.IncidenceWorld.level01
 import Game.Levels.IncidenceWorld.level02
 import Game.Levels.IncidenceWorld.level03
@@ -5,7 +6,7 @@ import Game.Levels.IncidenceWorld.level04
 import Game.Levels.IncidenceWorld.level05
 import Game.Levels.IncidenceWorld.level06
 import Game.Levels.IncidenceWorld.level07
-
+import Game.Levels.IncidenceWorld.level08
 
 World "IncidenceWorld"
 
@@ -34,18 +35,14 @@ Before the axioms of incidence, these notions are **undefined**!
 
 Let's then introduce the axioms of incidence:
 
-**A.1)** For every point $P$ and for every point $Q$ not equal to $P$, there exists a unique line $\\ell$
+A.1. For every point $P$ and for every point $Q$ not equal to $P$, there exists a unique line $\\ell$
 *passing through* (= incident with) $P$ and $Q$.
 
-![Axiom A.1](axiomA1.png *First  axiom of incidence*)
+A.2. For every line $\\ell$, there exist two distinct points that belong to it.
 
-**A.2)** For every line $\\ell$, there exist two distinct points that belong to it.
 
-![Axiom A.2](axiomA2.png &Second axiom of incidence*)
+A.3. There exist three distinct points with the property that no line *passes through* (= is incident with) all three of them.
 
-**A.3)** There exist three distinct points with the property that no line *passes through* (= is incident with) all three of them.
-
-![Axiom A.3](axiomA3.png *Third axiom of incidence*)
 
 The drawings above may help you understand (or remember) each of the axioms, but they
 have no meaning in mathematics. We will not be able to use them in our proofs!

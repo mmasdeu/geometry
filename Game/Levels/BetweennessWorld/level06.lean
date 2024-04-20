@@ -28,7 +28,7 @@ Given three points A B C such that A * B * C, the first one is in the line throu
 Statement mem_line_through_of_between_1 (h : A * B * C) : A ∈ line_through B C:= by
   rw [between_symmetric] at h
   rw [line_through_symmetric]
-  exact mem_line_through_of_between_3 h
+  apply mem_line_through_of_between_3 h
 
 /- Lemma :
 Given three points A B C such that A * B * C, the second one is in the line through the others.
@@ -44,3 +44,5 @@ NewTheorem IncidencePlane.between_symmetric mem_line_through_of_between_2
 
 Conclusion "Now on to the next level! We will add for you variations of this one that are proved in
 a very similar way."
+
+TheoremTab "· * · * ·"

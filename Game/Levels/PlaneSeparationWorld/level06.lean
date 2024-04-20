@@ -1,5 +1,6 @@
 import Game.Metadata
 import Game.Levels.PlaneSeparationWorld.level05
+import Mathlib.Tactic
 
 open IncidencePlane --hide
 
@@ -11,35 +12,59 @@ variable {ℓ r s t : Line Ω} --hide
 World "PlaneSeparationWorld"
 Level 6
 
-Title "On the way to the final level (II)"
+Title "The Pasch Axiom in action!"
+
+open scoped Classical
 
 Introduction
-"This is the second of five lemmas that we need to prove before jumping into the final level of the game! You will be provided with
-its mathematical proof in paper right below. Remember that you can use all the theorem statements from the left-hand side box.
+"
+In this level we prove transitivity of the relation *being in the same side of $\\ell$*, provided that the three
+points involved are non-collinear. So suppose that we are given three non-collinear points $A$, $B$, $C$, and suppose
+that $A$ is on the same side of $\\ell$ as $B$, and $B$ is on the same side of $\\ell$ as $C$. We want to prove that $A$ is on
+the same side of $\\ell$ as $C. Here is a sketch of the proof.
 
-## Mathematical proof in paper...
+1. We argue by contradiction, so assume that the line $AC$ does meet $\\ell$.
+2. Let $D \\in \\ell$ be the point of intersection, so $A * D * C$.
+3. Use Pasch to prove that either $\\ell$ either meets the segment $AB$ or $BC$, thus
+  obtaining a contradiction.
 
-**Claim:** Given three non-collinear points A, B and C, then B is not incident with the line through A and C.
+This is the first time that we will use Pasch's axiom. Remember what it says:
 
-**Proof:**
+`
+pasch {A B C D : Ω} {ℓ : Line Ω} (hnc : C ∉ line_through A B)
+(hnAl : A ∉ ℓ) (hnBl : B ∉ ℓ) (hnCl : C ∉ ℓ) (hDl : D ∈ ℓ) (hADB : A*D*B) :
+  (same_side ℓ A C ∧ ¬same_side ℓ C B) ∨ (¬same_side ℓ A C ∧ same_side ℓ C B)
+`
 
-By the lemma `noncollinear_ne_points`, since A, B and C are non-collinear points, then `A ≠ C`.
-
-By the lemma `collinear_iff_on_line_through`, since `A ≠ C`, then it suffices to prove that the points A, C, B are not collinear.
-
-By the assumption of the lemma `hCol : ¬ collinear ({A, C, B} : set Ω))`, then we show that `B ∉ line_through A C`.
+Try to write the structure of this proof in *LEAN* and then fill in the sorries.
 "
 
-/- Hint : Click here for a hint, in case you get stuck.
-If you have a theorem statement called `theorem`, which shows `x` by using the hypothesis `h : P`, then `have ht := theorem h` will
-add the hypothesis `hth : x` to the local context.
--/
-
-
+Image "images/trans_noncollinear_diagram.png"
 /--
-Given three non-collinear points A, B and C, then B is not incident with the line through A and C.
+Given three non-collinear points A, B, C and a line ℓ, if A and B are on the same side of
+ℓ and B and C are on the same side of ℓ, then A and C are on the same side of ℓ.
 -/
-Statement not_mem_line_of_noncollinear (hCol : ¬ collinear A C B) : B ∉ line_through A C := by
-  have hAC := neq_points_of_noncollinear hCol
-  rw [← collinear_iff_on_line_through hAC]
-  exact hCol
+Statement same_side_trans_of_noncollinear (hCol : ¬ collinear A C B):
+    same_side ℓ A B → same_side ℓ B C → same_side ℓ A C := by
+  intro hAB hBC
+  by_contra hc
+  rcases not_same_side_intersection hc with ⟨D, hD1, hD2⟩
+  have hB : B ∉ line_through A C
+  · rw [collinear_iff_on_line_through] at hCol
+    · assumption
+    · apply neq_points_of_noncollinear hCol
+  have hAℓ : A ∉ ℓ := not_in_line_of_same_side_left hAB
+  have hBℓ : B ∉ ℓ := not_in_line_of_same_side_right hAB
+  have hCℓ : C ∉ ℓ :=not_in_line_of_same_side_right hBC
+  rcases hD1 with hD1 | hD1 | hD1
+  · rw [hD1] at hD2
+    tauto
+  · rw [hD1] at hD2
+    tauto
+  · have H := pasch hB hAℓ hCℓ hBℓ hD2 hD1
+    rcases H with H | H
+    · tauto
+    · tauto
+
+NewTheorem IncidencePlane.pasch
+TheoremTab "PSep"

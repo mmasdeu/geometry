@@ -32,3 +32,5 @@ Statement  (h : A ≠ B) : ∃ C D, (A * B * C) ∧ (B * C * D) := by
   use D
 
 NewTheorem IncidencePlane.point_on_ray
+
+TheoremTab "· * · * ·"

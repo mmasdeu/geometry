@@ -43,8 +43,10 @@ Statement between_points_share_line_2 (h : A * B * C) (hAr : A ∈ r) (hCr : C �
   have hAC : A ≠ C
   · intro hAC
     rw [hAC] at h
-    exact no_point_between_a_point h
+    apply no_point_between_a_point h
   have hrs : r = s
-  · apply equal_lines_of_contain_two_points hAC
+  · apply equal_lines_of_contain_two_points hAC <;> simp [*]
   rw  [← hrs] at hBs
   assumption
+
+TheoremTab "· * · * ·"

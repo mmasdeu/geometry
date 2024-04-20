@@ -6,7 +6,7 @@ World "TutorialWorld"
 Level 11
 
 Title "The `rcases` tactic (II)"
-
+TheoremTab "∈"
 
 variable {Ω : Type} [IncidencePlane Ω] --hide
 

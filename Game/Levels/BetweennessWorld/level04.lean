@@ -28,9 +28,9 @@ Statement between_points_share_line_1 (h : A * B * C) (hAr : B ∈ r) (hBr : C �
     have h2 : ∃ ℓ, A ∈ ℓ ∧ B ∈ ℓ ∧ C ∈ ℓ := collinear_of_between h
     rcases h2 with ⟨s, hs⟩
     have h3 : r = s
-    · apply equal_lines_of_contain_two_points h1
+    · apply equal_lines_of_contain_two_points h1 <;> simp [*]
     rw [h3]
-    exact hs.1
+    apply hs.1
 
 /--
 Given two different collinear points A and B, there is a third C that shares the same line with them and satisfies A * B * C.
@@ -40,8 +40,9 @@ theorem between_points_share_line_3 (h : A * B * C) (hAr : A ∈ r) (hBr : B ∈
     have h2 : ∃ ℓ, A ∈ ℓ ∧ B ∈ ℓ ∧ C ∈ ℓ := collinear_of_between h
     rcases h2 with ⟨s, hs⟩
     have h3 : r = s
-    · apply equal_lines_of_contain_two_points h1
+    · apply equal_lines_of_contain_two_points h1 <;> simp [*]
     rw [h3]
-    exact hs.2.2
+    apply hs.2.2
 
 NewTheorem between_points_share_line_1 between_points_share_line_3
+TheoremTab "· * · * ·"

@@ -4,53 +4,44 @@ import Game.Levels.IncidenceWorld.level06
 open IncidencePlane --hide
 
 
+variable {Ω : Type} [IncidencePlane Ω] --hide
+variable {A B C P Q R : Ω} --hide
+variable {ℓ r s t : Line Ω} --hide
 
 World "IncidenceWorld"
-Level 7
+Level 8
 
-Title "Triangles"
+Title "A useful rewrite"
 
 Introduction
 "
-We end this world by proving the existence of triangles. We will also make use of convenient tactic,
-which is called `apply`. Suppose you are asked to prove a goal of the form `⊢ R` and you have a theorem statement called `h` which
-ensures that `h : P → Q → R`. Then, `apply h` will change your goal into proving `⊢ Q` and `⊢ P`.
+In the Worlds to come it will be useful to have the following criterion for collinearity.
+Here you have some hints that could help you to step through it!
 
-To give you some hints, remember these Lean tips that might help you to step through the proof.
+**Hint 1:** Whenever you see the word `collinear`, the `rw` tactic will make progress.
 
-**Tip 1:** whenever a hypothesis looks like `h : P ∧ Q`, we can refer to `P` and `Q` as `h.1` and `h.2`, respectively.
+**Hint 2:** Whenever you find a goal or hypothesis of the form `∀ {X : Ω}, X ∈ {A, B, C} → X ∈ r`, the `simp` tactic will make progress.
 
-**Tip 2:** whenever you have a goal of the form `⊢ ∀ (P : Ω), ...`, the `intro` tactic will make progress.
-
-If needed, you can go back to the previous levels to remember how to use some tactics. Good luck! Let's do this!
+**Hint 3:** To solve the first goal, you may want to use the theorem statement `incidence` with the `rw` tactic.
 "
 
-variable {Ω : Type} [IncidencePlane Ω] --hide
 
 /--
-There exist three lines that do not have a point in common.
+Given three distinct points, they are collinear if and only if the last one is in the line through the first two.
 -/
-Statement three_distinct_lines : ∃ (r s t: Line Ω), (∀ (P : Ω),
-¬(P ∈ r ∧ P ∈ s ∧ P ∈ t)) := by
-  rcases existence Ω with ⟨A, B, C, ⟨hAB, hAC, hBC, h⟩⟩
-  use line_through A C
-  use line_through B C
-  use line_through A B
-  simp
-  intro P h1 h2
-  have hkey : line_through A C ≠ line_through B C
-  · apply ne_line_of_not_share_point A
-    · simp
-    · intro hc
-      apply h
-      have lABeqlBC : line_through A B = line_through B C := equal_lines_of_contain_two_points hAB
-      rw [lABeqlBC]
-      apply line_through_right
-  rw [equal_points_of_in_two_lines (A := P) (B := C) hkey]
-  assumption
+Statement collinear_iff_on_line_through (h : A ≠ B) : collinear A B C ↔ C ∈ line_through A B := by
+  constructor
+  · intro h1
+    rw [collinear] at h1
+    rcases h1 with ⟨ℓ, hℓ⟩
+    rw [← (incidence h hℓ.1 hℓ.2.1)]
+    apply hℓ.2.2
+  · intro h1
+    rw [collinear]
+    use line_through A B
+    simp
+    assumption
 
--- NewTheorem three_distinct_lines
+TheoremTab "∈"
 
-NewTactic apply
-
-Conclusion "Great! Now you are ready to study a new set of axioms!"
+NewDefinition IncidencePlane.collinear

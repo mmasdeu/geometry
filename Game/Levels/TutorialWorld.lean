@@ -1,7 +1,7 @@
 import Game.Levels.TutorialWorld.L00assumption
 import Game.Levels.TutorialWorld.L01rw
 import Game.Levels.TutorialWorld.L02rwbis
-import Game.Levels.TutorialWorld.L03exact
+import Game.Levels.TutorialWorld.L03apply
 import Game.Levels.TutorialWorld.L05usage
 import Game.Levels.TutorialWorld.L06intro
 import Game.Levels.TutorialWorld.L07constructor
@@ -9,8 +9,7 @@ import Game.Levels.TutorialWorld.L08have
 import Game.Levels.TutorialWorld.L09use
 import Game.Levels.TutorialWorld.L10rcases1and
 import Game.Levels.TutorialWorld.L11rcases2or
-import Game.Levels.TutorialWorld.L13simp
-import Game.Levels.TutorialWorld.L14tauto
+import Game.Levels.TutorialWorld.L12tauto
 
 World "TutorialWorld"
 Title "Tutorial World"
@@ -44,3 +43,5 @@ If we had `h' : 2 + 3 = 7` then we would probably be able to proof crazy things!
 "
 Conclusion
 "Great!"
+
+Image "images/cover.png"

@@ -6,7 +6,7 @@ World "TutorialWorld"
 Level 2
 
 Title "The `rw` (rewrite) tactic"
-
+TheoremTab "∈"
 Introduction "
 The next tactic in our list is `rw` (from rewrite). Rewriting is one of the most basic methods of proof,
 where we 'substitute' one object that we know that is equal to another.

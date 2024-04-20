@@ -1,9 +1,9 @@
 import Game.Metadata
-import Game.Levels.TutorialWorld.L11rcases2or
+import Game.Levels.TutorialWorld
 open IncidencePlane --hide
 
-World "TutorialWorld"
-Level 12
+World "IncidenceWorld"
+Level 1
 
 Title "The `simp` tactic"
 
@@ -23,16 +23,19 @@ Just to illustrate, **LEAN** has a lemma  (called `not_not`) that says that doub
 
 The fact that it has `@[simp]` written in front of it instructs the `simp` tactic to replace all occurrences
 of `¬¬ p` with `p`. There are lots of lemmas like these in **LEAN**, which makes this tactic really powerful.
+For example, we have added a `@[simp]` tag to the lemmas `line_through_left` and `line_through_right`. Since the `simp`
+tactic can run until it cannot simplify further, you can prove solve this lemma in one go.
 "
-
 
 variable {Ω : Type} [IncidencePlane Ω] --hide
 
 /--
-If a point $P$ is on a line $\ell$, then $P$ is not outside of $\ell$.
+It is not true that a point $P$ misses the line through $P$ and $Q$.
 -/
-Statement (P : Ω) (ℓ : Line Ω) (h : P ∈ ℓ) : ¬ (P ∉ ℓ) := by
+Statement (P Q : Ω) : ¬ (P ∉ line_through P Q) := by
+  Hint "Simply call `simp`!"
   simp
-  exact h
+
 
 NewTactic simp
+TheoremTab "∈"

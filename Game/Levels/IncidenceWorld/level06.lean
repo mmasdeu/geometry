@@ -6,7 +6,7 @@ open IncidencePlane --hide
 
 
 World "IncidenceWorld"
-Level 6
+Level 7
 
 Title "A line-avoiding point"
 
@@ -35,13 +35,14 @@ If two lines are different, there is a point in one that is not in the other
 Statement point_in_line_difference (h : r ≠ s) : ∃ P ∈ r, P ∉ s := by
   rcases line_contains_two_points r with ⟨A, B, hAB, hABr⟩
   rw [hABr] at h ⊢
-  by_cases hAs : A ∉ s
-  · use A
-    simp [hAs]
+  by_cases hAs : A ∈ s
   · use B
-    simp at *
+    simp
     intro hBs
     rw [incidence hAB hAs hBs] at h
     tauto
+  · use A
+    simp [hAs]
 
 -- NewTheorem point_in_line_difference
+TheoremTab "∈"

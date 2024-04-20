@@ -1,4 +1,8 @@
-import Mathlib.Tactic
+import Mathlib.Tactic.Use
+import Mathlib.Tactic.Ring
+import Mathlib.Tactic.Have
+import Mathlib.Tactic.ByContra
+
 
 open scoped Classical
 open Set Function
@@ -142,7 +146,7 @@ lemma collinear_of_equal' (A B C D E F) (h : ({A, B, C} : Set Ω) = {D, E, F}) :
 /--
 If A B C D E F are any six points such that the set {A, B, C} = {D, E, F}, then A, B, C are collinear if and only if D, E, F are.
 -/
-lemma collinear_of_equal (A B C D E F) (h : ({A, B, C} : Set Ω) = ({D, E, F} : Set Ω) :=  by {ext; simp; tauto}) : collinear A B C ↔ collinear D E F
+lemma collinear_of_equal (A B C D E F) (h : ({A, B, C} : Set Ω) = ({D, E, F} : Set Ω) :=  by try {ext; simp; tauto}) : collinear A B C ↔ collinear D E F
 := by
 constructor
 · exact collinear_of_equal' (h := h)

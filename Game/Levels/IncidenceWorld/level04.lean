@@ -6,7 +6,7 @@ open IncidencePlane --hide
 
 
 World "IncidenceWorld"
-Level 4
+Level 5
 
 Title "Lines are thin"
 
@@ -22,7 +22,7 @@ variable  {P Q: Ω} {r : Line Ω}  -- hide
 
 
 /--
-Given a line, there exists one point on that line.
+Every line contains a point.
 -/
 Statement (ℓ : Line Ω): ∃ A : Ω, A ∈ ℓ := by
   have A2 : ∃ (P Q : Ω), P ≠ Q ∧ ℓ = line_through P Q := line_contains_two_points ℓ
@@ -33,6 +33,6 @@ Statement (ℓ : Line Ω): ∃ A : Ω, A ∈ ℓ := by
   rw [hl]
   simp
 
-
 NewTheorem IncidencePlane.line_contains_two_points
 NewTactic «have»
+TheoremTab "∈"

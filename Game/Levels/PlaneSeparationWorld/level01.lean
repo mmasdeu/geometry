@@ -53,3 +53,5 @@ lemma not_in_line_of_same_side_right (h : same_side ℓ A B) : B ∉ ℓ := by
 
 NewDefinition IncidencePlane.same_side
 NewTheorem IncidencePlane.collinear_of_equal not_in_line_of_same_side_left not_in_line_of_same_side_right
+
+TheoremTab "PSep"

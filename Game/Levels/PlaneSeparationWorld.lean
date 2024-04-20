@@ -6,8 +6,6 @@ import Game.Levels.PlaneSeparationWorld.level05
 import Game.Levels.PlaneSeparationWorld.level06
 import Game.Levels.PlaneSeparationWorld.level07
 import Game.Levels.PlaneSeparationWorld.level08
-import Game.Levels.PlaneSeparationWorld.level09
-import Game.Levels.PlaneSeparationWorld.level10
 
 
 World "PlaneSeparationWorld"
@@ -30,6 +28,5 @@ In Lean, the Pasch's Axiom is formalized as this statement, which you will find 
 `lemma pasch {A B C D : Ω} {ℓ : Line Ω} (hnc: C ∉ line_through A B)
 (hnAl: A ∉ ℓ) (hnBl: B ∉ ℓ) (hnCl: C ∉ ℓ) (hDl: D ∈ ℓ) (hADB: A * D * B) :
 (∃ E ,  E ∈ ℓ ∧ (A * E * C)) xor (∃ E, E ∈ ℓ ∧ (B * E * C))`
-
-![Axiom Pasch](pasch.png 'Pasch Axiom, the fourth axiom of betweenness')
 "
+Image "images/pasch.png"

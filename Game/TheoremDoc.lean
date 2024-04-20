@@ -2,6 +2,33 @@ import GameServer.Commands
 
 
 /--
+### **Logic Constants & Operators**
+| **Name** | **ASCII**| **Unicode** | **Unicode Cmd**|
+| --- | :---: | :---: | --- |
+| True | `True` |  |  |
+| False | `False` |  |  |
+| Not | `Not` | ¬ | `\n` `\not` `\neg` `\lnot` |
+| And | `/\` | ∧ | `\and` `\an` `\wedge` |
+| Or | `\/` | ∨ | `\v` `\or` `\vee` |
+| Implies | `->` | → | `\r` `\imp` `\->` `\to` `\r-` `\rightarrow` |
+| Iff | `<->` | ↔ | `\iff` `\lr-` `\lr` `\<->` `\leftrightarrow` |
+| For All | `forall` | ∀ | `\all` `\forall` |
+| Exists | `exists` | ∃ | `\ex` `\exists` |
+
+
+### **Other Unicode**
+| **Name** | **Unicode** | **Unicode Cmd** |
+| --- | :---: | --- |
+| Membership | ∈ ∉  | `\in` `\notin` |
+| Angle brackets | ⟨ ⟩ | `\<` `\>` `\langle` `\rangle` |
+| Subscript Numbers | ₁ ₂ ₃ ... | `\1` `\2` `\3` ... |
+| Left Arrow | ← | `\l` `\leftarrow` `\gets` `\<-` |
+| Turnstyle | ⊢ | `\│-` `\entails` `\vdash` `\goal` |
+-/
+DefinitionDoc UnicodeTable as "Unicode Table"
+
+
+/--
 The line through `A` and `B`
 -/
 DefinitionDoc IncidencePlane.line_through as "line_through A B"
@@ -204,11 +231,6 @@ Given lines $m$ and $\ell$ and a point $A$ in $m$ and not in $\ell$, there
 exists a point $E$ not in $m$ on the same side of $\ell$ as $A$.
 -/
 TheoremDoc auxiliary_point as "auxiliary_point" in "PSep"
-
-/--
-Given three non-collinear points A, B and C, then B is not incident with the line through A and C.
--/
-TheoremDoc not_mem_line_of_noncollinear as "not_mem_line_of_noncollinear" in "PSep"
 
 /--
 Given three non-collinear points A, B and C, then A ≠ C.

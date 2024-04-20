@@ -7,7 +7,7 @@ World "TutorialWorld"
 Level 8
 
 Title "The use tactic"
-
+TheoremTab "∈"
 
 Introduction
 "
@@ -31,6 +31,6 @@ Find a line that contains the point $P$.
 Statement (P : Ω) (ℓ : Line Ω) :
 ∃ ℓ : Line Ω, P ∈ ℓ := by
   use line_through P P
-  exact line_through_left P P
+  apply line_through_left
 
 NewTactic use

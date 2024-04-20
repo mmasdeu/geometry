@@ -3,7 +3,6 @@ import Game.TacticDoc
 import Game.TheoremDoc
 import Game.HilbertAxioms
 
-
 @[simp] lemma demorgan (p q : Prop) : ¬ (p ∨ q) ↔ ¬ p ∧ ¬ q := by tauto
 
 /-! Use this file to add things that should be available in all levels.
@@ -18,3 +17,4 @@ a suggestion.
 in a random order. Therefore, you should keep the structure of one file lean file per world
 that imports all its levels.
 -/
+

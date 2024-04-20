@@ -31,3 +31,5 @@ Statement mem_line_through_of_between_3 (h : A * B * C) : C ∈ line_through A B
 
 Conclusion "Now on to the next level! We will add for you variations of this one that are proved in
 a very similar way."
+
+TheoremTab "· * · * ·"

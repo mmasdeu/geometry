@@ -1,7 +1,7 @@
 msgid ""
 msgstr "Project-Id-Version: Game v4.7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Mon Apr 15 15:40:58 2024\n"
+"POT-Creation-Date: Sat Apr 20 07:56:37 2024\n"
 "Last-Translator: \n"
 "Language-Team: none\n"
 "Language: en\n"
@@ -445,6 +445,31 @@ msgid "## Summary\n"
 msgstr ""
 
 #: Game.TheoremDoc
+msgid "### **Logic Constants & Operators**\n"
+"| **Name** | **ASCII**| **Unicode** | **Unicode Cmd**|\n"
+"| --- | :---: | :---: | --- |\n"
+"| True | `True` |  |  |\n"
+"| False | `False` |  |  |\n"
+"| Not | `Not` | ¬ | `\\n` `\\not` `\\neg` `\\lnot` |\n"
+"| And | `/\\` | ∧ | `\\and` `\\an` `\\wedge` |\n"
+"| Or | `\\/` | ∨ | `\\v` `\\or` `\\vee` |\n"
+"| Implies | `->` | → | `\\r` `\\imp` `\\->` `\\to` `\\r-` `\\rightarrow` |\n"
+"| Iff | `<->` | ↔ | `\\iff` `\\lr-` `\\lr` `\\<->` `\\leftrightarrow` |\n"
+"| For All | `forall` | ∀ | `\\all` `\\forall` |\n"
+"| Exists | `exists` | ∃ | `\\ex` `\\exists` |\n"
+"\n"
+"\n"
+"### **Other Unicode**\n"
+"| **Name** | **Unicode** | **Unicode Cmd** |\n"
+"| --- | :---: | --- |\n"
+"| Membership | ∈ ∉  | `\\in` `\\notin` |\n"
+"| Angle brackets | ⟨ ⟩ | `\\<` `\\>` `\\langle` `\\rangle` |\n"
+"| Subscript Numbers | ₁ ₂ ₃ ... | `\\1` `\\2` `\\3` ... |\n"
+"| Left Arrow | ← | `\\l` `\\leftarrow` `\\gets` `\\<-` |\n"
+"| Turnstyle | ⊢ | `\\│-` `\\entails` `\\vdash` `\\goal` |"
+msgstr ""
+
+#: Game.TheoremDoc
 msgid "The line through `A` and `B`"
 msgstr ""
 
@@ -608,10 +633,6 @@ msgid "Given lines $m$ and $\\ell$ and a point $A$ in $m$ and not in $\\ell$, th
 msgstr ""
 
 #: Game.TheoremDoc
-msgid "Given three non-collinear points A, B and C, then B is not incident with the line through A and C."
-msgstr ""
-
-#: Game.TheoremDoc
 msgid "Given three non-collinear points A, B and C, then A ≠ C."
 msgstr ""
 
@@ -636,12 +657,7 @@ msgid "The first tactic that we'll learn is the `assumption` tactic. This can be
 "fact that $C = D$ (hypothesis `h₂`) and the fact that $B = C$ (hypothesis `h₃`).\n"
 "\n"
 "Since we want to prove that $C = D$, which is one of our hypotheses, we should be able to\n"
-"win by typing `assumption,` (**don't forget the comma**). Delete the `sorry` and try it.\n"
-"\n"
-"**Pro tip:** If the hypothesis to be used is called, say `hb`, you can also close the goal\n"
-"by using `exact hb,` instead. Sometimes it is more efficient to do so, especially if we believe\n"
-"that assumption should work and we don't know why. The `exact` tactic will give us information\n"
-"about why that does not work."
+"win by typing `assumption,` (**don't forget the comma**). Delete the `sorry` and try it."
 msgstr ""
 
 #: Game.Levels.TutorialWorld.L00assumption
@@ -712,28 +728,30 @@ msgstr ""
 msgid "Good job!"
 msgstr ""
 
-#: Game.Levels.TutorialWorld.L03exact
-msgid "The `exact` tactic"
+#: Game.Levels.TutorialWorld.L03apply
+msgid "The `apply` tactic"
 msgstr ""
 
-#: Game.Levels.TutorialWorld.L03exact
+#: Game.Levels.TutorialWorld.L03apply
 msgid "# Tutorial World\n"
 "\n"
-"## The `exact` tactic.\n"
+"## The `apply` tactic.\n"
 "\n"
-"In this level, we learn the `exact` tactic, which solves a goal that is exactly one of the hypotheses.\n"
-"For example, if the finishing goal is ⊢ `A = B` and we have the hypothesis `z : A = B`, then `exact z`\n"
-"will complete the level.\n"
+"In this level, we learn the `apply` tactic, which solves a goal that coincides with the conclusion of\n"
+"one of the hypotheses\n"
+"or a known theorem.\n"
+"For example, if the finishing goal is ⊢ `A = B` and we have the hypothesis `h : ℓ = r → A = B`, then `apply h`\n"
+"will leave you to proving `⊢ ℓ = r`. If there are no leftover proofs, then it will solve the level.\n"
 "\n"
 "This level is a new variant of the the previous one, but we will solve it in a different way. As you can imagine,\n"
 "mathematical proofs can be solved in many differents ways, which is something that definitely makes this field special."
 msgstr ""
 
-#: Game.Levels.TutorialWorld.L03exact
+#: Game.Levels.TutorialWorld.L03apply
 msgid "If A, B and C are points with A = B and B = C, then A = C."
 msgstr ""
 
-#: Game.Levels.TutorialWorld.L03exact
+#: Game.Levels.TutorialWorld.L03apply
 msgid "Great!"
 msgstr ""
 
@@ -762,9 +780,9 @@ msgid "You will see that two new theorems have been added to the *Theorems* list
 "Looking at the goal, you will see the same structure as\n"
 "the statement `line_through_right (P Q : Point) : Q ∈ (line_through P Q)`.\n"
 "Then, we just have to write that statement in a different way!\n"
-"Do you remember that the `exact`\n"
+"Do you remember that the `apply`\n"
 "tactic solved the goal by using a hypothesis of the same structure? Then, because the computer already knows what\n"
-"`line_through_right (P Q : Point) : Q ∈ (line_through P Q)` means, why don't we type `exact line_through_right A B`?\n"
+"`line_through_right (P Q : Point) : Q ∈ (line_through P Q)` means, why don't we type `apply line_through_right A B`?\n"
 "Type that and see\n"
 "how it finishes the proof!"
 msgstr ""
@@ -821,7 +839,7 @@ msgid "In this level we will learn the `constructor` tactic. It breaks a goal of
 msgstr ""
 
 #: Game.Levels.TutorialWorld.L07constructor
-msgid "If two lines contain two distinct points, then they are the same line."
+msgid "Both P and Q belong to the line through P and Q (!!)"
 msgstr ""
 
 #: Game.Levels.TutorialWorld.L08have
@@ -830,15 +848,18 @@ msgstr ""
 
 #: Game.Levels.TutorialWorld.L08have
 msgid "In this level, we introduce the new tactic `have`. It is used to add a new hypothesis\n"
-"to the context (which, of course, you will have to prove!). This is sometimes useful to structure our proofs. In this particular level, it is convenient\n"
-"to prove first that `r = line_through B C`, and then that `s = line_through B C`. This strategy will allow us to finish the proof very easily!\n"
+"to the context (which, of course, you will have to prove!). This is sometimes useful to structure our proofs.\n"
+"In this particular level, it is convenient\n"
+"to prove first that `r = line_through A B`, and then that `s = line_through A B`, and with these two statements\n"
+"the proof will follow very easily.\n"
 "\n"
-"To use the tactic `have`, we should follow the following structure: `have h : A = B`. This line will add the hypothesis `h : A = B` to the local\n"
-"context and break the proof into two goals. First, Lean will ask us to prove `⊢ A = B` without the hypothesis `h : A = B`. Then, it will ask us to\n"
-"prove the goal that existed before using the tactic `have` with the support of the new hypothesis `h : A = B` that we have added to the local context.\n"
+"To use the tactic `have`, we should follow the following structure: `have h : P = Q`. This line will add the hypothesis `h : A = B` to the local\n"
+"context and break the proof into two goals. First, Lean will ask us to prove `⊢ P = Q` without the hypothesis `h : P = Q`.\n"
+"Then, it will ask us to\n"
+"prove the goal that existed before using the tactic `have` with the support of the new hypothesis `h : P = Q` that we have added to the local context.\n"
 "\n"
 "**Pro tip:** Because you're getting better at this, proofs are going to be more challenging. Whenever you see that you have to prove two\n"
-"or more goals to finsih one level, you may want to use *bullet points* to isolate them. You type them with `\\·`, or if you are lucky to have a Catalan keyboard\n"
+"or more goals to finish one level, you may want to use *bullet points* to isolate them. You type them with `\\·`, or if you are lucky to have a Catalan keyboard\n"
 "then you can directly enter it (middle dot, press `Shift+3`). After each of these bullet points, you will only see one goal.\n"
 "\n"
 "For example, the first line of this proof will be `have hr : r = line_through B C` (you can change `hr` into whatever name you are comfortable with to\n"
@@ -850,23 +871,25 @@ msgid "In this level, we introduce the new tactic `have`. It is used to add a ne
 "· sorry\n"
 "```\n"
 "\n"
-"In this way, by deleting the `sorry`'s, you will be able to prove the goals separately. Now, let's try solve this level together so that you can\n"
-"easily understand how the syntax of Lean works!\n"
+"In this way, by deleting the `sorry`'s, you will be able to prove the goals separately.\n"
 "\n"
-"First, we are going to prove the first goal, which is `⊢ r = line_through B C`. To begin with, let's look at the *Theorems* we have.\n"
-"Can you note that `incidence` finishes with the same structure as our goal? Then, we have to check if we have the previous implications of `incidence`\n"
-"in our local context. On the face of it, `h : B ≠ C` and `h1 : B ∈ r ∧ C ∈ r` are what we are looking for. However, `h1` should be divided into `B ∈ r`\n"
-"and `C ∈ r`, right? [**Rule of thumb:** whenever a hypothesis looks like `h1 : P ∧ Q`, we can refer to `P` and `Q` as `h1.1` and `h1.2`, respectively.]\n"
-"Then, notice how `exact incidence h h1.1 h1.2` closes the first goal!\n"
-"\n"
-"Before jumping onto the second goal, we may want to rewrite something first. Can you see that we can `rw [hr]` (where `hr : r = line_through B C`) to change\n"
-"the goal `⊢ r = s` into `⊢ line_through B C = s`. Now, you will be wondering if `exact incidence h h2.1 h2.2,` finishes the proof, but it does not. Do you\n"
-"know why? Because the theorem statement called `incidence` works with the goal `⊢ s = line_through B C`, but not with `⊢ line_through B C = s`. Because of\n"
-"this reason, we should create another hypothesis by using the `have` tactic. That is to say, type `have hs : s = line_through B C` right before the curly braces."
+"Let's go!"
 msgstr ""
 
 #: Game.Levels.TutorialWorld.L08have
 msgid "If two lines share two distinct points, then they are the same line."
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L08have
+msgid "Introduce the hypothesis `r = line_through A B` using the tactic `have`"
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L08have
+msgid "Now introduce a new hypotheis `s = line_through A B`"
+msgstr ""
+
+#: Game.Levels.TutorialWorld.L08have
+msgid "You can now complete the level with two `rw`'s (which you can do in one line, of course)."
 msgstr ""
 
 #: Game.Levels.TutorialWorld.L08have
@@ -944,33 +967,11 @@ msgstr ""
 msgid "If ℓ is any line in the plane Ω and either the point P or the point Q is in ℓ, then ℓ is not an empty line."
 msgstr ""
 
-#: Game.Levels.TutorialWorld.L13simp
-msgid "The `simp` tactic"
-msgstr ""
-
-#: Game.Levels.TutorialWorld.L13simp
-msgid "In this level, we introduce a high level tactic called `simp`. This is an Artificial Intelligence (AI) tactic which\n"
-"can nail some really tedious-for-a-human-to-solve goals. It uses lemmas that are already in our database to make\n"
-"the goal simpler. You can simplify an hypothesis `h` by calling `simp at h,`. As the game progresses, this tactic\n"
-"will become better (we are tagging some of the lemmas as *simp lemmas* along the way).\n"
-"\n"
-"Just to illustrate, **LEAN** has a lemma  (called `not_not`) that says that double negation is the same as an affirmation:\n"
-"\n"
-"`@[simp] lemma not_not (p : Prop) : ¬¬ p ↔ p`\n"
-"\n"
-"The fact that it has `@[simp]` written in front of it instructs the `simp` tactic to replace all occurrences\n"
-"of `¬¬ p` with `p`. There are lots of lemmas like these in **LEAN**, which makes this tactic really powerful."
-msgstr ""
-
-#: Game.Levels.TutorialWorld.L13simp
-msgid "If a point $P$ is on a line $\\ell$, then $P$ is not outside of $\\ell$."
-msgstr ""
-
-#: Game.Levels.TutorialWorld.L14tauto
+#: Game.Levels.TutorialWorld.L12tauto
 msgid "The `tauto` tactic"
 msgstr ""
 
-#: Game.Levels.TutorialWorld.L14tauto
+#: Game.Levels.TutorialWorld.L12tauto
 msgid "When the goal follows from the hypotheses directly from the rules of logic, then we say that we are proving a tautology,\n"
 "and there is a tactic that does this automatically for us. For example, the following is a tautology (if p, q and r are\n"
 "arbitrary statements).\n"
@@ -981,7 +982,7 @@ msgid "When the goal follows from the hypotheses directly from the rules of logi
 "above is true."
 msgstr ""
 
-#: Game.Levels.TutorialWorld.L14tauto
+#: Game.Levels.TutorialWorld.L12tauto
 msgid "If $p$, $q$ and $r$ are three true-false statements, and we know $p \\lor q$ and $r \\lor p \\lor r$, then\n"
 "we have $p \\lor (q \\land r)$."
 msgstr ""
@@ -1021,6 +1022,34 @@ msgstr ""
 msgid "Great!"
 msgstr ""
 
+#: Game.Levels.IncidenceWorld.level00
+msgid "The `simp` tactic"
+msgstr ""
+
+#: Game.Levels.IncidenceWorld.level00
+msgid "In this level, we introduce a high level tactic called `simp`. This is an Artificial Intelligence (AI) tactic which\n"
+"can nail some really tedious-for-a-human-to-solve goals. It uses lemmas that are already in our database to make\n"
+"the goal simpler. You can simplify an hypothesis `h` by calling `simp at h,`. As the game progresses, this tactic\n"
+"will become better (we are tagging some of the lemmas as *simp lemmas* along the way).\n"
+"\n"
+"Just to illustrate, **LEAN** has a lemma  (called `not_not`) that says that double negation is the same as an affirmation:\n"
+"\n"
+"`@[simp] lemma not_not (p : Prop) : ¬¬ p ↔ p`\n"
+"\n"
+"The fact that it has `@[simp]` written in front of it instructs the `simp` tactic to replace all occurrences\n"
+"of `¬¬ p` with `p`. There are lots of lemmas like these in **LEAN**, which makes this tactic really powerful.\n"
+"For example, we have added a `@[simp]` tag to the lemmas `line_through_left` and `line_through_right`. Since the `simp`\n"
+"tactic can run until it cannot simplify further, you can prove solve this lemma in one go."
+msgstr ""
+
+#: Game.Levels.IncidenceWorld.level00
+msgid "It is not true that a point $P$ misses the line through $P$ and $Q$."
+msgstr ""
+
+#: Game.Levels.IncidenceWorld.level00
+msgid "Simply call `simp`!"
+msgstr ""
+
 #: Game.Levels.IncidenceWorld.level01
 msgid "The symmetry of the line through two points"
 msgstr ""
@@ -1029,7 +1058,7 @@ msgstr ""
 msgid "In this level, we introduce the `by_cases` tactic. Mathematicians would use it to provide a *proof by cases*.\n"
 "This is useful when we need to split a proof into different cases.\n"
 "\n"
-"In the proof below there is a `trivial` case that we have to consider, which is the possibility\n"
+"In the proof below there is a `degenerate` case that we have to consider, which is the possibility\n"
 "that `P = Q`. In If we type `by_cases h : P = Q` we will split the goal into two branches: the first one\n"
 "will have the assumption `h : P = Q` in the context, while in the second we will have `h : P ≠ Q`."
 msgstr ""
@@ -1055,14 +1084,23 @@ msgid "Congratulations! You are about to finish the second world of The Euclid G
 "lines r and s satisfy the hypothesis `hrs: r ≠ s`. Then, try to look for a theorem statement which\n"
 "could be useful for this level. As you've well deduced, `equal_lines_of_contain_two_points`\n"
 "is the right path to choose. However, note that it states `A ≠ B` and `r = s` instead of `A = B`and\n"
-"`r ≠ s`, respectively. Because of this reason, the `by_contra` tactic has to join the party.\n"
-"\n"
-"Now, try to solve this level on your own in just three lines of code. [**Remember:** whenever you see\n"
-"a hypothesis of the form `h : P ≠ Q`, Lean can also understand it as `h : ¬ (P = Q)`, or `h : (P = Q) → false`.]"
+"`r ≠ s`, respectively. Because of this, the `by_contra` tactic has to join the party."
 msgstr ""
 
 #: Game.Levels.IncidenceWorld.level02
-msgid "Two distinct lines have at most one point in common."
+msgid "If points A and B are both in distinct lines r and s, then A = B."
+msgstr ""
+
+#: Game.Levels.IncidenceWorld.level02
+msgid "Try to start a proof by contradiction here, by using the `by_contra` tactic."
+msgstr ""
+
+#: Game.Levels.IncidenceWorld.level02
+msgid "Use the new assumption `«{hc}»` to prove that `r = s`."
+msgstr ""
+
+#: Game.Levels.IncidenceWorld.level02
+msgid "You have a contradiction now, the `tauto` tactic should do."
 msgstr ""
 
 #: Game.Levels.IncidenceWorld.level03
@@ -1101,7 +1139,7 @@ msgid "## Proving useful lemmas (I).\n"
 msgstr ""
 
 #: Game.Levels.IncidenceWorld.level04
-msgid "Given a line, there exists one point on that line."
+msgid "Every line contains a point."
 msgstr ""
 
 #: Game.Levels.IncidenceWorld.level05
@@ -1144,13 +1182,30 @@ msgid "If two lines are different, there is a point in one that is not in the ot
 msgstr ""
 
 #: Game.Levels.IncidenceWorld.level07
-msgid "Triangles"
+msgid "A useful rewrite"
 msgstr ""
 
 #: Game.Levels.IncidenceWorld.level07
-msgid "We end this world by proving the existence of triangles. We will also make use of convenient tactic,\n"
-"which is called `apply`. Suppose you are asked to prove a goal of the form `⊢ R` and you have a theorem statement called `h` which\n"
-"ensures that `h : P → Q → R`. Then, `apply h` will change your goal into proving `⊢ Q` and `⊢ P`.\n"
+msgid "In the Worlds to come it will be useful to have the following criterion for collinearity.\n"
+"Here you have some hints that could help you to step through it!\n"
+"\n"
+"**Hint 1:** Whenever you see the word `collinear`, the `rw` tactic will make progress.\n"
+"\n"
+"**Hint 2:** Whenever you find a goal or hypothesis of the form `∀ {X : Ω}, X ∈ {A, B, C} → X ∈ r`, the `simp` tactic will make progress.\n"
+"\n"
+"**Hint 3:** To solve the first goal, you may want to use the theorem statement `incidence` with the `rw` tactic."
+msgstr ""
+
+#: Game.Levels.IncidenceWorld.level07
+msgid "Given three distinct points, they are collinear if and only if the last one is in the line through the first two."
+msgstr ""
+
+#: Game.Levels.IncidenceWorld.level08
+msgid "Triangles"
+msgstr ""
+
+#: Game.Levels.IncidenceWorld.level08
+msgid "We end this world by proving the existence of triangles.\n"
 "\n"
 "To give you some hints, remember these Lean tips that might help you to step through the proof.\n"
 "\n"
@@ -1161,11 +1216,11 @@ msgid "We end this world by proving the existence of triangles. We will also mak
 "If needed, you can go back to the previous levels to remember how to use some tactics. Good luck! Let's do this!"
 msgstr ""
 
-#: Game.Levels.IncidenceWorld.level07
+#: Game.Levels.IncidenceWorld.level08
 msgid "There exist three lines that do not have a point in common."
 msgstr ""
 
-#: Game.Levels.IncidenceWorld.level07
+#: Game.Levels.IncidenceWorld.level08
 msgid "Great! Now you are ready to study a new set of axioms!"
 msgstr ""
 
@@ -1195,18 +1250,14 @@ msgid "In mathematics, we need to set down some starting points\n"
 "\n"
 "Let's then introduce the axioms of incidence:\n"
 "\n"
-"**A.1)** For every point $P$ and for every point $Q$ not equal to $P$, there exists a unique line $\\ell$\n"
+"A.1. For every point $P$ and for every point $Q$ not equal to $P$, there exists a unique line $\\ell$\n"
 "*passing through* (= incident with) $P$ and $Q$.\n"
 "\n"
-"![Axiom A.1](axiomA1.png *First  axiom of incidence*)\n"
+"A.2. For every line $\\ell$, there exist two distinct points that belong to it.\n"
 "\n"
-"**A.2)** For every line $\\ell$, there exist two distinct points that belong to it.\n"
 "\n"
-"![Axiom A.2](axiomA2.png &Second axiom of incidence*)\n"
+"A.3. There exist three distinct points with the property that no line *passes through* (= is incident with) all three of them.\n"
 "\n"
-"**A.3)** There exist three distinct points with the property that no line *passes through* (= is incident with) all three of them.\n"
-"\n"
-"![Axiom A.3](axiomA3.png *Third axiom of incidence*)\n"
 "\n"
 "The drawings above may help you understand (or remember) each of the axioms, but they\n"
 "have no meaning in mathematics. We will not be able to use them in our proofs!\n"
@@ -1435,56 +1486,37 @@ msgid "If the segment $PQ$ is on the same side of a line $\\ell$, then $P \\noti
 msgstr ""
 
 #: Game.Levels.PlaneSeparationWorld.level02
-msgid "A useful rewrite"
-msgstr ""
-
-#: Game.Levels.PlaneSeparationWorld.level02
-msgid "To solve the following levels it will be useful to have the following criterion for collinearity.\n"
-"Here you have some hints that could help you to step through it!\n"
-"\n"
-"**Hint 1:** Whenever you see the word `collinear`, the `rw` tactic will make progress.\n"
-"\n"
-"**Hint 2:** Whenever you find a goal or hypothesis of the form `∀ {X : Ω}, X ∈ {A, B, C} → X ∈ r`, the `simp` tactic will make progress.\n"
-"\n"
-"**Hint 3:** To solve the first goal, you may want to use the theorem statement `incidence` with the `rw` tactic."
-msgstr ""
-
-#: Game.Levels.PlaneSeparationWorld.level02
-msgid "Given three distinct points, they are on the same line if and only if they are collinear."
-msgstr ""
-
-#: Game.Levels.PlaneSeparationWorld.level03
 msgid "Reflexivity"
 msgstr ""
 
-#: Game.Levels.PlaneSeparationWorld.level03
+#: Game.Levels.PlaneSeparationWorld.level02
 msgid "In this (easy!) level we prove that a point outside a line is on the same side of the line as itself.\n"
 "It seems stupid, but needs to be proven nevertheless."
 msgstr ""
 
-#: Game.Levels.PlaneSeparationWorld.level03
+#: Game.Levels.PlaneSeparationWorld.level02
 msgid "A is at the same side as A of ℓ."
 msgstr ""
 
-#: Game.Levels.PlaneSeparationWorld.level04
+#: Game.Levels.PlaneSeparationWorld.level03
 msgid "Who is on the same side?"
 msgstr ""
 
-#: Game.Levels.PlaneSeparationWorld.level04
+#: Game.Levels.PlaneSeparationWorld.level03
 msgid "In this level we prove that being on the same side of a line is a symmetric concept. We only\n"
 "ask you to prove one implication, the double implication is done in the same way and it will\n"
 "be given to you for free in the Theorem list."
 msgstr ""
 
-#: Game.Levels.PlaneSeparationWorld.level04
+#: Game.Levels.PlaneSeparationWorld.level03
 msgid "A is at the same side as B of ℓ if and only if B is at the same side of A of ℓ."
 msgstr ""
 
-#: Game.Levels.PlaneSeparationWorld.level05
+#: Game.Levels.PlaneSeparationWorld.level04
 msgid "On the way to the final level (I)"
 msgstr ""
 
-#: Game.Levels.PlaneSeparationWorld.level05
+#: Game.Levels.PlaneSeparationWorld.level04
 msgid "Welcome to the last trip of The Euclid Game! This is the first of five lemmas that we need to prove before jumping into the final level of the game! You will be provided with\n"
 "their mathematical proof in paper so as to solve them with ease. Remember to read the lemma and do a drawing of the situation. Let's get started!\n"
 "\n"
@@ -1502,52 +1534,27 @@ msgid "Welcome to the last trip of The Euclid Game! This is the first of five le
 "If P = B, then `(P ∈ line_through B C) = (B ∈ line_through B C)`. By the first axiom of incidence (`line_through_left`), we prove that `B ∈ line_through B C`."
 msgstr ""
 
-#: Game.Levels.PlaneSeparationWorld.level05
+#: Game.Levels.PlaneSeparationWorld.level04
 msgid "Given three non-collinear points A, B and C, then A ≠ C."
 msgstr ""
 
-#: Game.Levels.PlaneSeparationWorld.level06
-msgid "On the way to the final level (II)"
-msgstr ""
-
-#: Game.Levels.PlaneSeparationWorld.level06
-msgid "This is the second of five lemmas that we need to prove before jumping into the final level of the game! You will be provided with\n"
-"its mathematical proof in paper right below. Remember that you can use all the theorem statements from the left-hand side box.\n"
-"\n"
-"## Mathematical proof in paper...\n"
-"\n"
-"**Claim:** Given three non-collinear points A, B and C, then B is not incident with the line through A and C.\n"
-"\n"
-"**Proof:**\n"
-"\n"
-"By the lemma `noncollinear_ne_points`, since A, B and C are non-collinear points, then `A ≠ C`.\n"
-"\n"
-"By the lemma `collinear_iff_on_line_through`, since `A ≠ C`, then it suffices to prove that the points A, C, B are not collinear.\n"
-"\n"
-"By the assumption of the lemma `hCol : ¬ collinear ({A, C, B} : set Ω))`, then we show that `B ∉ line_through A C`."
-msgstr ""
-
-#: Game.Levels.PlaneSeparationWorld.level06
-msgid "Given three non-collinear points A, B and C, then B is not incident with the line through A and C."
-msgstr ""
-
-#: Game.Levels.PlaneSeparationWorld.level07
+#: Game.Levels.PlaneSeparationWorld.level05
 msgid "On the way to the final level (IV)"
 msgstr ""
 
-#: Game.Levels.PlaneSeparationWorld.level07
+#: Game.Levels.PlaneSeparationWorld.level05
 msgid "This is the fourth and last lemma that we need to prove before jumping into the final level of the game!"
 msgstr ""
 
-#: Game.Levels.PlaneSeparationWorld.level07
+#: Game.Levels.PlaneSeparationWorld.level05
 msgid "If two points A and C are not on the same side of the line ℓ, there exists a point in the segment A·C which is incident with the line ℓ."
 msgstr ""
 
-#: Game.Levels.PlaneSeparationWorld.level08
+#: Game.Levels.PlaneSeparationWorld.level06
 msgid "The Pasch Axiom in action!"
 msgstr ""
 
-#: Game.Levels.PlaneSeparationWorld.level08
+#: Game.Levels.PlaneSeparationWorld.level06
 msgid "In this level we prove transitivity of the relation *being in the same side of $\\ell$*, provided that the three\n"
 "points involved are non-collinear. So suppose that we are given three non-collinear points $A$, $B$, $C$, and suppose\n"
 "that $A$ is on the same side of $\\ell$ as $B$, and $B$ is on the same side of $\\ell$ as $C$. We want to prove that $A$ is on\n"
@@ -1566,21 +1573,19 @@ msgid "In this level we prove transitivity of the relation *being in the same si
 "  (same_side ℓ A C ∧ ¬same_side ℓ C B) ∨ (¬same_side ℓ A C ∧ same_side ℓ C B)\n"
 "`\n"
 "\n"
-"![Proof sketch](trans_noncollinear_diagram.png 'Proof of transitivity, noncollinear case')\n"
-"\n"
 "Try to write the structure of this proof in *LEAN* and then fill in the sorries."
 msgstr ""
 
-#: Game.Levels.PlaneSeparationWorld.level08
+#: Game.Levels.PlaneSeparationWorld.level06
 msgid "Given three non-collinear points A, B, C and a line ℓ, if A and B are on the same side of\n"
 "ℓ and B and C are on the same side of ℓ, then A and C are on the same side of ℓ."
 msgstr ""
 
-#: Game.Levels.PlaneSeparationWorld.level09
+#: Game.Levels.PlaneSeparationWorld.level07
 msgid "Getting ready for the final level!"
 msgstr ""
 
-#: Game.Levels.PlaneSeparationWorld.level09
+#: Game.Levels.PlaneSeparationWorld.level07
 msgid "We are left with proving transitivity for collinear points. The trick in this case is to reduce to the known\n"
 "case by a quite slick argument. The key step lies in the lemma below: given two lines $m$ and $\\ell$, and a point\n"
 "$A$ on $m$ but not on $\\ell$, the goal is to find a new point $E$ which is not on $m$ and which is on the same side of $\\ell$\n"
@@ -1600,21 +1605,19 @@ msgid "We are left with proving transitivity for collinear points. The trick in 
 "1. Show that $A$ is on the same side as $E$:\n"
 "    - If the segment $AE$ did meet $\\ell$, the intersection point would be $D$.\n"
 "    - This would mean that $A * D * E$.\n"
-"    - Since we also have $D * A * E$, we would get a contradiction.\n"
-"\n"
-"![Proof sketch](trans_collinear_diagram.png 'Proof of transitivity, collinear case')"
+"    - Since we also have $D * A * E$, we would get a contradiction."
 msgstr ""
 
-#: Game.Levels.PlaneSeparationWorld.level09
+#: Game.Levels.PlaneSeparationWorld.level07
 msgid "Given lines $m$ and $\\ell$ and a point $A$ in $m$ and not in $\\ell$, there\n"
 "exists a point $E$ not in $m$ on the same side of $\\ell$ as $A$."
 msgstr ""
 
-#: Game.Levels.PlaneSeparationWorld.level10
+#: Game.Levels.PlaneSeparationWorld.level08
 msgid "The Final Level!"
 msgstr ""
 
-#: Game.Levels.PlaneSeparationWorld.level10
+#: Game.Levels.PlaneSeparationWorld.level08
 msgid "After all this hard work, we are left with the final task of assembling the bits and proving transitivity\n"
 "in the collinear case. We will prove this by applying up to three times the noncollinear case already proven.\n"
 "For this, we need the auxiliary point from the previous level. Here is a sketch of the proof.\n"
@@ -1626,14 +1629,48 @@ msgid "After all this hard work, we are left with the final task of assembling t
 "1. Show that the sets $\\{A, B, E\\}$, $\\{A, C, E\\}$ and $\\{B, C, E\\}$ are all non-collinear (they are all done similarly).\n"
 "1. Using symmetry, and transitivity for non-collinear points, show that $B$ is on the same side as $E$.\n"
 "1. Show, using the previous step and a similar argument, that $E$ is on the same side as  $C$.\n"
-"1. Finally, finish the proof using a third time transitivity for non-collinear points.\n"
-"\n"
-"![Proof sketch](trans_collinear_diagram.png 'Proof of transitivity, collinear case']"
+"1. Finally, finish the proof using a third time transitivity for non-collinear points."
 msgstr ""
 
-#: Game.Levels.PlaneSeparationWorld.level10
+#: Game.Levels.PlaneSeparationWorld.level08
 msgid "Given three collinear points A, B, C and a line ℓ, if A and B are on the same side of\n"
 "ℓ and B and C are on the same side of ℓ, then A and C are on the same side of ℓ."
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level08
+msgid "Prove first the degenerate cases: A = B, A = C, B = C"
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level08
+msgid "Define the line through A, C, B"
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level08
+msgid "Now invoke `auxiliary_point` to find a point not in «{m}» and on the same side as ℓ and «{A}»"
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level08
+msgid "Prove that A, B, «{E}» are not collinear"
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level08
+msgid "Prove that A, C, «{E}» are not collinear"
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level08
+msgid "Prove that B, C, «{E}» are not collinear"
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level08
+msgid "Prove that B and «{E}» are on the same side of ℓ"
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level08
+msgid "Prove that «{E}» and C are on the same side of ℓ"
+msgstr ""
+
+#: Game.Levels.PlaneSeparationWorld.level08
+msgid "Now we will be done in one line!"
 msgstr ""
 
 #: Game.Levels.PlaneSeparationWorld
@@ -1655,9 +1692,7 @@ msgid "# Plane Separation World\n"
 "\n"
 "`lemma pasch {A B C D : Ω} {ℓ : Line Ω} (hnc: C ∉ line_through A B)\n"
 "(hnAl: A ∉ ℓ) (hnBl: B ∉ ℓ) (hnCl: C ∉ ℓ) (hDl: D ∈ ℓ) (hADB: A * D * B) :\n"
-"(∃ E ,  E ∈ ℓ ∧ (A * E * C)) xor (∃ E, E ∈ ℓ ∧ (B * E * C))`\n"
-"\n"
-"![Axiom Pasch](pasch.png 'Pasch Axiom, the fourth axiom of betweenness')"
+"(∃ E ,  E ∈ ℓ ∧ (A * E * C)) xor (∃ E, E ∈ ℓ ∧ (B * E * C))`"
 msgstr ""
 
 #: Game
@@ -1665,14 +1700,48 @@ msgid "Hilbert Geometry Game"
 msgstr ""
 
 #: Game
-msgid "Welcome to the Hilbert Geometry Game! Select an unlocked level to get started!"
+msgid "# Welcome to the Hilbert Geometry game\n"
+"#### Learning axiomatic geometry through Lean.\n"
+"\n"
+"In this game, we visit some of the axioms proposed by Hilbert to describe\n"
+"the plane. At the end, we will prove the *Plane Separation Theorem*.\n"
+"\n"
+"All of this is done by solving levels of a computer puzzle game called Lean.\n"
+"\n"
+"# Read this.\n"
+"\n"
+"Learning how to use an interactive theorem prover takes time. To\n"
+"get the the most out of this game you need to read the help texts like this one.\n"
+"\n"
+"To start, click on \"Tutorial World\".\n"
+"\n"
+"## More\n"
+"\n"
+"Click on the three lines in the top right and select \"Game Info\" for resources,\n"
+"links, and ways to interact with the Lean community."
 msgstr ""
 
 #: Game
 msgid "Geometry Game. Based on Hilbert Game, and made for Argo Summer school (Univ. Autònoma de Barcelona) 2024.\n"
 "\n"
-"Author: Marc Masdeu\n"
-"Contributors: Carlos Caralps, Luis Castillo"
+"## Progress saving\n"
+"\n"
+"The game stores your progress in your local browser storage.\n"
+"If you delete it, your progress will be lost!\n"
+"\n"
+"Warning: In most browsers, deleting cookies will also clear the local storage\n"
+"(or \"local site data\"). Make sure to download your game progress first!\n"
+"\n"
+"## Credits\n"
+"\n"
+"* **Game Author:** Marc Masdeu\n"
+"* **Past Contributors:** Carlos Caralps, Luis Castillo\n"
+"* **Game Engine:** Alexander Bentkamp, Jon Eugster, Patrick Massot\n"
+"\n"
+"## Resources\n"
+"\n"
+"* The [Lean Zulip chat](https://leanprover.zulipchat.com/) forum\n"
+"* Github: [A Lean Intro to Logic](https://github.com/mmasdeu/geometry)"
 msgstr ""
 
 #: Game

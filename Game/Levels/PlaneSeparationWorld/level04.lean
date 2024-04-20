@@ -11,36 +11,37 @@ variable {ℓ r s t : Line Ω} --hide
 World "PlaneSeparationWorld"
 Level 4
 
-Title "Who is on the same side?"
+Title "On the way to the final level (I)"
 
 Introduction
 "
-In this level we prove that being on the same side of a line is a symmetric concept. We only
-ask you to prove one implication, the double implication is done in the same way and it will
-be given to you for free in the Theorem list.
+Welcome to the last trip of The Euclid Game! This is the first of five lemmas that we need to prove before jumping into the final level of the game! You will be provided with
+their mathematical proof in paper so as to solve them with ease. Remember to read the lemma and do a drawing of the situation. Let's get started!
+
+## Mathematical proof in paper...
+
+**Claim:** Given three non-collinear points A, B and C, then A ≠ C.
+
+**Proof:**
+
+Let us assume that `A ≠ C`. That is, `(A = C) → false`. Then, let us assume that `A = C`. Now, we want to prove that this is false.
+We know that A, B, C are non-collinear. That is, `collinear {A, C, B} → false`. Then, it suffices to prove that A, B, C are collinear points.
+Because `A = C`, then `collinear {A, C, B} = collinear {C, C, B}`. For this reason, there has to exist a line ℓ and a point P, such that `P ∈ {C, C, B} → P ∈ ℓ`.
+Let the line ℓ be the line through B and C. Then, `P ∈ line_through B C`. Because `P ∈ {C, C, B}`, then either P = C or P = B. If P = C, then
+`(P ∈ line_through B C) = (C ∈ line_through B C)`. By the first axiom of incidence (`line_through_right`), we prove that `C ∈ line_through B C`.
+If P = B, then `(P ∈ line_through B C) = (B ∈ line_through B C)`. By the first axiom of incidence (`line_through_left`), we prove that `B ∈ line_through B C`.
 "
 
 
+
 /--
-A is at the same side as B of ℓ if and only if B is at the same side of A of ℓ.
+Given three non-collinear points A, B and C, then A ≠ C.
 -/
-Statement : same_side ℓ A B → same_side ℓ B A:= by
+Statement neq_points_of_noncollinear (hCol : ¬ collinear A C B) : A ≠ C := by
   intro h
-  simp at h ⊢
-  simp [h]
-  intro x hx
-  rw [between_symmetric]
-  exact h.2.2 x hx
+  apply hCol
+  rw [h] at hCol ⊢
+  use line_through C B
+  simp [hCol]
 
-lemma same_side_symmetric' : same_side ℓ A B → same_side ℓ B A:= by
-  intro h
-  simp at h ⊢
-  simp [h]
-  intro x hx
-  rw [between_symmetric]
-  exact h.2.2 x hx
-
-theorem same_side_symmetric : same_side ℓ A B ↔ same_side ℓ B A
-:= ⟨same_side_symmetric', λ h ↦ same_side_symmetric' h⟩
-
-NewTheorem same_side_symmetric
+TheoremTab "PSep"

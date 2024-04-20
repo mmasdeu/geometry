@@ -5,7 +5,7 @@ World "TutorialWorld"
 Level 3
 
 Title "The `rw` (rewrite) tactic (II)"
-
+TheoremTab "∈"
 Introduction "
 ## The rewrite (`rw`) tactic (II).
 

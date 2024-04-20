@@ -32,3 +32,4 @@ There are no points between a point and itself.
 NewTheorem IncidencePlane.different_of_between_12
 IncidencePlane.different_of_between_13
 IncidencePlane.different_of_between_23
+TheoremTab "· * · * ·"

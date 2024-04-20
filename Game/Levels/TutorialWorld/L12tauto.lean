@@ -1,12 +1,12 @@
 import Game.Metadata
-import Game.Levels.TutorialWorld.L13simp
+import Game.Levels.TutorialWorld.L11rcases2or
 open IncidencePlane --hide
 
 World "TutorialWorld"
-Level 13
+Level 12
 
 Title "The `tauto` tactic"
-
+TheoremTab "∈"
 variable {Ω : Type} [IncidencePlane Ω] --hide
 
 
