@@ -12,7 +12,7 @@ Title "Ordering matters"
 Introduction
 "
 To solve this level, you will need to use two axioms of order.
-You will notice that he list of theorems has been expanded. Take a look at the new
+You will notice that the list of theorems has been expanded. Take a look at the new
 theorems and try to think of a mathematical proof in paper before typing your solution in Lean.
 "
 
