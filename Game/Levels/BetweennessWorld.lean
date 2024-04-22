@@ -51,3 +51,5 @@ The third axiom of order is a bit long to spell out in Lean:
 	  (¬ (A * B * C) ∧ ( B * A * C ) ∧ ¬ (A * C * B)) ∨
 	  (¬ (A * B * C) ∧ ¬ ( B * A * C ) ∧ (A * C * B))`
 "
+
+Image "images/between.png"

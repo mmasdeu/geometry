@@ -80,3 +80,5 @@ non-collinear, we say that the third point $R$ does not lie in the (unique) line
 
 Let's get started!
 "
+
+Image "images/incidenceAxioms.png"
