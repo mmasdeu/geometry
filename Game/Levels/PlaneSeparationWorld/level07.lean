@@ -22,7 +22,7 @@ case by a quite slick argument. The key step lies in the lemma below: given two 
 $A$ on $m$ but not on $\\ell$, the goal is to find a new point $E$ which is not on $m$ and which is on the same side of $\\ell$
 as $A$.
 
-Here is a sketch of the proof, most of which has been replicated already for you in **LEAN** code.
+Here is a sketch of the proof, most of which has been replicated already for you in **Lean** code.
 
 1. Prove first that $\\ell$ and $m$ are distinct.
 1. Let $D$ be a point on $\\ell$ not lying on $m$ (in particular, $D \\neq A$).
@@ -58,10 +58,9 @@ Statement auxiliary_point (hAm : A ∈ m) (hAs : A ∉ ℓ) :
   · intro hc
     rw [hc] at hDm
     tauto
-  have hE : ∃ E, D * A * E -- Prove that there is point E such that D * A * E
-  · apply point_on_ray hDA
-  rcases hE with ⟨E, hDAE⟩
-  use E -- This is the sought E, prove it!
+  set E := point_on_ray D A -- Consider the point on the ray DA
+  use E
+  have hDAE : D * A * E := point_on_ray_prop hDA
   constructor
   -- Prove that E ∉ m
   · intro hEm

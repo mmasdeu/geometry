@@ -84,7 +84,8 @@ class IncidencePlane (Point : Type*) where
     ∃ (ℓ : Line), A ∈ ℓ ∧ B ∈ ℓ ∧ C ∈ ℓ)
 
   /-- Given two distinct points A, B, there is a third point C such that A * B * C.-/
-  (point_on_ray {A B : Point} (h: A ≠ B) : ∃ C, A * B * C)
+  (point_on_ray : Point → Point → Point)
+  (point_on_ray_prop {A B : Point} : A ≠ B → A * B * (point_on_ray A B))
 
   /-- Given 3 distinct collinear points A B C, exactly one of them is between the other two.-/
   (between_of_collinear {A B C : Point} (h: ∃ (ℓ : Line), A ∈ ℓ ∧ B ∈ ℓ ∧ C ∈ ℓ) :
@@ -92,11 +93,8 @@ class IncidencePlane (Point : Type*) where
   (¬ (A * B * C) ∧ ( B * A * C ) ∧ ¬ (A * C * B)) ∨
   (¬ (A * B * C) ∧ ¬ ( B * A * C ) ∧ (A * C * B)))
 
-  /-- Pasch -/
-  (pasch' {A B C D : Point} {ℓ : Line}
-  (hnc: ¬ C ∈ line_through A B)
-  (hnAl: ¬ (A ∈ ℓ)) (hnBl: ¬ B ∈ ℓ) (hnCl: ¬ C ∈ ℓ)
-  (hDl: D ∈ ℓ) (hADB: A * D * B) :
+  (pasch' {A B C : Point} {ℓ : Line} (hnc : C ∉ line_through A B)
+  (hnAl : A ∉ ℓ) (hnBl : B ∉ ℓ) (hnCl : C ∉ ℓ) (hAB : ∃ D ∈ ℓ, A * D *B) :
   (∃ (E : Point) , E ∈ ℓ ∧ (A * E * C)) xor (∃ (E : Point) , E ∈ ℓ ∧ (B * E * C)))
 
 
@@ -112,8 +110,6 @@ variable {Ω Point : Type*} [IncidencePlane Ω] [IncidencePlane Point]
 -- From here on, we can use the symbol `∈` for Lines
 instance : SSet (Line Ω) Ω := ⟨belongs.mem⟩
 
-
-
 lemma existence (Ω : Type*) [IncidencePlane Ω] :  ∃ P Q R : Ω, P ≠ Q ∧ P ≠ R ∧ Q ≠ R ∧ ¬ R ∈ (line_through P Q) := existence'
 
 attribute [simp] line_through_left
@@ -126,6 +122,7 @@ lemma different_of_between''
 @[simp]
 lemma different_of_between'''
 {A B : Ω} : (A * B * B) ↔ false := ⟨λ h ↦ ((different_of_between_23 h) (rfl)).elim, by tauto⟩
+
 
 /--
 A set of points is collinear if they all lie on some line
@@ -153,15 +150,22 @@ constructor
 · exact collinear_of_equal' (h := Eq.symm h)
 
 
-/--
-Two points P and Q lie on the same side of a line ℓ if the segment P⬝Q doesn't intersect ℓ
--/
 @[simp]
 def same_side (ℓ : Line Ω) (P Q : Ω) :=  P ∉ ℓ ∧ Q ∉ ℓ ∧ (∀ x ∈ ℓ,  ¬ (P * x * Q))
 
-lemma pasch {A B C D : Ω} {ℓ : Line Ω}
-  (hnc: ¬ C ∈ line_through A B)
-  (hnAl: ¬ (A ∈ ℓ)) (hnBl: ¬ B ∈ ℓ) (hnCl: ¬ C ∈ ℓ)
-  (hDl: D ∈ ℓ) (hADB: A * D * B) :
-  same_side ℓ A C xor same_side ℓ C B := sorry
+lemma exists_point_on_ray {A B : Point} (h: A ≠ B) : ∃ C, A * B * C := ⟨point_on_ray A B, point_on_ray_prop h⟩
+
+/-- Pasch -/
+lemma pasch {A B C : Ω} {ℓ : Line Ω} (hnc : C ∉ line_through A B)
+  (hnAl : A ∉ ℓ) (hnBl : B ∉ ℓ) (hnCl : C ∉ ℓ) (hAB : ¬ same_side ℓ A B) :
+  (same_side ℓ A C ∧ ¬same_side ℓ C B) ∨ (¬same_side ℓ A C ∧ same_side ℓ C B) := by
+  simp [*] at hAB
+  simp [*]
+  have H := pasch' hnc hnAl hnBl hnCl hAB
+  push_neg at H
+  simp_rw [between_symmetric]
+  rcases H with H | H
+  · tauto
+  · left;tauto
+
 end IncidencePlane

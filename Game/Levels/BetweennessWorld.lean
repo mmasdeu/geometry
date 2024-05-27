@@ -42,7 +42,8 @@ The first axiom of order is divided into three statements:
 
 The second axiom of order is represented as follows:
 
-* `point_on_ray {A B : Ω} (h: A ≠ B) : ∃ (C : Ω), A * B * C`
+* `point_on_ray (A B : Ω) : C : Ω
+* `point_on_ray_prop {A B : Ω} (h: A ≠ B) : A * B * (point_on_ray A B)`
 
 The third axiom of order is a bit long to spell out in Lean:
 

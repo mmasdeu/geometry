@@ -31,8 +31,8 @@ the same side of $\\ell$ as $C. Here is a sketch of the proof.
 This is the first time that we will use Pasch's axiom. Remember what it says:
 
 `
-pasch {A B C D : Ω} {ℓ : Line Ω} (hnc : C ∉ line_through A B)
-(hnAl : A ∉ ℓ) (hnBl : B ∉ ℓ) (hnCl : C ∉ ℓ) (hDl : D ∈ ℓ) (hADB : A*D*B) :
+pasch {A B C : Ω} {ℓ : Line Ω} (hnc : C ∉ line_through A B)
+(hnAl : A ∉ ℓ) (hnBl : B ∉ ℓ) (hnCl : C ∉ ℓ) (hAB : ¬ same_side ℓ A B) :
   (same_side ℓ A C ∧ ¬same_side ℓ C B) ∨ (¬same_side ℓ A C ∧ same_side ℓ C B)
 `
 
@@ -40,6 +40,7 @@ Try to write the structure of this proof in *LEAN* and then fill in the sorries.
 "
 
 Image "images/trans_noncollinear_diagram.png"
+
 /--
 Given three non-collinear points A, B, C and a line ℓ, if A and B are on the same side of
 ℓ and B and C are on the same side of ℓ, then A and C are on the same side of ℓ.
@@ -61,7 +62,7 @@ Statement same_side_trans_of_noncollinear (hCol : ¬ collinear A C B):
     tauto
   · rw [hD1] at hD2
     tauto
-  · have H := pasch hB hAℓ hCℓ hBℓ hD2 hD1
+  · have H := pasch hB hAℓ hCℓ hBℓ hc
     rcases H with H | H
     · tauto
     · tauto

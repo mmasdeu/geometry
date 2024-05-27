@@ -11,10 +11,10 @@ Introduction "
 The next tactic in our list is `rw` (from rewrite). Rewriting is one of the most basic methods of proof,
 where we 'substitute' one object that we know that is equal to another.
 
-For example, if `h : A = B` is a hypothesis (i.e., a proof of `A = B`) in your local context (the box in the top right)
-and if your goal contains one or more `A`s, then `rw h` will change them all to `B`'s.
+For example, if `h : A = B` is a hypothesis (i.e., a proof of `A = B`) in your local context
+and if your goal contains one or more `A`s, then `rw [h]` will change them all to `B`'s.
 
-Now, take a look in the top right box at what we have. The variables `A`, `B` and `C` are
+Now, look at the local context: the variables `A`, `B` and `C` are
 points that lie in the plane `Ω`. Here we have to prove that if the point $A$ is equal to the point $B$,
 and the point $B$ is equal to the point $C$, then the point $A$ is equal to the point $C$.
 
@@ -37,7 +37,7 @@ Conclusion
 "
 # Exploring your proof
 
-Click on `rw [h1]`, and then use the arrow keys to move your cursor around the proof.
+If you are in 'Editor mode', click on the line `rw [h1]`, and then use the arrow keys to move your cursor around the proof.
 Go up and down and note that the goal changes -- indeed you can inspect Lean's 'state' at
 each line of the proof (the hypotheses, and the goal). Try to figure out the exact place
 where the goal changes.

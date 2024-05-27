@@ -8,15 +8,17 @@ Title "Using theorems"
 TheoremTab "∈"
 Introduction
 "
-You will see that two new theorems have been added to the *Theorems* list:
+You will see that two new axioms have been added to the *Axioms* list:
 
 * line_through_left (P Q : Ω) : P ∈ (line_through P Q)
 
 * line_through_right (P Q : Ω) : Q ∈ (line_through P Q)
 
 **Note the name of the two statements**. Mathematicians sometimes call them 'Lemma 2.1' or 'Hypothesis P6' or something. But
-computer scientists call them `line_through_left` and `line_through_right` because they are easier to use and remember. From now on,
-all the statements that appear on this list will be remembered by the computer. In this way, we won't have to provide their proofs again.
+computer scientists call them `line_through_left` and `line_through_right` because they are easier to use and remember.
+From now on,
+all the statements that appear on this list will be remembered by the computer.
+In this way, we won't have to provide their proofs again.
 Instead, we will use them straightforwardly in case they are handy for solving the following levels.
 
 Just after the name of the statements, two parentheses appear. Inside them, there are the exact number of variables that are needed to
@@ -30,7 +32,7 @@ the statement `line_through_right (P Q : Point) : Q ∈ (line_through P Q)`.
 Then, we just have to write that statement in a different way!
 Do you remember that the `apply`
 tactic solved the goal by using a hypothesis of the same structure? Then, because the computer already knows what
-`line_through_right (P Q : Point) : Q ∈ (line_through P Q)` means, why don't we type `apply line_through_right A B`?
+`line_through_right (P Q : Point) : Q ∈ line_through P Q` means, why don't we type `apply line_through_right A B`?
 Type that and see
 how it finishes the proof!
 "

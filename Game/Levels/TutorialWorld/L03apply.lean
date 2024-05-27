@@ -16,9 +16,6 @@ one of the hypotheses
 or a known theorem.
 For example, if the finishing goal is ⊢ `A = B` and we have the hypothesis `h : ℓ = r → A = B`, then `apply h`
 will leave you to proving `⊢ ℓ = r`. If there are no leftover proofs, then it will solve the level.
-
-This level is a new variant of the the previous one, but we will solve it in a different way. As you can imagine,
-mathematical proofs can be solved in many differents ways, which is something that definitely makes this field special.
 "
 
 open Set IncidencePlane --hide
@@ -26,11 +23,12 @@ open Set IncidencePlane --hide
 variable {Ω : Type} [IncidencePlane Ω] --hide
 
 /--
-If A, B and C are points with A = B and B = C, then A = C.
+A lemma involving lines and points.
 -/
-Statement (A B C: Ω) (h1 : A = B) (h2 : B = C) : A = C := by
+Statement (A B C: Ω) (r s : Line Ω) (h : r = s) (h1 : A = B) (h3 : r = s → B = C) : A = C := by
   rw [h1]
-  apply h2
+  apply h3
+  assumption
 
 Conclusion
 "Great!"

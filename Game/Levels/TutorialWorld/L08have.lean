@@ -55,6 +55,6 @@ Statement (hAB : A ≠ B) (r s : (Line Ω)) (hAr : A ∈ r) (hAs : A ∈ s)
   Hint "You can now complete the level with two `rw`'s (which you can do in one line, of course)."
   rw [h, h']
 
-NewTactic «have»
+NewTactic «have» set
 
 Conclusion "Great! Now on to learning more tactics..."

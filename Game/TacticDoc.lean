@@ -235,7 +235,7 @@ TacticDoc use
 
 /--
 ## Summary
-`have h : P,` will create a new goal of creating a term of type `P`, and will add `h : P` to the hypotheses for the goal you were working on.
+`have h : P` will create a new goal of creating a term of type `P`, and will add `h : P` to the hypotheses for the goal you were working on.
 
 ## Details
 If you want to name a term of some type (because you want it in your local context for some reason), and if you have the formula for the term, you can use have to give the term a name.
@@ -263,23 +263,60 @@ A variant of this tactic can be used where you just declare the type of the term
 For example if the local context is
 
 ```
-P Q R : Prop/Type,
-f : P → Q,
-g : Q → R,
+P Q R : Prop/Type
+f : P → Q
+g : Q → R
 p : P
 ⊢ R
 ```
 then after `have q : Q`, there will be the new goal
 
 ```
-f : P → Q,
-g : Q → R,
-p : P,
+f : P → Q
+g : Q → R
+p : P
 ⊢ Q
 ```
 and your original goal will have `q : Q` added to the list of hypotheses.
 -/
 TacticDoc «have»
+
+
+/--
+## Summary
+`set a := some_complicated_expression` will create a new variable called `a`, which will be equal
+to whatever expression you want.
+
+## Details
+If you want to name a term of some type (because you want it in your local context for some reason), and if you have the formula for the term, you can use have to give the term a name.
+
+## Example (set q := ... or set q : Q := ...)
+If your local context contains
+```
+a : ℕ
+b : ℕ
+
+⊢ a * b + 3 > 5
+```
+then using `set c := a * b + 3` will give you
+```
+a : ℕ
+b : ℕ
+c := a * b + 3 : ℕ
+
+⊢ c > 5
+```
+which looks simpler. If instead you used `set c:= a * b + 3 with hc`, then you get an extra
+hypothesis `hc` that can be used for rewriting:
+```
+a : ℕ
+b : ℕ
+c := a * b + 3 : ℕ
+hc : c = a * b + 3
+⊢ c > 5
+```
+-/
+TacticDoc set
 
 /--
 ## Summary

@@ -48,17 +48,17 @@ DefinitionDoc IncidencePlane.collinear as "collinear A B C"
 /--
 The line through `A` and `B` contains `A`
 -/
-TheoremDoc IncidencePlane.line_through_left as "line_through_left" in "∈"
+TheoremDoc IncidencePlane.line_through_left as "line_through_left" in "Axioms"
 
 /--
 The line through `A` and `B` contains `B`
 -/
-TheoremDoc IncidencePlane.line_through_right as "line_through_right" in "∈"
+TheoremDoc IncidencePlane.line_through_right as "line_through_right" in "Axioms"
 
 /--
 If two distinct points `P` and `Q` are on the line `ℓ`, then `ℓ = line_trhough P Q`
 -/
-TheoremDoc IncidencePlane.incidence as "incidence" in "∈"
+TheoremDoc IncidencePlane.incidence as "incidence" in "Axioms"
 
 /--
 If two lines contain two different points, then they are equal
@@ -78,7 +78,7 @@ TheoremDoc equal_points_of_in_two_lines as "equal_points_of_in_two_lines" in "�
 /--
 There exists three distinct non-collinear points
 -/
-TheoremDoc IncidencePlane.existence as "existence" in "∈"
+TheoremDoc IncidencePlane.existence as "existence" in "Axioms"
 
 /--
 One can show that two lines are different if there is a point in one of them and not in the other
@@ -98,34 +98,34 @@ TheoremDoc three_distinct_lines as "three_distinct_lines" in "∈"
 /--
 Every line contains at least two points
 -/
-TheoremDoc IncidencePlane.line_contains_two_points as "line_contains_two_points" in "∈"
+TheoremDoc IncidencePlane.line_contains_two_points as "line_contains_two_points" in "Axioms"
 
 
 /--
 (A * B * C) ↔ (C * B * A)
 -/
-TheoremDoc IncidencePlane.between_symmetric as "between_symmetric" in "· * · * ·"
+TheoremDoc IncidencePlane.between_symmetric as "between_symmetric" in "Axioms"
 
 
 /--
 (A * B * C) → A ≠ B
 -/
-TheoremDoc IncidencePlane.different_of_between_12 as "different_of_between_12" in "· * · * ·"
+TheoremDoc IncidencePlane.different_of_between_12 as "different_of_between_12" in "Axioms"
 
 /--
 (A * B * C) → A ≠ C
 -/
-TheoremDoc IncidencePlane.different_of_between_13 as "different_of_between_13" in "· * · * ·"
+TheoremDoc IncidencePlane.different_of_between_13 as "different_of_between_13" in "Axioms"
 
 /--
 (A * B * C) → B ≠ C
 -/
-TheoremDoc IncidencePlane.different_of_between_23 as "different_of_between_23" in "· * · * ·"
+TheoremDoc IncidencePlane.different_of_between_23 as "different_of_between_23" in "Axioms"
 
 /--
 (A * B * C) → ∃ ℓ, A ∈ ℓ ∧ B ∈ ℓ ∧ C ∈ ℓ
 -/
-TheoremDoc IncidencePlane.collinear_of_between as "collinear_of_between" in "· * · * ·"
+TheoremDoc IncidencePlane.collinear_of_between as "collinear_of_between" in "Axioms"
 
 /--
 If A B C D E F are any six points such that the set {A, B, C} = {D, E, F},
@@ -134,9 +134,14 @@ then A, B, C are collinear if and only if D, E, F are.
 TheoremDoc IncidencePlane.collinear_of_equal as "collinear_of_equal" in "∈"
 
 /--
-A ≠ B → ∃ C, A * B * C
+A ≠ B → A * B * (point_on_ray A B)
 -/
-TheoremDoc IncidencePlane.point_on_ray as "point_on_ray" in "· * · * ·"
+TheoremDoc IncidencePlane.point_on_ray_prop as "point_on_ray_prop" in "Axioms"
+
+/--
+Given A and B, it returns a point C in the ray AB.
+-/
+DefinitionDoc IncidencePlane.point_on_ray as "point_on_ray"
 
 /--
 ((A * B * C) ∧ ¬ ( B * A * C ) ∧ ¬ (A * C * B)) ∨
@@ -146,13 +151,15 @@ TheoremDoc IncidencePlane.point_on_ray as "point_on_ray" in "· * · * ·"
 TheoremDoc IncidencePlane.between_of_collinear as "between_of_collinear" in "· * · * ·"
 
 /--
-  Given three non-collinear points A B C and a line ℓ not containing any of them, suppose there
-  is a point D ∈ ℓ between A and B. Then there is a point in ℓ between A and C or between B and C.
+  Given three non-collinear points A B C and a line ℓ not containing any of them, suppose
+  that A and B are not on the same side of ℓ. There exactly one of the following happens:
+  · A and C are not on the same side of ℓ, or
+  · B and C are not on the same side of ℓ.
 -/
 TheoremDoc IncidencePlane.pasch as "pasch" in "PSep"
 
 /--
-Given three distinct collinear points A, B and C, if B lies between A and C, then A does not lie between B and C.
+Given three distinct collinear points A, B, C; if B lies between A and C, then A does not lie between B and C.
 -/
 TheoremDoc not_between_of_between as "not_between_of_between" in "· * · * ·"
 

@@ -49,7 +49,7 @@ have no meaning in mathematics. We will not be able to use them in our proofs!
 
 ## The axioms of incidence in Lean.
 
-How do we make the computer understand such complex statements? We use the **LEAN** language! However,
+How do we make the computer understand such complex statements? We use the **Lean** language! However,
 it is easier to divide some of them into more than one statements. In this case, we have
 the following four axioms:
 
@@ -69,7 +69,7 @@ line $\\ell$ is so that $P$ and $Q$ are both in $\\ell$, then this line $\\ell$ 
 
 * `incidence {P Q : Ω} {ℓ : Line Ω} : P ≠ Q → P ∈ ℓ → Q ∈ ℓ → ℓ = line_through P Q`
 
-The second axiom of incidence is quite straightforward in **LEAN**:
+The second axiom of incidence is quite straightforward in **Lean**:
 
 * `line_contains_two_points (ℓ : Line Ω) : ∃ P Q : Ω, P ≠ Q ∧ ℓ = line_through P Q`
 
