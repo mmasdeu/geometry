@@ -25,7 +25,7 @@ several lines of code with the `intro` tactic, you can put them all together. Th
 that you want to create more than one hypothesis at the same time. For example, if you type `intro h1 h2 h3 h4,`, four
 new hypotheses will be added to your local context. Once you've added all the possible hypotheses to it, try to compare
 the goal with the `incidence` statement. Did you notice that we can `rewrite` that statement? Because we have the first
-three **hypotheses** of the statement, we can change the line `r` into `line_through A B`! Type `rw incidence h1 h2 h4` and
+three **hypotheses** of the statement, we can change the line `r` into `line_through A B`! Type `rw [incidence h1 h2 h4]` and
 see how the goal changes. To close the goal, try to apply the same argument to the line `s`.
 "
 

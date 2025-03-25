@@ -22,7 +22,7 @@ prove the goal that existed before using the tactic `have` with the support of t
 
 **Pro tip:** Because you're getting better at this, proofs are going to be more challenging. Whenever you see that you have to prove two
 or more goals to finish one level, you may want to use *bullet points* to isolate them. You type them with `\\·`, or if you are lucky to have a Catalan keyboard
-then you can directly enter it (middle dot, press `Shift+3`). After each of these bullet points, you will only see one goal.
+then you can directly enter it (middle dot, press `Shift+3`). Inside each of the blocks delimited by bullet points you will only see one goal.
 
 For example, the first line of this proof will be `have hr : r = line_through B C` (you can change `hr` into whatever name you are comfortable with to
 make reference to the hypothesis `r = line_through B C`). Now, because two goals have appeared, you can type the following structure:

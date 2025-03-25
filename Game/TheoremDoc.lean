@@ -56,7 +56,7 @@ The line through `A` and `B` contains `B`
 TheoremDoc IncidencePlane.line_through_right as "line_through_right" in "Axioms"
 
 /--
-If two distinct points `P` and `Q` are on the line `ℓ`, then `ℓ = line_trhough P Q`
+If two distinct points `P` and `Q` are on the line `ℓ`, then `ℓ = line_through P Q`
 -/
 TheoremDoc IncidencePlane.incidence as "incidence" in "Axioms"
 
