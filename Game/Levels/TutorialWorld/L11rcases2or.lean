@@ -14,17 +14,17 @@ Introduction
 "
 # Advanced Tutorial World
 
-## The `cases` tactic (II).
+## The `rcases` tactic (II)
 
-Suppose now that your hypothesis says that `P` or `Q` holds. That is, you have `h : P ∨ Q`. Then `cases h` will create
-two new goals, and in each of them it will replace `h` with `h : P` in the first case, and with `h : Q` in the second.
+Now suppose your hypothesis says that `P` or `Q` holds, that is, `h : P ∨ Q`. Then `rcases h` (same tactic as before, now applied to an *or* instead of an *and*) creates
+two goals. In the first, `h` is replaced with `h : P`, and in the second with `h : Q`.
 
-To solve this level, you may need to remember how to employ the `use` tactic. As a reminder, note that if the goal is of
-the form `⊢ ∃ (R : Ω), R ∈ ℓ`, then you can type `use X`, where `X` is any object that satisfies $X \\in R$ , so that it
-turns the goal into `⊢ X ∈ ℓ`. The object you are looking for either is found in the *Theorems* section or in the hypotheses
-right above the goal of this level.
-[**Reminder:** if the goal breaks into two goals, remember that you can use `·` to make
-the look of the proof more visual.]
+You may need to remember how `use` works. If the goal is
+`⊢ ∃ (R : Ω), R ∈ ℓ`, then `use X` (where `X` is some point that you know lies on ℓ) turns
+the goal into `⊢ X ∈ ℓ`. The point you need is either in the *Theorems* section or among the hypotheses
+above the goal.
+[**Reminder:** when the goal splits in two, handle each one on its own line starting with `·`
+(typed `\\.`), like `· use P` and then `· use Q`.]
 "
 
 /--

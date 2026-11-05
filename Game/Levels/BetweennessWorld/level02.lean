@@ -12,9 +12,10 @@ Title "Don't try to break a point into two..."
 
 Introduction
 "
-In this level, we are asked to show that points cannot be splitted.
-You may want to use the first axiom of order `different_of_between_??`,
-there are three variations you can use which you can find in the list of *Theorems*.
+Here we show that you can't squeeze a point between itself and itself. (Sorry, no point-splitting!)
+The first axiom of order will help: `different_of_between_??`.
+There are three variations in the *Theorems* list, and the numbers tell you which two of the three
+points are different: `different_of_between_13` says that the first and third points of `A * B * C` are different.
 "
 
 variable {Ω : Type} [IncidencePlane Ω] --hide

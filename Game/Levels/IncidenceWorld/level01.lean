@@ -12,12 +12,14 @@ variable {Ω : Type} [IncidencePlane Ω] --hide
 
 Introduction
 "
-In this level, we introduce the `by_cases` tactic. Mathematicians would use it to provide a *proof by cases*.
-This is useful when we need to split a proof into different cases.
+Time for the `by_cases` tactic, which is how you do a *proof by cases* in Lean. It's handy whenever
+a proof splits naturally into different cases.
 
-In the proof below there is a `degenerate` case that we have to consider, which is the possibility
-that `P = Q`. In If we type `by_cases h : P = Q` we will split the goal into two branches: the first one
-will have the assumption `h : P = Q` in the context, while in the second we will have `h : P ≠ Q`.
+Here there's a `degenerate` case to worry about: what if `P = Q`? If you type `by_cases h : P = Q`, the goal splits
+in two branches. The first one has `h : P = Q` in the context, and the second one has `h : P ≠ Q`.
+
+In the second case you'll need the theorem `incidence` (see the *Theorems* tab): it says that if two distinct
+points `P`, `Q` lie on a line `ℓ`, then `ℓ = line_through P Q`. Use it with `rw`.
 "
 
 variable {Ω : Type} [IncidencePlane Ω] -- hide

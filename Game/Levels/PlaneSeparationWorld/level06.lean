@@ -18,17 +18,22 @@ open scoped Classical
 
 Introduction
 "
-In this level we prove transitivity of the relation *being in the same side of $\\ell$*, provided that the three
-points involved are non-collinear. So suppose that we are given three non-collinear points $A$, $B$, $C$, and suppose
-that $A$ is on the same side of $\\ell$ as $B$, and $B$ is on the same side of $\\ell$ as $C$. We want to prove that $A$ is on
-the same side of $\\ell$ as $C. Here is a sketch of the proof.
+Time to use Pasch for real! We'll prove that *being on the same side of $\\ell$* is transitive, as long as the three
+points are non-collinear. So take non-collinear points $A$, $B$, $C$, with $A$ on the same side of $\\ell$ as $B$, and
+$B$ on the same side as $C$. We want $A$ on the same side as $C$. Here's the plan.
 
-1. We argue by contradiction, so assume that the line $AC$ does meet $\\ell$.
-2. Let $D \\in \\ell$ be the point of intersection, so $A * D * C$.
-3. Use Pasch to prove that either $\\ell$ either meets the segment $AB$ or $BC$, thus
-  obtaining a contradiction.
+1. Argue by contradiction: assume the segment $AC$ does meet $\\ell$.
+2. Let $D \\in \\ell$ be the meeting point, so $A * D * C$.
+3. Use Pasch to show that $\\ell$ meets the segment $AB$ or $BC$. That contradicts our hypotheses.
 
-This is the first time that we will use Pasch's axiom. Remember what it says:
+```
+      B
+     / \\
+    /   \\      ℓ goes through D
+   A--D--C     (and must exit via AB or BC)
+```
+
+This is the first time we use Pasch's axiom. Here's what it says:
 
 `
 pasch {A B C : Ω} {ℓ : Line Ω} (hnc : C ∉ line_through A B)
@@ -36,7 +41,11 @@ pasch {A B C : Ω} {ℓ : Line Ω} (hnc : C ∉ line_through A B)
   (same_side ℓ A C ∧ ¬same_side ℓ C B) ∨ (¬same_side ℓ A C ∧ same_side ℓ C B)
 `
 
-Try to write the structure of this proof in *LEAN* and then fill in the sorries.
+Note that `pasch` takes its three points as implicit arguments: Lean figures them out from the hypotheses you give it, so
+the order of the hypotheses matters. Also, once you've reached a contradiction in a branch, `tauto` can
+finish the job: it hunts for a contradiction among your hypotheses.
+
+Try to write the skeleton of this proof in Lean, then fill in the sorries.
 "
 
 Image "images/trans_noncollinear_diagram.png"

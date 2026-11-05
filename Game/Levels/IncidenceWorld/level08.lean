@@ -1,5 +1,5 @@
 import Game.Metadata
-import Game.Levels.IncidenceWorld.level06
+import Game.Levels.IncidenceWorld.level07
 
 open IncidencePlane --hide
 
@@ -12,15 +12,27 @@ Title "Triangles"
 
 Introduction
 "
-We end this world by proving the existence of triangles.
+We finish this world by proving that triangles exist. Almost there!
 
-To give you some hints, remember these Lean tips that might help you to step through the proof.
+Some Lean tips to help you along:
 
-**Tip 1:** whenever a hypothesis looks like `h : P ∧ Q`, we can refer to `P` and `Q` as `h.1` and `h.2`, respectively.
+**Tip 1:** Whenever a hypothesis looks like `h : P ∧ Q`, you can refer to `P` and `Q` as `h.1` and `h.2`, respectively.
 
-**Tip 2:** whenever you have a goal of the form `⊢ ∀ (P : Ω), ...`, the `intro` tactic will make progress.
+**Tip 2:** Whenever your goal looks like `⊢ ∀ (P : Ω), ...`, the `intro` tactic will make progress.
 
-If needed, you can go back to the previous levels to remember how to use some tactics. Good luck! Let's do this!
+**Strategy:** Take non-collinear points `A, B, C` and the three lines `AC`, `BC`, `AB`. A point `P` on all three would have to be `C`
+(the only common point of `AC` and `BC`), but `C` is not on `AB`. For this you first need `line_through A C ≠ line_through B C`;
+the theorem `ne_line_of_not_share_point` helps to prove that, and `equal_points_of_in_two_lines` (see the *Theorems* tab)
+says two different lines share at most one point.
+
+```
+      C
+     / \\
+    /   \\       the three lines AC, BC, AB
+   A-----B      have no common point
+```
+
+If you get stuck, go back to the previous levels to remember how the tactics work. Good luck, let's do this!
 "
 
 variable {Ω : Type} [IncidencePlane Ω] --hide
@@ -49,9 +61,8 @@ Statement three_distinct_lines : ∃ (r s t: Line Ω), (∀ (P : Ω),
   assumption
 
 
--- NewTheorem three_distinct_lines
+NewTheorem three_distinct_lines
 
-NewTactic apply
 
-Conclusion "Great! Now you are ready to study a new set of axioms!"
+Conclusion "Great job! You're now ready to study a new set of axioms!"
 TheoremTab "∈"

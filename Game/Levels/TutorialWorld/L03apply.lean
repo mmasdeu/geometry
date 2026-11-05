@@ -7,15 +7,12 @@ Title "The `apply` tactic"
 TheoremTab "∈"
 Introduction
 "
-# Tutorial World
+## The `apply` tactic
 
-## The `apply` tactic.
-
-In this level, we learn the `apply` tactic, which solves a goal that coincides with the conclusion of
-one of the hypotheses
-or a known theorem.
-For example, if the finishing goal is ⊢ `A = B` and we have the hypothesis `h : ℓ = r → A = B`, then `apply h`
-will leave you to proving `⊢ ℓ = r`. If there are no leftover proofs, then it will solve the level.
+Now for `apply`. It works when your goal matches the conclusion of a hypothesis
+or of a known theorem.
+For example, if your goal is `⊢ A = B` and you have `h : ℓ = r → A = B`, then `apply h`
+leaves you with the goal `⊢ ℓ = r`. If nothing is left to prove, the level is solved.
 "
 
 open Set IncidencePlane --hide

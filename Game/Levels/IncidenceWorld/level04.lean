@@ -12,9 +12,10 @@ Title "Lines are thin"
 
 Introduction
 "
-## Proving useful lemmas (I).
+## Proving useful lemmas (I)
 
-To solve this level, you will need to use the second axiom of incidence.
+For this one you'll need the second axiom of incidence, `line_contains_two_points` (see the *Theorems* tab).
+It says that every line is the line through two distinct points.
 "
 
 variable {Ω : Type} [IncidencePlane Ω] --hide

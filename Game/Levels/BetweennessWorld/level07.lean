@@ -12,18 +12,22 @@ Title "The `point_on_ray` axiom"
 
 Introduction
 "
-In this level we will practice using another axiom of Betweenness, namely the `point_on_ray A B`. This is
-supposed to be a point C such that A * B * C, but its the axiom that asserts this is called `point_on_ray_prop h`,
-where `h` is a proof of the fact that A ≠ B.
-You will have
-to apply it twice to get the two points sought in this level.
+Let's practice with one more axiom: `point_on_ray A B` is a point `C` with `A * B * C`.
+The fact that it really works is called `point_on_ray_prop h`, where `h` is a proof that `A ≠ B`.
+
+You'll use it twice: first with `A ≠ B` to get `C`, then with `B ≠ C`
+(which follows from `A * B * C` via one of the `different_of_between_..` theorems) to get `D`.
+
+```
+A ---- B ---- C ---- D
+```
 "
 
 variable {Ω : Type} [IncidencePlane Ω] --hide
 variable {A B : Ω} --hide
 
 /--
-Given two distinct points A, B, there exist points C, D such that A * B * C* and B * C * D.
+Given two distinct points A, B, there exist points C, D such that A * B * C and B * C * D.
 -/
 Statement  (h : A ≠ B) : ∃ C D, (A * B * C) ∧ (B * C * D) := by
   set C := point_on_ray A B

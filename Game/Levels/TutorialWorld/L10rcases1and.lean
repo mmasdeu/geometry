@@ -15,19 +15,19 @@ Introduction
 "
 # Advanced Tutorial World
 
-## The `rcases` tactic.
+## The `rcases` tactic
 
-The next tactic we introduce is `cases`, and since it does many things
-we will have a couple levels seeing when to apply it. This tactic works
-always on hypotheses, and it transforms them in different ways. The first
-instance that we learn arises when you have a hypothesis that says that `P`
-and `Q` holds. That is, you have `h : P ∧ Q`. Then `cases h with h1 h2` will
-replace `h` with two new hypotheses, namely `h1 : P` and `h2 : Q`.
+Next tactic: `rcases` (the `r` stands for *recursive*: it can take apart
+nested hypotheses in one go). It does many things, so we'll spend a couple of levels on it.
+It always works on hypotheses and transforms them in different ways. The first
+case is when you have a hypothesis saying that both `P`
+and `Q` hold, that is, `h : P ∧ Q`. Then `rcases h with ⟨h1, h2⟩`
+replaces `h` with two new hypotheses, `h1 : P` and `h2 : Q`. The angle brackets `⟨ ⟩`
+(typed `\\<` and `\\>`) just list the names you want to give to the pieces.
 
-This is done usually for aesthetic reasons, since `h.1` and `h.2` also serve
-as proofs of `P` and `Q`.
+You usually do this for tidiness, since `h.1` and `h.2` are also proofs of `P` and `Q`.
 
-Knowing that, I'm sure you can complete this level on your own. It's only two lines of code!
+I'm sure you can finish this level on your own. It's only two lines!
 "
 
 

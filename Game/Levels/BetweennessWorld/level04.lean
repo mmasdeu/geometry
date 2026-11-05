@@ -12,8 +12,8 @@ Title "Another version of the previous level"
 
 Introduction
 "
-You can try this variation of the previous lemma on your own.
-Remember that it's best to have a paper proof before you start typing!
+Here's a variation of the previous lemma. Try it on your own!
+Paper proof first, Lean second.
 "
 
 variable {Ω : Type} [IncidencePlane Ω] --hide
@@ -23,7 +23,7 @@ variable {ℓ r s t : Line Ω} --hide
 /--
 Given two different collinear points A and B, there is a third C that shares the same line with them and satisfies A * B * C.
 -/
-Statement between_points_share_line_1 (h : A * B * C) (hAr : B ∈ r) (hBr : C ∈ r) : A ∈ r := by
+Statement between_points_share_line_1 (h : A * B * C) (hBr : B ∈ r) (hCr : C ∈ r) : A ∈ r := by
     have h1 : B ≠ C := different_of_between_23 h
     have h2 : ∃ ℓ, A ∈ ℓ ∧ B ∈ ℓ ∧ C ∈ ℓ := collinear_of_between h
     rcases h2 with ⟨s, hs⟩

@@ -11,9 +11,10 @@ Title "Ordering matters"
 
 Introduction
 "
-To solve this level, you will need to use two axioms of order.
-You will notice that the list of theorems has been expanded. Take a look at the new
-theorems and try to think of a mathematical proof in paper before typing your solution in Lean.
+This level needs two axioms of order: `collinear_of_between` (if `A * B * C` then the three points lie on a common line)
+and `between_of_collinear` (see the *Theorems* tab for the exact statements).
+The theorem list just grew, so have a peek at the new entries.
+And as always, try to sketch the proof on paper before typing it in Lean!
 "
 
 variable {Ω : Type} [IncidencePlane Ω] --hide

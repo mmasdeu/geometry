@@ -14,10 +14,17 @@ Introduction
 "
 ## A useful lemma
 
-We will see that
-a point can help us deciding that two lines are different.
+A single point can tell us that two lines are different. Neat, right?
 
-To solve this level, you just need three lines of code. Try to finish it on your own.
+You only need three lines of code here, so try to finish it on your own!
+
+Hint on the strategy: to prove `r ≠ s`, assume the opposite (`intro H`, with `H : r = s`) and
+ask yourself what happens to the point `P`.
+
+```
+  r ────●P────────
+  s ─────────────      P is on r but not on s
+```
 "
 
 variable {Ω : Type} [IncidencePlane Ω] --hide
@@ -32,5 +39,5 @@ Statement ne_line_of_not_share_point (P : Ω) (hPr : P ∈ r)
   rw [H] at hPr
   tauto
 
--- NewTheorem ne_line_of_not_share_point
+NewTheorem ne_line_of_not_share_point
 TheoremTab "∈"

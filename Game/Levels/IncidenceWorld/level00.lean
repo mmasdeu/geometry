@@ -12,19 +12,17 @@ variable {Ω : Type} [IncidencePlane Ω] --hide
 
 Introduction
 "
-In this level, we introduce a high level tactic called `simp`. This is an Artificial Intelligence (AI) tactic which
-can nail some really tedious-for-a-human-to-solve goals. It uses lemmas that are already in our database to make
-the goal simpler. You can simplify an hypothesis `h` by calling `simp at h,`. As the game progresses, this tactic
-will become better (we are tagging some of the lemmas as *simp lemmas* along the way).
+Meet `simp`, a powerful tactic that can crush goals which would be really tedious to do by hand. It uses lemmas
+already in our database to make the goal simpler. You can also simplify a hypothesis `h` by writing `simp at h`.
+As the game goes on, `simp` will get better and better, because we tag more lemmas as *simp lemmas* along the way.
 
-Just to illustrate, **Lean** has a lemma  (called `not_not`) that says that double negation is the same as an affirmation:
+For example, **Lean** has a lemma called `not_not` saying that a double negation is the same as the plain statement:
 
 `@[simp] lemma not_not (p : Prop) : ¬¬ p ↔ p`
 
-The fact that it has `@[simp]` written in front of it instructs the `simp` tactic to replace all occurrences
-of `¬¬ p` with `p`. There are lots of lemmas like these in **Lean**, which makes this tactic really powerful.
-For example, we have added a `@[simp]` tag to the lemmas `line_through_left` and `line_through_right`. Since the `simp`
-tactic can run until it cannot simplify further, you can prove solve this lemma in one go.
+The `@[simp]` in front tells the `simp` tactic to replace every `¬¬ p` with `p`. There are lots of lemmas like this
+in **Lean**, which is what makes the tactic so strong. We've also tagged `line_through_left` and `line_through_right`
+with `@[simp]`. Since `simp` keeps going until it can't simplify any further, you can solve this level in one go.
 "
 
 variable {Ω : Type} [IncidencePlane Ω] --hide

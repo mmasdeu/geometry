@@ -4,25 +4,23 @@ open IncidencePlane --hide
 
 
 World "TutorialWorld"
-Level 8
+Level 9
 
 Title "The use tactic"
 TheoremTab "∈"
 
 Introduction
 "
-In further proofs, we will need to prove that there exists an object satisfying certain properties.
-The goal will then look like `⊢ ∃ x, P x`, where the symbol `∃` is read as *there exists* and
-`P x` can be understood as *x satisfies property P*
-In this case, the whole goal can be interpreted as *there exists x satisfying property P*.
-Then, the `use` tactic is useful. If we know that an object `a` satisfies the  property `P`, then `use a`
-will simplify the goal into `⊢ P a`.
+Later on we'll need to prove that something *exists*.
+The goal will look like `⊢ ∃ x, P x`, where `∃` reads *there exists* and
+`P x` means *x satisfies property P*. So the goal says 'there is an x with property P'.
+That's where `use` comes in. If you know that an object `a` satisfies `P`, then `use a`
+turns the goal into `⊢ P a`.
 
-In the example below, we must find a line containing a given point $P$. Any line will do, for example
-the one that is given by the axiom `line_through P P`. Note that this is not really well defined,
-but this axiom always gives us a line through the given two points (even if they are the same). So
-that should work. Try to type `use line_through P P` and then you should see how to finish using
-known tactics.
+In the example below, we need a line containing a given point $P$. Any line will do, for instance
+the one given by the axiom `line_through P P`. It looks a bit odd, but the axiom always
+gives us a line through the two given points, even if they're the same one. That's fine for us.
+Type `use line_through P P` and then finish with tactics you already know.
 "
 
 variable {Ω : Type} [IncidencePlane Ω] --hide

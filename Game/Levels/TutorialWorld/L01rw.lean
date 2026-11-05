@@ -8,17 +8,16 @@ Level 2
 Title "The `rw` (rewrite) tactic"
 TheoremTab "∈"
 Introduction "
-The next tactic in our list is `rw` (from rewrite). Rewriting is one of the most basic methods of proof,
-where we 'substitute' one object that we know that is equal to another.
+Next up is `rw` (short for rewrite). Rewriting is one of the most basic proof methods:
+if two things are equal, you can swap one for the other.
 
-For example, if `h : A = B` is a hypothesis (i.e., a proof of `A = B`) in your local context
-and if your goal contains one or more `A`s, then `rw [h]` will change them all to `B`'s.
+For example, if `h : A = B` is in your local context (that is, a proof of `A = B`)
+and your goal contains some `A`s, then `rw [h]` turns them all into `B`s.
 
-Now, look at the local context: the variables `A`, `B` and `C` are
-points that lie in the plane `Ω`. Here we have to prove that if the point $A$ is equal to the point $B$,
-and the point $B$ is equal to the point $C$, then the point $A$ is equal to the point $C$.
+Look at the local context: `A`, `B` and `C` are points of the plane `Ω`. We want to prove that if $A = B$
+and $B = C$, then $A = C$.
 
-Try to use a sequence of rewrite steps to prove the lemma below by typing them into the box underneath.
+Try a sequence of rewrite steps by typing them in the box below.
 "
 
 open Set IncidencePlane
@@ -37,10 +36,9 @@ Conclusion
 "
 # Exploring your proof
 
-If you are in 'Editor mode', click on the line `rw [h1]`, and then use the arrow keys to move your cursor around the proof.
-Go up and down and note that the goal changes -- indeed you can inspect Lean's 'state' at
-each line of the proof (the hypotheses, and the goal). Try to figure out the exact place
-where the goal changes.
+If you're in 'Editor mode', click on the line `rw [h1]` and move your cursor around with the arrow keys.
+Go up and down and watch the goal change. You can inspect Lean's state at every line of the proof
+(hypotheses and goal). Can you spot exactly where the goal changes?
 "
 
 NewTactic rw

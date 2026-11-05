@@ -14,26 +14,21 @@ Title "Incidence World"
 
 Introduction
 "
-In mathematics, we need to set down some starting points
-to build our knowledge, and this is why axioms should join the game. What are axioms, then?
-They are unprovable statements which are assumed to be true *because of their self-evidence*.
-They serve as a premise for further reasoning and arguments, so that we can reach new conclusions from them.
+To build any theory, you need some starting points, and that's where axioms join the party.
+Axioms are statements we don't prove: we simply agree to accept them as true *because they're self-evident*.
+They're the raw material for all further reasoning, so we can reach new conclusions from them.
 
-By travelling back in time to 300 B.C., we meet the great mathematician Euclid, who suggested the very
-first postulates of geometry in his well-known book **Elements**. Euclidean geometry can be built up from three
-sets of axioms, each of them adding new independent notions that are needed to define the plane. These sets of axioms
-were proposed by David Hilbert (1862-1943 AD), who made remarkable improvements in the foundations of geometry.
-These three blocks of axioms are called **incidence**, **order** and **congruence** (we might also want to add the **parallel axiom**,
-but that would come later).
+Let's hop in a time machine to 300 B.C. and meet Euclid, who wrote down the very first postulates of geometry
+in his famous book **Elements**. Much later, David Hilbert (1862-1943 AD) gave geometry a much sturdier foundation.
+Euclidean geometry can be built from three blocks of axioms, each adding new independent notions that we need to
+define the plane: **incidence**, **order** and **congruence**. (We'll also want the **parallel axiom**, but that comes later.)
 
-In this world we concentrate on the first block, the axioms of **incidence**. There are three axioms of incidence, that
-will give the relationships between the primitive notions of
-**point** and **line**. Notice
-that by *incidence* we mean whatever idea that satifies the axioms of incidence. Then, you will be wondering... are the
-notions of *point* and *line* referring to whatever object of reality that satisfies the axioms of incidence? Exactly!
-Before the axioms of incidence, these notions are **undefined**!
+In this world we focus on the first block, the axioms of **incidence**. There are three of them, and they
+describe how the primitive notions of **point** and **line** relate to each other. Here's the twist: *point* and *line*
+are not defined anywhere! They can be whatever objects you like, as long as they satisfy the axioms. Before the
+axioms, these notions are **undefined**.
 
-Let's then introduce the axioms of incidence:
+So here are the axioms of incidence:
 
 A.1. For every point $P$ and for every point $Q$ not equal to $P$, there exists a unique line $\\ell$
 *passing through* (= incident with) $P$ and $Q$.
@@ -44,37 +39,36 @@ A.2. For every line $\\ell$, there exist two distinct points that belong to it.
 A.3. There exist three distinct points with the property that no line *passes through* (= is incident with) all three of them.
 
 
-The drawings above may help you understand (or remember) each of the axioms, but they
-have no meaning in mathematics. We will not be able to use them in our proofs!
+The picture of the axioms (in the middle panel of the world page) may help you understand (or remember) each axiom, but they
+have no meaning in mathematics. We can't use them in our proofs!
 
 ## The axioms of incidence in Lean.
 
-How do we make the computer understand such complex statements? We use the **Lean** language! However,
-it is easier to divide some of them into more than one statements. In this case, we have
-the following four axioms:
+How do we make the computer understand these statements? With **Lean**, of course! It's easier if we split
+some of them into several pieces, so in Lean we get the following axioms:
 
 * `line_through (P Q : Ω) : Line Ω`
 
-This produces, given two points, a certain line through them. Think of it as a function that eats
-two points $P$ and $Q$ and outputs a line $\\ell$ called `line_through P Q`.
+Given two points, this produces a line through them. Think of it as a function that eats
+two points $P$ and $Q$ and spits out a line $\\ell$ called `line_through P Q`.
 
 * `line_through_left (P Q : Ω) : P ∈ (line_through P Q)`
 
 * `line_through_right (P Q : Ω) : Q ∈ (line_through P Q)`
 
-These two statements guarantee that the line `line_through P Q` does indeed contain both $P$ and $Q$.
-The next statement is about uniqueness, and here we need to ask that $P \\neq Q$. We know that there
-is a line through $P$ and $Q$, namely `line_through P Q`. The `incidence` statement says that if a
-line $\\ell$ is so that $P$ and $Q$ are both in $\\ell$, then this line $\\ell$ must be `line_through P Q`.
+These two guarantee that `line_through P Q` really contains both $P$ and $Q$.
+The next one is about uniqueness, so we need $P \\neq Q$ here. We already know one line through $P$ and $Q$,
+namely `line_through P Q`. The `incidence` statement says that if some
+line $\\ell$ contains both $P$ and $Q$, then $\\ell$ has to be `line_through P Q`.
 
 * `incidence {P Q : Ω} {ℓ : Line Ω} : P ≠ Q → P ∈ ℓ → Q ∈ ℓ → ℓ = line_through P Q`
 
-The second axiom of incidence is quite straightforward in **Lean**:
+The second axiom is quite direct in **Lean**:
 
 * `line_contains_two_points (ℓ : Line Ω) : ∃ P Q : Ω, P ≠ Q ∧ ℓ = line_through P Q`
 
-The third axiom also translates rather easily. In order to state that the three points are
-non-collinear, we say that the third point $R$ does not lie in the (unique) line through $P$ and $Q$.
+The third axiom translates easily too. To say that three points are
+non-collinear, we say that the third point $R$ does not lie on the (unique) line through $P$ and $Q$.
 
 * `existence (Ω : Type) : ∃ P Q R : Ω, P ≠ Q ∧ P ≠ R ∧ Q ≠ R ∧ R ∉ (line_through P Q)`
 

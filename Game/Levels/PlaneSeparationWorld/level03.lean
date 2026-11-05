@@ -15,14 +15,16 @@ Title "Who is on the same side?"
 
 Introduction
 "
-In this level we prove that being on the same side of a line is a symmetric concept. We only
-ask you to prove one implication, the double implication is done in the same way and it will
-be given to you for free in the Theorem list.
+Here we show that being on the same side is symmetric: if A is on the same side as B, then B is on the same side as A.
+You only need to prove one implication. The other one works the same way, so we'll hand you the full
+`↔` for free in the Theorem list.
+
+Tip: `between_symmetric` (from the previous world) turns `A * B * C` into `C * B * A` with `rw`.
 "
 
 
 /--
-A is at the same side as B of ℓ if and only if B is at the same side of A of ℓ.
+A is on the same side of ℓ as B if and only if B is on the same side of ℓ as A.
 -/
 Statement : same_side ℓ A B → same_side ℓ B A:= by
   intro h

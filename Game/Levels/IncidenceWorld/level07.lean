@@ -15,14 +15,17 @@ Title "A useful rewrite"
 
 Introduction
 "
-In the Worlds to come it will be useful to have the following criterion for collinearity.
-Here you have some hints that could help you to step through it!
+In the worlds to come we'll often need this criterion for collinearity. Here are some hints to help you through it!
 
 **Hint 1:** Whenever you see the word `collinear`, the `rw` tactic will make progress.
 
 **Hint 2:** Whenever you find a goal or hypothesis of the form `∀ {X : Ω}, X ∈ {A, B, C} → X ∈ r`, the `simp` tactic will make progress.
 
-**Hint 3:** To solve the first goal, you may want to use the theorem statement `incidence` with the `rw` tactic.
+**Hint 2.5:** If `h : P ∧ Q ∧ R`, then `h.1 : P`, `h.2.1 : Q` and `h.2.2 : R`. After `rcases h1 with ⟨ℓ, hℓ⟩` the hypothesis `hℓ`
+has exactly this form.
+
+**Hint 3:** For the first goal, try the theorem `incidence` with the `rw` tactic. Writing `rw [← incidence ...]` (with the
+arrow `←`, typed `\\l`) replaces `line_through A B` by `ℓ` instead of the other way round.
 "
 
 

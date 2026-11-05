@@ -12,21 +12,20 @@ Title "Points that are in between of each other share a line"
 
 Introduction
 "
-To solve this level, the mathematical proof in paper will be given to you. Remember that you can use theorem statements from previous worlds.
+This time we hand you the paper proof. Remember you can use theorems from previous worlds too.
 
-**Claim:** A point that lies between two different points shares the same line with them.
+**Claim:** A point that lies between two different points lies on the same line as them.
 
 **Proof:** Let $B$ be the point that lies between $A$ and $C$, where these two are different points that lie on the line `r`.
 
-**(i)** Observe first that there is a line, say $s$, containing $A$, $B$, and $C$: by the first axiom of order
-`collinear_of_between`, since $A * B * C$, we can obtain it.
+**(i)** First, there is a line, say $s$, containing $A$, $B$, and $C$: by the first axiom of order
+`collinear_of_between`, since $A * B * C$, that gives it to us.
 
-**(ii)** Note that $A\\neq C$. In fact if we had $A = C$, then $A * B * C$ would be equal to $C * B * C$. By the lemma `no_point_between_a_point`, this is
-not possible, so we prove that $A \\neq C$.
+**(ii)** Next, $A\\neq C$. Why? If we had $A = C$, then $A * B * C$ would be equal to $C * B * C$. By the lemma `no_point_between_a_point`, that's
+impossible, so $A \\neq C$.
 
-**(iii)** Finally, we can prove that $r = s$, by using the lemma `equal_lines_of_contain_two_points`.
-Therefore, $B \\in s$, which we proved in **(i)**, must be equivalent to $B \\in r$. Therefore, the point $B$ shares the same line $r$ with the points
-$A$ and $C$, and we are done.
+**(iii)** Finally, $r = s$, by using the lemma `equal_lines_of_contain_two_points`.
+So $B \\in s$ (from **(i)**) means $B \\in r$, and we are done: $B$ is on the same line $r$ as $A$ and $C$.
 "
 
 

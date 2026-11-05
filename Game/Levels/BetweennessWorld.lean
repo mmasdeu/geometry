@@ -13,9 +13,16 @@ Introduction
 "
 ## The axioms of order
 
-Also called the axioms of betweenness, the axioms of order were formalized by David Hilbert (1862-1943 AD) on the occasion of studying the Euclid's `Elements`.
-When it comes to them, there are up to four axioms of order. Their learning involves the definition of **segment**, **betweenness**, **line separation** and
-**plane separation**, among others. In written mathematics, the notion of **betweenness** is represented by the **`*`** symbol. Now, let's take a look at the axioms of order.
+These are the axioms of order (or betweenness). Hilbert (1862-1943) wrote them down while untangling Euclid's `Elements`,
+where Euclid used ideas like \"between\" without ever saying what they mean.
+There are four of them, and along the way we'll meet **segments**, **betweenness**, **line separation** and
+**plane separation**. The star symbol **`*`** means betweenness: `A * B * C` reads \"B is between A and C\", like this:
+
+```
+A ------ B ------ C
+```
+
+Let's look at the axioms.
 
 **B.1)** If $A ∗ B ∗ C$, then $A$, $B$, $C$ are three distinct points all lying on the same line, and $C ∗ B ∗ A$.
 
@@ -25,12 +32,11 @@ When it comes to them, there are up to four axioms of order. Their learning invo
 
 **B.4)** [This axiom will be learned in the following world.]
 
-Later on this world we will learn the definition of **segment**, which can be inferred from the first three axioms of order.
+Later we will define **segments**, which come out of the first three axioms.
 
 ## The axioms of order in Lean
 
-To solve the levels of this world, we may need to use the first three axioms of order, so below
-you have them in Lean format.
+You'll need the first three axioms to solve the levels here, so here they are in Lean.
 
 The first axiom of order is divided into three statements:
 
@@ -42,10 +48,10 @@ The first axiom of order is divided into three statements:
 
 The second axiom of order is represented as follows:
 
-* `point_on_ray (A B : Ω) : C : Ω
+* `point_on_ray (A B : Ω) : Ω`
 * `point_on_ray_prop {A B : Ω} (h: A ≠ B) : A * B * (point_on_ray A B)`
 
-The third axiom of order is a bit long to spell out in Lean:
+The third axiom is a bit of a mouthful in Lean:
 
 * `between_of_collinear {A B C : Ω} (h: ∃(ℓ : Line Ω), A ∈ ℓ ∧ B ∈ ℓ ∧ C ∈ ℓ) :
 	  ((A * B * C) ∧ ¬ ( B * A * C ) ∧ ¬ (A * C * B)) ∨

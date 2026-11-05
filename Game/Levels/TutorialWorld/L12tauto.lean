@@ -15,14 +15,15 @@ variable {p q r : Prop} --hide
 
 Introduction
 "
-When the goal follows from the hypotheses directly from the rules of logic, then we say that we are proving a tautology,
-and there is a tactic that does this automatically for us. For example, the following is a tautology (if p, q and r are
-arbitrary statements).
+Sometimes the goal follows from the hypotheses by pure logic. That's called a tautology,
+and there's a tactic that handles it for you. For example, this is a tautology (for any
+statements p, q and r):
 
 p ∨ (q ∧ r) ↔ (p ∨ q) ∧ (r ∨ p ∨ r)
 
-You can see that this is true because regardless of whether each of `p`, `q` and `r` is true or false, the statement
-above is true.
+It's true whether each of `p`, `q` and `r` is true or false.
+
+In the level below, the goal follows from the hypotheses by logic alone, so just try `tauto`.
 "
 
 /--

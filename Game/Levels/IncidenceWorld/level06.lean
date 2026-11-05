@@ -12,17 +12,20 @@ Title "A line-avoiding point"
 
 Introduction
 "
-In this level we prove that given two different lines, there is a point in the first line that is not in the second.
+Here we prove that, given two different lines, some point of the first one is not on the second.
 
-Here is a possible plan of the proof, to help you get started. Make sure you have
-all the details written down in paper before you start typing!
+Here's a possible plan to get you started. Write all the details on paper before you start typing!
 
 *Proof sketch:*
 
-1. Consider two points $A$ and $B$ on the line $r$.
-2. Do a proof by cases:
-  - If $A \\notin s$, then there is nothing to do, $A$ is the sought point.
-  - If $A \\in s$, then show that $B \\notin s$, and $B$ is the sought point.
+1. Take two points $A$ and $B$ on the line $r$.
+2. Split into cases:
+  - If $A \\notin s$, there's nothing to do: $A$ is the point we're after.
+  - If $A \\in s$, show that $B \\notin s$, so $B$ is the point we want. (Indeed, if both $A$ and $B$ were in $s$, then
+    $s$ would be the line through $A$ and $B$, which is $r$, contradicting $r \\neq s$.)
+
+In Lean, the first step gives you `hABr : r = line_through A B`. Rewrite with it (`rw [hABr] at h ⊢`) so that `r` is
+expressed through `A` and `B`, which is what `incidence` needs.
 "
 
 variable {Ω : Type} [IncidencePlane Ω] --hide
@@ -44,5 +47,5 @@ Statement point_in_line_difference (h : r ≠ s) : ∃ P ∈ r, P ∉ s := by
   · use A
     simp [hAs]
 
--- NewTheorem point_in_line_difference
+NewTheorem point_in_line_difference
 TheoremTab "∈"

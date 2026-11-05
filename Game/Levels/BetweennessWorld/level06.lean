@@ -8,14 +8,12 @@ open IncidencePlane --hide
 World "BetweeenessWorld"
 Level 6
 
-Title "Between knows no sides"
+Title "Betweenness has no favourite side"
 
 Introduction
 "
-In order to prove this variation, we will practice the use of  another axiom, namely the fact that
-A * B * C ↔ C * B * A. This axiom is known as `between_symmetric`, and if you `rw` it at the
-beginning of the next proof then you will be able to reduce to the previous version of the lemma.
- fact hta t
+Time to meet another axiom: `A * B * C ↔ C * B * A`, known as `between_symmetric`.
+If you `rw` with it at the start of the proof, you can reduce to the previous lemma, `mem_line_through_of_between_3`.
 "
 
 variable {Ω : Type} [IncidencePlane Ω] --hide
@@ -42,7 +40,7 @@ lemma mem_line_through_of_between_2 (h : A * B * C) : B ∈ line_through A C:= b
 
 NewTheorem IncidencePlane.between_symmetric mem_line_through_of_between_2
 
-Conclusion "Now on to the next level! We will add for you variations of this one that are proved in
-a very similar way."
+Conclusion "On to the next level! We'll hand you the variations of this one for free,
+since they're proved in a very similar way."
 
 TheoremTab "· * · * ·"

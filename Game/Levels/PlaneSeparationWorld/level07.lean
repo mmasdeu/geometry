@@ -17,20 +17,35 @@ open scoped Classical
 
 Introduction
 "
-We are left with proving transitivity for collinear points. The trick in this case is to reduce to the known
-case by a quite slick argument. The key step lies in the lemma below: given two lines $m$ and $\\ell$, and a point
-$A$ on $m$ but not on $\\ell$, the goal is to find a new point $E$ which is not on $m$ and which is on the same side of $\\ell$
+Now for transitivity with collinear points. The trick is a slick reduction to the case we already know.
+The key step is the lemma below: given two lines $m$ and $\\ell$, and a point
+$A$ on $m$ but not on $\\ell$, find a new point $E$ that is not on $m$ and is on the same side of $\\ell$
 as $A$.
 
-Here is a sketch of the proof, most of which has been replicated already for you in **Lean** code.
+```
+      D •         (D on ℓ, not on m)
+         \\
+  ────────A────── m
+           \\
+            • E   (D * A * E)
+```
+
+Three things worth knowing before you start:
+
+* The lemmas `mem_line_through_of_between_1`, `_2` and `_3` say that, if `A * B * C`, then respectively the first (`A`), the second (`B`)
+  or the third (`C`) point lies on the line through the other two. Pick the number that matches the point you need.
+* `same_side ℓ A E` unfolds to three facts: `A ∉ ℓ`, `E ∉ ℓ`, and `∀ x ∈ ℓ, ¬ (A * x * E)` (the segment `AE` does not meet `ℓ`).
+* To use `equal_lines_of_contain_two_points`, give it `A ≠ B` and then close the four membership goals with `<;> simp [*]`.
+
+Here's a sketch of the proof. Most of it is already written for you in **Lean**.
 
 1. Prove first that $\\ell$ and $m$ are distinct.
 1. Let $D$ be a point on $\\ell$ not lying on $m$ (in particular, $D \\neq A$).
 1. Using axiom (B2), find a point $E$ such that $D * A * E$. Let $s$ be the line through these points.
-1. Prove that $E \notin \\ell$ (because $A \\notin \\ell$ and the intersection of $s$ and $\\ell$ already contains $D$). Note that this implies,
+1. Prove that $E \\notin \\ell$ (because $A \\notin \\ell$ and the intersection of $s$ and $\\ell$ already contains $D$). Note that this implies,
   in particular, that $\\ell ≠ s$.
 1. Prove that $E \\notin m$:
-    - Suppose it where, and show in that case that m = s.
+    - Suppose it were, and show in that case that m = s.
     - Since $D \\in s$ but $D \\notin m$ we get a contradiction.
 1. Show that $A$ is on the same side as $E$:
     - If the segment $AE$ did meet $\\ell$, the intersection point would be $D$.

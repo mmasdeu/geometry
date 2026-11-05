@@ -18,7 +18,8 @@ open scoped Classical
 
 Introduction
 "
-This is the fourth and last lemma that we need to prove before jumping into the final level of the game!
+This is the last small lemma before the big ones. If two points are *not* on the same side of ℓ, then ℓ must touch the segment between them
+(or pass through one of the points themselves).
 "
 
 
@@ -28,7 +29,7 @@ variable {ℓ r s t : Line Ω} --hide
 
 
 /--
-If two points A and C are not on the same side of the line ℓ, there exists a point in the segment A·C which is incident with the line ℓ.
+If A and C are not on the same side of the line ℓ, then there is a point P on ℓ which is either A, or C, or lies strictly between them.
 -/
 Statement not_same_side_intersection (h : ¬ same_side ℓ A C) : ∃ P , (P = A ∨ P = C ∨ (A * P * C)) ∧ P ∈ ℓ := by
   by_contra hlAC

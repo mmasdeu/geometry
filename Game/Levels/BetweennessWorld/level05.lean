@@ -12,7 +12,13 @@ Title "Another version of the previous level"
 
 Introduction
 "
-This version may also be useful later
+Another version that will come in handy later. Like before, you'll need `incidence` plus one of the
+`different_of_between_..` theorems to show that `A` and `B` are different.
+
+```
+A ---- B ---- C
+=====line_through A B=====>
+```
 "
 
 variable {Ω : Type} [IncidencePlane Ω] --hide
@@ -29,7 +35,7 @@ Statement mem_line_through_of_between_3 (h : A * B * C) : C ∈ line_through A B
   rw [←h']
   assumption
 
-Conclusion "Now on to the next level! We will add for you variations of this one that are proved in
-a very similar way."
+Conclusion "On to the next level! We'll hand you the variations of this one for free,
+since they're proved in a very similar way."
 
 TheoremTab "· * · * ·"

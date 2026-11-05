@@ -10,33 +10,34 @@ Introduction
 # Welcome to the Hilbert Geometry game
 #### Learning axiomatic geometry through Lean.
 
-In this game, we visit some of the axioms proposed by Hilbert to describe
-the plane. At the end, we will prove the *Plane Separation Theorem*.
+In this game, we'll visit some of the axioms Hilbert proposed to describe
+the plane. By the end, you'll have proved the *Plane Separation Theorem*. Yes, really!
 
-All of this is done by solving levels of a computer puzzle game called Lean.
+You'll do it by solving little puzzles in a proof assistant called Lean.
+No Lean experience needed. We'll start from zero.
 
 # Read this.
 
-Learning how to use an interactive theorem prover takes time. To
-get the the most out of this game you need to read the help texts like this one.
+Learning an interactive theorem prover takes a bit of time, so don't rush.
+To get the most out of the game, read the help texts like this one. They're there for you.
 
-To start, click on \"Tutorial World\".
+Ready? Click on \"Tutorial World\" to start.
 
 ## More
 
 Click on the three lines in the top right and select \"Game Info\" for resources,
-links, and ways to interact with the Lean community.
+links, and ways to chat with the Lean community.
 "
 
 Info "
-Geometry Game. Based on Hilbert Game, and made for Argo Summer school (Univ. Autònoma de Barcelona) 2024.
+Geometry Game. Based on the Hilbert Game, and made for Argo Summer school (Univ. Autònoma de Barcelona) 2024.
 
 ## Progress saving
 
 The game stores your progress in your local browser storage.
 If you delete it, your progress will be lost!
 
-Warning: In most browsers, deleting cookies will also clear the local storage
+Heads up: In most browsers, deleting cookies will also clear the local storage
 (or \"local site data\"). Make sure to download your game progress first!
 
 ## Credits
@@ -57,6 +58,6 @@ CaptionShort "Hilbert Geometry"
 CaptionLong "Discover Lean through Hilbert's Geometry"
 -- Prerequisites "" -- add this if your game depends on other games
 CoverImage "images/cover.png"
--- Dependency TutorialWorld → IncidenceWorld → BetweeenessWorld → PlaneSeparationWorld
+-- Dependency TutorialWorld → IncidenceWorld → BetweennessWorld → PlaneSeparationWorld
 /-! Build the game. Shows warnings if it found a problem with your game. -/
 MakeGame

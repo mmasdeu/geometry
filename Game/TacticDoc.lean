@@ -3,8 +3,8 @@ import GameServer.Commands
 /--
 ## Summary
 
-If the goal is exactly one of the assumption, then `assumption` will close
-the goal automatically.
+If your goal is exactly one of your hypotheses, `assumption` spots it
+and closes the goal for you. No typing the name needed!
 
 ### Example
 If it looks like this in the top right hand box:
@@ -15,11 +15,7 @@ h2 : B = C
 ⊢ A = B
 ```
 
-then
-
-`assumption`
-
-will close the goal.
+then `assumption` will close the goal, because `h1` is exactly what we want.
 -/
 TacticDoc assumption
 
@@ -27,39 +23,40 @@ TacticDoc assumption
 /--
 ## Summary
 
-If `h` is a proof of `X = Y`, then `rw [h]` will change
-all `X`s in the goal to `Y`s.
+If `h` is a proof of `X = Y`, then `rw [h]` swaps
+every `X` in the goal for a `Y`.
 
-**Variants:** `rw [← h]` changes
-`Y` to `X` and
-`rw [h] at h2` changes `X` to `Y` in hypothesis `h2` instead
-of the goal.
+**Variants:** `rw [← h]` swaps `Y` for `X`, and
+`rw [h] at h2` does the swap in the hypothesis `h2` instead
+of in the goal.
 
 ## Details
 
-The `rw` tactic is a way to do 'substituting in'. There
-are two distinct situations where use this tactics.
+`rw` is the 'substitute in' tactic. You can use it in two ways.
 
-1) If `h : A = B` is a hypothesis (i.e., a proof of `A = B`)
+1) If `h : A = B` is a hypothesis (that is, a proof of `A = B`)
 in your local context (the box in the top right)
-and if your goal contains one or more `A`s, then `rw [h]`
-will change them all to `B`'s.
+and your goal contains some `A`s, then `rw [h]`
+turns them all into `B`s.
 
-2) The `rw` tactic will also work with proofs of theorems
-which are equalities (look for them in the drop down
-menu on the left, within Theorem Statements).
+2) It also works with theorems that are equalities
+(find them in the menu on the left, under Theorem Statements).
+Many of these theorems need some inputs, and you can
+hand them to `rw` right away, just like arguments of a function.
+For example, if `incidence` needs two points and a proof that
+they're on a line, you can write `rw [incidence h1 h2 h4]`.
+If you leave the arguments out, Lean tries to figure them out
+by itself, which works fine most of the time.
 
-**Important note:** if `h` is not a proof of the form `A = B`
-or `A ↔ B` (for example if `h` is a function, an implication,
-or perhaps even a proposition itself rather than its proof),
-then `rw` is not the tactic you want to use. For example,
-`rw (P = Q)` is never correct: `P = Q` is the true-false
-statement itself, not the proof.
-If `h : P = Q` is its proof, then `rw [h]` will work.
+**Heads up:** `rw` only works when `h` is a proof of something like `A = B`
+or `A ↔ B`. If `h` is a function or an implication, or if it's the
+statement itself rather than its proof, `rw` isn't the tool you want.
+For example, `rw (P = Q)` is never correct: `P = Q` is the statement,
+not a proof of it. If `h : P = Q` is the proof, then `rw [h]` works.
 
-**Pro tip 1:** If `h : A = B` and you want to change
-`B`s to `A`s instead, try `rw [←h]` (get the arrow with `\l`,
-note that this is a small letter L, not a number 1).
+**Pro tip:** If `h : A = B` and you'd rather turn
+`B`s into `A`s, use `rw [←h]` (type the arrow with `\l`,
+that's a small letter L, not the number 1).
 
 ### Example
 If it looks like this in the top right hand box:
@@ -85,7 +82,7 @@ h1 : A = C
 h2 : A = B
 ⊢ B = C
 ```
-then `rw [h1] at h2` will turn `h2` into `h2 : C = B` (remember operator precedence).
+then `rw [h1] at h2` will turn `h2` into `h2 : C = B`.
 
 -/
 TacticDoc rw
@@ -94,14 +91,13 @@ TacticDoc rw
 /--
 ## Summary
 
-If the goal is `⊢ X` then `exact x` will close the goal if
-and only if `x` is a term of type `X`.
+If the goal is `⊢ X`, then `exact x` closes it exactly when
+`x` is a term of type `X` (a proof of `X`).
 
 ## Details
 
-Say `P`, `Q` and `R` are types (i.e., what a mathematician
-might think of as either sets or propositions),
-and the local context looks like this:
+Say `P`, `Q` and `R` are types (think of them as sets or as
+propositions), and your local context looks like this:
 
 ```
 p : P,
@@ -110,15 +106,14 @@ j : Q → R
 ⊢ R
 ```
 
-If you can spot how to make a term of type `R`, then you
-can just make it and say you're done using the `exact` tactic
-together with the formula you have spotted. For example the
-above goal could be solved with
+If you can spot how to build a term of type `R`, just
+write it down after `exact` and you're done. For example, the
+goal above can be solved with
 
 `exact j(h p)`
 
-because `j(h p)` is easily checked to be a term of type `R`
-(i.e., an element of the set `R`, or a proof of the proposition `R`).
+because `h p` has type `Q`, and then `j (h p)` has type `R`.
+(That's an element of the set `R`, or a proof of the proposition `R`.)
 
 -/
 TacticDoc exact
@@ -127,13 +122,13 @@ TacticDoc exact
 /--
 ## Summary
 
-`intro p` will turn a goal `⊢ P → Q` into a hypothesis `p : P`
-and goal `⊢ Q`. If `P` and `Q` are sets `intro p` means "let $p$ be an arbitrary element of $P$".
-If `P` and `Q` are propositions then `intro p` says "assume $P$ is true".
+`intro p` turns a goal `⊢ P → Q` into a hypothesis `p : P`
+and a new goal `⊢ Q`. If `P` and `Q` are sets, `intro p` means "let $p$ be any element of $P$".
+If they're propositions, it means "assume $P$ is true".
 
 ## Details
 
-If your goal is a function or an implication `⊢ P → Q` then `intro`
+If your goal is a function or an implication `⊢ P → Q`, then `intro`
 will always make progress. `intro p` turns
 
 `⊢ P → Q`
@@ -145,19 +140,19 @@ p : P
 ⊢ Q
 ```
 
-The opposite tactic to intro is `revert`; given the situation
-just above, `revert p` turns the goal back into `⊢ P → Q`.
+The opposite of `intro` is `revert`: in the situation
+above, `revert p` turns the goal back into `⊢ P → Q`.
 
-**Variant:** Instead of calling `intro` multiple times, you can put several names after `intro`.
-That is, `intro h₁ h₂` is equivalent to `intro h₁; intro h₂`.
+**Variant:** You can put several names after `intro` instead of calling it many times.
+So `intro h₁ h₂` does the same as `intro h₁; intro h₂`.
 
 ## Example
 
-If your goal is an implication $P\implies Q$ then Lean writes
-this as `⊢ P → Q`, and `intro p,` can be thought of as meaning
-"let $p$ be a proof of $P$", or more informally "let's assume that
-$P$ is true". The goal changes to `⊢ Q` and the hypothesis `p : P`
-appears in the local context.
+If your goal is an implication $P\implies Q$, Lean writes
+it as `⊢ P → Q`. Then `intro p` reads as
+"let $p$ be a proof of $P$", or, more casually, "let's assume
+$P$ is true". The goal becomes `⊢ Q` and `p : P`
+shows up in your local context.
 
 -/
 TacticDoc intro
@@ -165,19 +160,18 @@ TacticDoc intro
 /--
 ## Summary
 
-If the goal is `P ∧ Q` or `P ↔ Q` then `constructor` will break it into two goals.
+If the goal is `P ∧ Q` or `P ↔ Q`, `constructor` breaks it into two goals.
 
 ## Details
 
-If `P Q : Prop` and the goal is `⊢ P ∧ Q`, then `constructor` will change it into
-two goals, namely `⊢ P` and `⊢ Q`.
+If `P Q : Prop` and the goal is `⊢ P ∧ Q`, then `constructor` gives you
+two goals: `⊢ P` and `⊢ Q`.
 
-If `P Q : Prop` and the goal is `⊢ P ↔ Q`, then `constructor` will change it into
-two goals, namely `⊢ P → Q` and `⊢ Q → P`.
+If the goal is `⊢ P ↔ Q`, you get `⊢ P → Q` and `⊢ Q → P`.
 
 ## Example
 
-If your local context (the top right window) looks like this
+If your local context (the top right box) looks like this
 ```
 X : Type
 A B : set X
@@ -185,11 +179,7 @@ x : X
 ⊢ x ∈ A ↔ x ∈ B
 ```
 
-then after
-
-`constructor`
-
-it will look like this:
+then after `constructor` it will look like this:
 
 ```
 2 goals
@@ -205,7 +195,9 @@ x : X
 ⊢ x ∈ B → x ∈ A
 ```
 
-You can isolate each of the two goals by inserting a `·` (type it with `\.`) for each of them, like so:
+### Working on one goal at a time
+When you have several goals, it keeps things tidy to focus on one at a time
+with a bullet `·` (type it with `\.`). Like so:
 ```
 constructor
 · tac1
@@ -213,32 +205,35 @@ constructor
 · tac2
   tac2'
 ```
-Here, `tac1` and `tac1'` are for the first goal, while `tac2` and `tac2'` are for the second.
+Here `tac1` and `tac1'` work on the first goal, and `tac2` and `tac2'` on the second.
+Each bullet has to finish its goal completely. Line up the tactics under the first one
+after the bullet. Bullets work after any tactic that creates several goals
+(like `constructor`, `rcases` on an `∨`, or `by_cases`).
 -/
 TacticDoc constructor
 
 
 /--
 ## Summary
-The `use` tactic works on the goal that looks like `⊢ ∃ x, P x`, where the symbol **`∃`** is read as **"there exists"** and
-**`P x`** can be understood as **"P is an element of x"**, which could also be written as **`P ∈ x`**.
-In this case, the whole goal can be interpreted as **"there exists x such that P is an element of x"**.
-Then, the `use` tactic is useful. If we know that an object `a` satisfies the  property `x`, then `use a`
-will simplify the goal into ⊢ P a.
+`use` works on goals that look like `⊢ ∃ x, P x`. The symbol **`∃`** reads
+**"there exists"**, and `P x` is some property of `x`. So the goal says
+**"there is an `x` with property `P`"**.
+To prove it, you just need to offer an example: if you know that `a` has the property,
+then `use a` changes the goal into `⊢ P a`.
 
 ## Example
 If your goal is `⊢ ∃ n : natural_numbers, 1 + x = x + n` then `use 1` will
-turn the goal into `⊢ 1 + x = x + 1`, and the rather more unwise `use 0` will
+turn the goal into `⊢ 1 + x = x + 1`, and the rather unwise `use 0` will
 turn it into the impossible-to-prove `⊢ 1 + x = x + 0`.
 -/
 TacticDoc use
 
 /--
 ## Summary
-`have h : P` will create a new goal of creating a term of type `P`, and will add `h : P` to the hypotheses for the goal you were working on.
+`have h : P` creates a new goal of proving `P`, and adds `h : P` to the hypotheses of the goal you were working on.
 
 ## Details
-If you want to name a term of some type (because you want it in your local context for some reason), and if you have the formula for the term, you can use have to give the term a name.
+Use `have` when you want a fact (or any term) in your local context under a name, so you can use it later.
 
 ## Example (have q := ... or have q : Q := ...)
 If the local context contains
@@ -247,7 +242,7 @@ If the local context contains
 f : P → Q
 p : P
 ```
-then the tactic `have q := f(p)` will add `q` to our local context, leaving it like this:
+then `have q := f p` adds `q` to your local context, leaving it like this:
 
 ```
 f : P → Q
@@ -255,10 +250,10 @@ p : P
 q : Q
 ```
 
-If you think about it, you don't ever really need `q`, because whenever you think you need it you coudl just use `f(p)` instead. But it's good that we can introduce convenient notation like this.
+Strictly speaking you never need `q`, since you could always write `f p` instead. But a short name makes life easier.
 
 ## Example (have q : Q)
-A variant of this tactic can be used where you just declare the type of the term you want to have, finish the tactic statement with a comma and no :=, and then Lean just adds it as a new goal. The number of goals goes up by one if you use `have` like this.
+You can also just say what you want to have, without giving a proof, by leaving out the `:=`. Then Lean adds it as a new goal, so you'll have one more goal than before.
 
 For example if the local context is
 
@@ -269,7 +264,7 @@ g : Q → R
 p : P
 ⊢ R
 ```
-then after `have q : Q`, there will be the new goal
+then after `have q : Q` you get a new goal
 
 ```
 f : P → Q
@@ -277,18 +272,18 @@ g : Q → R
 p : P
 ⊢ Q
 ```
-and your original goal will have `q : Q` added to the list of hypotheses.
+and your original goal gets `q : Q` added to its hypotheses.
 -/
 TacticDoc «have»
 
 
 /--
 ## Summary
-`set a := some_complicated_expression` will create a new variable called `a`, which will be equal
-to whatever expression you want.
+`set a := some_complicated_expression` creates a new variable `a` that stands for
+whatever expression you like, and replaces the expression by `a` everywhere.
 
 ## Details
-If you want to name a term of some type (because you want it in your local context for some reason), and if you have the formula for the term, you can use have to give the term a name.
+Handy when an expression is long and you'd like a short name for it.
 
 ## Example (set q := ... or set q : Q := ...)
 If your local context contains
@@ -307,7 +302,7 @@ c := a * b + 3 : ℕ
 ⊢ c > 5
 ```
 which looks simpler. If instead you used `set c:= a * b + 3 with hc`, then you get an extra
-hypothesis `hc` that can be used for rewriting:
+hypothesis `hc` that you can use for rewriting:
 ```
 a : ℕ
 b : ℕ
@@ -321,93 +316,89 @@ TacticDoc set
 /--
 ## Summary
 
-`rcases` is a tactic which works on hypotheses.
-If `h : P ∧ Q` or `h : P ↔ Q` is a hypothesis then `rcases h`
-will remove `h`
-from the list of hypotheses and replace it with the *ingredients* of `h`,
-i.e. `left : P` and `right : Q`, or `mp : P → Q` and `mpr : Q → P`. Also
+`rcases` works on hypotheses. If `h : P ∧ Q` or `h : P ↔ Q`, then `rcases h`
+removes `h` and replaces it with its *ingredients*:
+`left : P` and `right : Q`, or `mp : P → Q` and `mpr : Q → P`. It also
 works with `h : P ∨ Q` and with `h : ∃ x, P x`.
-The syntax `rcases h with ⟨h1, h2⟩` renames the new hypotheses as `h1` and `h2`.
+Write `rcases h with ⟨h1, h2⟩` to pick your own names `h1` and `h2`
+(type `⟨` and `⟩` with `\<` and `\>`).
 
 ## Details
 
-How does one prove `P ∧ Q`? The way to do it is to prove `P` and to
-prove `Q`. There are hence two ingredients which go into a proof of
-`P ∧ Q`, and the `rcases` tactic extracts them.
+How do you prove `P ∧ Q`? You prove `P` and you prove `Q`. So a proof of
+`P ∧ Q` has two ingredients, and `rcases` pulls them out for you.
 
-More precisely, if the local context contains
+For example, if your local context contains
 ```
-h : P ∧ Q`
+h : P ∧ Q
 ```
 
-then after the tactic `rcases h with ⟨p, q⟩` the local context will
-change to
+then after `rcases h with ⟨p, q⟩` it becomes
 ```
 p : P
 q : Q
 ```
-and `h` will disappear.
+and `h` is gone.
 
-Similarly `h : P ↔ Q` is proved by proving `P → Q` and `Q → P`,
-and `rcases h with ⟨hpq, hqp⟩` will delete our assumption `h` and
-replace it with
+Likewise, `h : P ↔ Q` is proved by proving `P → Q` and `Q → P`,
+and `rcases h with ⟨hpq, hqp⟩` replaces `h` with
 ```
 hpq : P → Q
 hqp : Q → P
 ```
 
-Be warned though -- `rw [h]` works with `h : P ↔ Q` (`rw` works with
-`=` and `↔`), whereas you cannot rewrite with an implication.
+**A shortcut:** if you don't need to rename anything, you can grab the
+ingredients directly: `h.1` is the first one and `h.2` the second.
+So with `h : P ∧ Q`, `h.1 : P` and `h.2 : Q`, and you can use them
+right away, e.g. `exact h.2`. The same works for `P ↔ Q`
+(`h.1 : P → Q` and `h.2 : Q → P`).
 
-`rcases` also works with hypotheses of the form `P ∨ Q`. Here the situation
-is different however.
-To prove `P ∨ Q` you need to give either a proof of `P` *or* a proof
-of `Q`, so if `h : P ∨ Q` then r`rcases h` will change one goal
-into two, one with `p : P` and the other with `q : Q`.
+Also note that `rw [h]` works with `h : P ↔ Q` (`rw` understands
+`=` and `↔`), but you can't rewrite with an implication.
+
+`rcases` works with `P ∨ Q` too, but it's a bit different.
+To prove `P ∨ Q` you give a proof of `P` *or* a proof of `Q`.
+So if `h : P ∨ Q`, then `rcases h with p | q` splits your goal in
+two: one with `p : P` and the other with `q : Q`.
 -/
 TacticDoc rcases
 
 
 /--
 ## Summary
-`left` and `right` work on the goal, and they change
-`⊢ P ∨ Q` to `⊢ P` and `⊢ Q` respectively.
+`left` and `right` work on the goal: they turn
+`⊢ P ∨ Q` into `⊢ P` and `⊢ Q` respectively.
 ## Details
-The tactics `left` and `right` work on a goal which is a type with
-two constructors, the classic example being `P ∨ Q`.
-To prove `P ∨ Q` it suffices to either prove `P` or prove `Q`,
-and once you know which one you are going for you can change
-the goal with `left` or `right` to the appropriate choice.
+To prove `P ∨ Q` it's enough to prove `P` or to prove `Q`.
+Once you've decided which one you're going for, use `left` or `right`
+to switch the goal to that choice.
 -/
 TacticDoc left
 
 /--
 ## Summary
-`left` and `right` work on the goal, and they change
-`⊢ P ∨ Q` to `⊢ P` and `⊢ Q` respectively.
+`left` and `right` work on the goal: they turn
+`⊢ P ∨ Q` into `⊢ P` and `⊢ Q` respectively.
 ## Details
-The tactics `left` and `right` work on a goal which is a type with
-two constructors, the classic example being `P ∨ Q`.
-To prove `P ∨ Q` it suffices to either prove `P` or prove `Q`,
-and once you know which one you are going for you can change
-the goal with `left` or `right` to the appropriate choice.
+To prove `P ∨ Q` it's enough to prove `P` or to prove `Q`.
+Once you've decided which one you're going for, use `left` or `right`
+to switch the goal to that choice.
 -/
 TacticDoc right
 
 /--
 ## Summary
 
-Generates two goals corresponding to a given statement being
-true or false
+Splits your proof into two cases: a statement is true, or it's false.
 
 ## Details
 
-Suppose that we want to prove a statement `P x`, where `x`
-is some number. We may know how to prove it when `x ≤ 5`
-and also when `x > 5`, but using a different method.
-In this situation, using `by_cases h : x ≤ 5` will produce
-two new goals, the first one with `h : x ≤ 5` in the context
-and the second one with `h : ¬ x ≤ 5`.
+Suppose you want to prove a statement `P x`, where `x`
+is a number. Maybe you know how to do it when `x ≤ 5`,
+and a different way when `x > 5`.
+Then `by_cases h : x ≤ 5` gives you
+two goals: the first has `h : x ≤ 5` in the context
+and the second has `h : ¬ x ≤ 5`.
 -/
 TacticDoc by_cases
 
@@ -419,16 +410,12 @@ If `h : P → Q` is a hypothesis, and the goal is `⊢ Q` then
 
 ## Details
 
-If you have a function `h : P → Q` and your goal is `⊢ Q`
-then `apply h` changes the goal to `⊢ P`. The logic is
-simple: if you are trying to create a term of type `Q`,
-but `h` is a function which turns terms of type `P` into
-terms of type `Q`, then it will suffice to construct a
-term of type `P`. A mathematician might say: "we need
-to construct an element of $Q$, but we have a function $h:P\to Q$
-so it suffices to construct an element of $P$". Or alternatively
-"we need to prove $Q$, but we have a proof $h$ that $P\implies Q$
-so it suffices to prove $P$".
+If you have `h : P → Q` and your goal is `⊢ Q`,
+then `apply h` changes the goal to `⊢ P`. The idea is
+simple: you want a term of type `Q`, and `h` turns terms of
+type `P` into terms of type `Q`, so it's enough to build a term of type `P`.
+In words: "we need to prove $Q$, but we know $P\implies Q$,
+so it's enough to prove $P$".
 
 -/
 TacticDoc apply
@@ -436,12 +423,12 @@ TacticDoc apply
 
 /--
 ## Summary
-The `tauto` tactic is a high-level tactic which tries to prove statements that follow tautologically
-from the hypotheses.
+`tauto` is a powerful tactic that proves statements which follow from your hypotheses by pure logic.
 
 ## Details
-The `tauto` tactic does basic automation. It breaks down assumptions of the form `_ ∧ _`, `_ ∨ _`, `_ ↔ _` and `∃ _, _`,
-and splits a goal of the form `_ ∧ _`, `_ ↔ _` or `∃ _, _` until it can be proved using trivialities.
+`tauto` does the boring logic for you. It breaks down hypotheses of the form `_ ∧ _`, `_ ∨ _`, `_ ↔ _` and `∃ _, _`,
+and splits goals of the form `_ ∧ _`, `_ ↔ _` or `∃ _, _`, until everything is easy.
+It doesn't know any geometry, though, so it can't use the axioms by itself.
 
 ## Example
 ``example (p q r : Prop) : p ∨ (q ∧ r) ↔ (p ∨ q) ∧ (r ∨ p ∨ r) := by tauto``
@@ -451,38 +438,38 @@ TacticDoc tauto
 /--
 ## Summary
 
-Changes the goal to `⊢ false`.
+Changes the goal to `⊢ False`.
 
 ## Details
 
-This may seem hard to prove,
-but it is useful when we have a contradiction in the hypotheses.
+That sounds scary, but it's what you want when your hypotheses
+contradict each other: from a contradiction, anything follows.
 
-For example, if we have `h : ¬ P` as a hypothesis and we apply `exfalso`
-we can then `apply h` to transform the goal into `⊢ P`.
+For example, if you have `h : ¬ P`, then after `exfalso` you can
+`apply h` to turn the goal into `⊢ P`.
 -/
 TacticDoc exfalso
 
 /--
 ## Summary
 
-It changes the goal from `⊢ P` to `⊢ false` and adds a new hypothesis
-of the form `h : ¬ P` to the local context.
+Proof by contradiction. It changes the goal from `⊢ P` to `⊢ False` and adds
+a new hypothesis `h : ¬ P` to your local context.
 
 ## Real Life Example
 
-If we want to prove `⊢ SKY_ALWAYS_BLUE`, but we assume that `h : SKY_GREY_WHEN_RAINS`,
-type `by_contra z` to add `z : ¬ (SKY_ALWAYS_BLUE)` to the local context and change the
-goal into `⊢ false`. Then, argue that `h : SKY_GREY_WHEN_RAINS` to finish the proof.
+Say you want to prove `⊢ SKY_ALWAYS_BLUE`, and you know `h : SKY_GREY_WHEN_RAINS`.
+Type `by_contra z` to add `z : ¬ SKY_ALWAYS_BLUE` to your context and change the
+goal into `⊢ False`. Then use `h` and `z` to find the contradiction.
 -/
 TacticDoc by_contra
 
 /--
 ## Summary
-The `simp` tactic is a high-level tactic which tries to prove equalities using facts in its database.
+`simp` tries to simplify the goal (or close it) using a big database of known facts.
 
 ## Details
-The `simp` tactic does basic automation. It uses lemmas already proved that have been tagged
-with a special label, to simplify either a goal or a hypothesis.
+`simp` uses lemmas that have been tagged with a special label to
+simplify a goal or a hypothesis. Use `simp at h` to simplify the hypothesis `h`.
 -/
 TacticDoc simp

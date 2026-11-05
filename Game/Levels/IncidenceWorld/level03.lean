@@ -12,20 +12,23 @@ Title "Lines are thin"
 
 Introduction
 "
-We start by proving that every line misses at least one point. Note that, although this seems obvious,
-it is not directly one of our axioms, and thus we must prove it from them.
+First, let's show that every line misses at least one point. It sounds obvious, but it isn't one of our axioms,
+so we have to prove it from them!
 
-This lemma uses in a crucial way the fact that we have three distinc non-collinear points. Remember that
-the axiom which guarantees this is called `existence` and is formalized as
+The key is that we have three distinct non-collinear points. Remember, the axiom giving them is called `existence`:
 `existence Ω : ∃ A B C : Ω, A ≠ B ∧ A ≠ C ∧ B ≠ C ∧ ...`
 
-To use this axiom, the very versatile `rcases` tactic comes to help us again. If we type `rcases existence Ω`
-we will see all the new variables (A, B, C, ...) appearing in our context. We can name them for later usage,
-using the syntax
+To use it, our versatile friend `rcases` comes to the rescue again. If you type `rcases existence Ω`,
+all the new variables (A, B, C, ...) show up in your context. You can name them with
 `rcases existence Ω with ⟨A, B, C, ⟨hAB, hAC, hBC, h⟩⟩`.
 
-In general, if we have a theorem `h` that says `∃ x y, P x y ∧ Q x y`, we will extract it with
+In general, if you have a theorem `h` saying `∃ x y, P x y ∧ Q x y`, you extract its pieces with
 `rcases h with ⟨x, y, ⟨hP, hQ⟩⟩`.
+
+```
+  A       B       C       three points, not all on one line:
+  o-------o       o       at least one of them is off any given line
+```
 "
 
 variable {Ω : Type} [IncidencePlane Ω]

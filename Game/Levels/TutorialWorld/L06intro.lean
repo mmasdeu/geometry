@@ -9,24 +9,21 @@ Title "Intro(ducing) hypotheses"
 
 Introduction
 "
-This level introduces the `intro` tactic. This allows you to create
-a new hypothesis in the local context, just above the goal with the `⊢` symbol, whenever you see
-the `→` symbol in the 'goal' section. [**Remember:** the `→` symbol refers to the idea of
-an **implication**. `P → Q` is read as 'P implies Q' and interpreted as 'If P happens, then Q also happens'.]
-In Lean, if we have the goal `⊢ IT RAINS → I GET WET`, by typing `intro h` we will get a new hypothesis in
-the local context of the type `h : IT RAINS` and the goal will just change into  `⊢ I GET WET`.
+Meet the `intro` tactic. Whenever the goal has a `→`, `intro` moves the left side into your
+local context as a new hypothesis, just above the `⊢`. [**Remember:** `→` means
+**implication**. `P → Q` reads 'P implies Q', i.e. 'if P happens, then Q happens'.]
+For example, with the goal `⊢ IT RAINS → I GET WET`, typing `intro h` gives you a new hypothesis
+`h : IT RAINS` and the goal becomes `⊢ I GET WET`.
 
-To solve this level, you will need to use a theorem that has been added to the list of *Theorems*.
-Its name is `incidence`, you can see what it does by clicking on it.
+To solve this level you'll need a theorem that was just added to the *Theorems* list.
+It's called `incidence`. Click on it in the *Theorems* panel to see what it says.
 
-
-**Pro tip:** instead of writing
-several lines of code with the `intro` tactic, you can put them all together. This will make the computer understand
-that you want to create more than one hypothesis at the same time. For example, if you type `intro h1 h2 h3 h4,`, four
-new hypotheses will be added to your local context. Once you've added all the possible hypotheses to it, try to compare
-the goal with the `incidence` statement. Did you notice that we can `rewrite` that statement? Because we have the first
-three **hypotheses** of the statement, we can change the line `r` into `line_through A B`! Type `rw [incidence h1 h2 h4]` and
-see how the goal changes. To close the goal, try to apply the same argument to the line `s`.
+**Pro tip:** you don't need one `intro` per line. Put them together: `intro h1 h2 h3 h4` adds four
+new hypotheses at once. Once you've introduced them all, compare
+your goal with `incidence`. Notice that we can `rewrite` with it! Given the first
+three hypotheses it asks for, we can turn the line `r` into `line_through A B`. Type `rw [incidence h1 h2 h4]` and
+see how the goal changes. (Here `incidence` is applied to the hypotheses `h1 h2 h4`: we hand it the proofs it asks for,
+and in return it gives us an equation `r = line_through A B` that `rw` can use.) To finish, do the same for the line `s`.
 "
 
 variable {Ω : Type} [IncidencePlane Ω] --hide

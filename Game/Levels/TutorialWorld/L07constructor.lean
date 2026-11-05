@@ -10,13 +10,18 @@ Title "The constructor tactic"
 TheoremTab "∈"
 Introduction
 "
-In this level we will learn the `constructor` tactic. It breaks a goal of the type `P ∧ Q` into two goals (proving `P`, and then proving `Q`),
-and also breaks goals of the form `P ↔ Q` into proving each of the implications separately. That is to say, it asks us to prove `P → Q` first, and
-then `Q → P`. In mathematics and logic, the **∧** symbol is read as **and**. For example, `IT RAINS ∧ I AM IN THE STREET → I OPEN THE UMBRELLA`.
-Analogously, the **`↔`** symbol refers to a **double implication**, or an **if and only if** statement. In written mathematics, you could also
-find the **`↔`** symbol written as **iff**.
+Time for the `constructor` tactic. It splits a goal `P ∧ Q` into two goals (first prove `P`, then prove `Q`).
+It also splits a goal `P ↔ Q` into the two implications: first `P → Q`, then `Q → P`.
+The symbol **∧** reads as **and**. For example, `IT RAINS ∧ I AM IN THE STREET → I OPEN THE UMBRELLA`.
+The symbol **`↔`** is a **double implication**, an **if and only if** statement. On paper you'll often
+see it written **iff**.
 
-You should be able to solve this level on your own. You can solve it in three lines of code.
+After `constructor` you'll have two goals. Tackle them one at a time, starting each with the bullet `·`
+(typed `\\.`), as in `· apply ...`. Remember `line_through_left` and `line_through_right` from before.
+
+You can do this one on your own. Three lines of code are enough.
+
+As a bonus, this level also adds the theorem `equal_lines_of_contain_two_points` to your list. It'll come in handy later.
 "
 
 

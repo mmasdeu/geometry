@@ -14,8 +14,8 @@ Level 2
 Title "Reflexivity"
 
 Introduction
-"In this (easy!) level we prove that a point outside a line is on the same side of the line as itself.
-It seems stupid, but needs to be proven nevertheless.
+"An easy one! We show that a point outside a line is on the same side as itself.
+Sounds silly, but Lean wants it proven anyway.
 "
 
 
