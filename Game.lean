@@ -49,7 +49,7 @@ Heads up: In most browsers, deleting cookies will also clear the local storage
 ## Resources
 
 * The [Lean Zulip chat](https://leanprover.zulipchat.com/) forum
-* Github: [A Lean Intro to Logic](https://github.com/mmasdeu/geometry)
+* Github: [Hilbert Geometry Game](https://github.com/mmasdeu/geometry)
 "
 
 /-! Information to be displayed on the servers landing page. -/
