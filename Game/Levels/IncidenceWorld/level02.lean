@@ -12,7 +12,6 @@ variable {Ω : Type} [IncidencePlane Ω] --hide
 
 Introduction
 "
-Congratulations, you're about to finish the second world of The Euclid Game!
 Here comes the `by_contra` tactic, the Lean way of doing a **proof by contradiction**. It changes the goal from
 `⊢ P` to `⊢ false` and adds a new hypothesis `h : ¬ P` to the local context.
 
