@@ -1,4 +1,4 @@
-import GameServer.Commands
+import GameApi
 import Game.TacticDoc
 import Game.TheoremDoc
 import Game.HilbertAxioms

@@ -40,7 +40,7 @@ variable {Ω : Type} [IncidencePlane Ω] --hide
 /--
 If two lines share two distinct points, then they are the same line.
 -/
-Statement (hAB : A ≠ B) (r s : (Line Ω)) (hAr : A ∈ r) (hAs : A ∈ s)
+Statement {A B : Ω} (hAB : A ≠ B) (r s : (Line Ω)) (hAr : A ∈ r) (hAs : A ∈ s)
 (hBr : B ∈ r) (hBs : B ∈ s) : r = s := by
   Hint "Introduce the hypothesis `r = line_through A B` using the tactic `have`."
   have h : r = line_through A B

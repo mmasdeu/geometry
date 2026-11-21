@@ -12,7 +12,7 @@ class SSet (A : Type*) (B : outParam $ Type*) :=
 
 namespace subset
 -- The following allows us to use the symbol `∈`
-instance {A : Type*} {B : Type*} [SSet A B] : Membership B A := ⟨SSet.mem⟩
+instance {A : Type*} {B : Type*} [SSet A B] : Membership B A := ⟨fun a b => SSet.mem b a⟩
 
 -- This says that two "subset"s are equivalent (written `≈`, type with \approx) when
 -- they have the same points.
@@ -23,7 +23,7 @@ instance {A : Type*} {B : Type*} [SSet A B] : HasEquiv A :=
 X ≈ Y ↔ ∀ t, t ∈ X ↔ t ∈ Y := Iff.rfl
 
 -- A "subset" can always be considered as an actual subset, in Lean this is `Set B`
-instance {A : Type*} {B : Type*} [SSet A B] : CoeHead A (Set B) := ⟨λ x p ↦ p ∈ x⟩
+instance {A : Type*} {B : Type*} [SSet A B] : CoeHead A (Set B) := ⟨λ x ↦ {p |  p ∈ x}⟩
 
 --@[simp] lemma mem_pts  {A : Type*} {B : Type*} [SSet A B] (a : A) (P : B) :
 --P ∈ (a : Set B) ↔ P ∈ a := Iff.rfl
@@ -108,7 +108,7 @@ instance (Point : Type*) [IncidencePlane Point] : HasBetween Point := between
 variable {Ω Point : Type*} [IncidencePlane Ω] [IncidencePlane Point]
 
 -- From here on, we can use the symbol `∈` for Lines
-instance : SSet (Line Ω) Ω := ⟨belongs.mem⟩
+instance : SSet (Line Ω) Ω := ⟨fun p l => p ∈ l⟩
 
 lemma existence (Ω : Type*) [IncidencePlane Ω] :  ∃ P Q R : Ω, P ≠ Q ∧ P ≠ R ∧ Q ≠ R ∧ ¬ R ∈ (line_through P Q) := existence'
 
@@ -145,9 +145,9 @@ If A B C D E F are any six points such that the set {A, B, C} = {D, E, F}, then 
 -/
 lemma collinear_of_equal (A B C D E F) (h : ({A, B, C} : Set Ω) = ({D, E, F} : Set Ω) :=  by try {ext; simp; tauto}) : collinear A B C ↔ collinear D E F
 := by
-constructor
-· exact collinear_of_equal' (h := h)
-· exact collinear_of_equal' (h := Eq.symm h)
+  constructor
+  · exact collinear_of_equal' (h := h)
+  · exact collinear_of_equal' (h := Eq.symm h)
 
 
 @[simp]

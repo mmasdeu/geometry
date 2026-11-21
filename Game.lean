@@ -53,7 +53,7 @@ Heads up: In most browsers, deleting cookies will also clear the local storage
 "
 
 /-! Information to be displayed on the servers landing page. -/
-Languages "English"
+Languages "en"
 CaptionShort "Hilbert Geometry"
 CaptionLong "Discover Lean through Hilbert's Geometry"
 -- Prerequisites "" -- add this if your game depends on other games
